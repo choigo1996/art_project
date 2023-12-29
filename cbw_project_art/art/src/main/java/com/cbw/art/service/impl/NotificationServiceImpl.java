@@ -22,6 +22,7 @@ import jakarta.transaction.Transactional;
 @Service
 @Transactional
 public class NotificationServiceImpl implements NotificationService{
+	
 	private final NotificationRepository notificationRepository;
 	private final UserRepository userRepository;
 	
@@ -40,7 +41,6 @@ public class NotificationServiceImpl implements NotificationService{
 		}
 		Notification notification = new Notification();
 		notification.setCreateAt(LocalDateTime.now());
-		notification.setNumber(notificationDto.getNumber());
 		notification.setTitle(notificationDto.getTitle());
 		notification.setText(notificationDto.getText());
 		notification.setWriter(notificationDto.getWriter());

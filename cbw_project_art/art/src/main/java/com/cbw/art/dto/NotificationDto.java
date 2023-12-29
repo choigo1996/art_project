@@ -8,8 +8,6 @@ public class NotificationDto {
 	private long id;
 	@NotBlank
 	private String writer;
-
-	private int number;
 	@NotBlank
 	private String title;
 	@NotBlank
@@ -19,12 +17,11 @@ public class NotificationDto {
 		super();
 	}
 
-	public NotificationDto(long id, @NotBlank String writer, int number, @NotBlank String title,
+	public NotificationDto(long id, @NotBlank String writer, @NotBlank String title,
 			@NotBlank String text) {
 		super();
 		this.id = id;
 		this.writer = writer;
-		this.number = number;
 		this.title = title;
 		this.text = text;
 	}
@@ -43,14 +40,6 @@ public class NotificationDto {
 
 	public void setWriter(String writer) {
 		this.writer = writer;
-	}
-
-	public int getNumber() {
-		return number;
-	}
-
-	public void setNumber(int number) {
-		this.number = number;
 	}
 
 	public String getTitle() {

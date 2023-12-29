@@ -19,9 +19,6 @@ public class Notification {
 	private Long id;
 	@Column(nullable = false)
 	private String writer;
-	@Column(nullable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int number;
 	@Column(nullable = false,length = 50)
 	private String title;
 	@Column(nullable = false,length = 1500)
@@ -34,11 +31,10 @@ public class Notification {
 		super();
 	}
 
-	public Notification(Long id, String writer, int number, String title, String text, LocalDateTime createAt) {
+	public Notification(Long id, String writer, String title, String text, LocalDateTime createAt) {
 		super();
 		this.id = id;
 		this.writer = writer;
-		this.number = number;
 		this.title = title;
 		this.text = text;
 		this.createAt = createAt;
@@ -58,14 +54,6 @@ public class Notification {
 
 	public void setWriter(String writer) {
 		this.writer = writer;
-	}
-
-	public int getNumber() {
-		return number;
-	}
-
-	public void setNumber(int number) {
-		this.number = number;
 	}
 
 	public String getTitle() {
