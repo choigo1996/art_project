@@ -1,0 +1,106 @@
+import { useContext, useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { LectureContext } from "./Lecture";
+import { useQuery } from "react-query";
+
+const Container = styled.div``;
+const Header = styled.div``;
+const StyledNavLink = styled(NavLink);
+
+export function Login() {
+  const [loginId, setLoginId] = useState("");
+  const [password, setPassword] = useState("");
+  const [userLogin, setUserLogin] = useState(null);
+  const [logginIn, setLoggingIn] = useState(null);
+  const { loginState, setloginState } = useContext(LectureContext);
+
+  const navigate = useNavigate();
+
+  const { data, isLoading, refetch } = useQuery(
+    "login",
+    () => {
+      if (userLogin) {
+        setLoggingIn(true);
+        return loginId(userLogin);
+      }
+    },
+    { retry: 0 }
+  );
+  useEffect(() => {
+    if (data && data.resultCode === "SUCCESS" && userLogin) {
+      console.log(data);
+      localStorage.setItem(
+        "loginState",
+        JSON.stringify({ id: userLogin.loginId })
+      );
+      setloginState({ id: userLogin.loginId });
+      setTimeout(() => {
+        navigate("dashboard");
+        setLoggingIn(false);
+      }, 1000);
+    } else if (data && data.resultCode === "ERROR" && userLogin) {
+      console.log(data);
+      if (data.errorCode === "INVALID_CREDENTIALS") {
+        // 아이디와 비밀번호가 다를 때의 처리
+        alert("아이디 또는 비밀번호가 잘못되었습니다. 다시 입력해주세요.");
+      } else {
+        navigate("/login");
+      }
+    }
+  }, [data]);
+
+  useEffect(() => {
+    refetch();
+  }, [userLogin]);
+
+  function onSubmit(e) {
+    e.preventDefault();
+    const user = {
+      loginId: loginId,
+      password: password,
+    };
+    if (!loginId) {
+      alert("ID를 입력하세요");
+    } else if (!password) {
+      alert("PW를 입력하세요");
+    } else {
+      setUserLogin(user);
+    }
+  }
+  return (
+    <>
+      {logginIn ? (
+        <h1>로그인 중입니다...</h1>
+      ) : loginState?.id ? (
+        <h1>이미 로그인되어 있습니다. {loginState.id}</h1>
+      ) : (
+        <>
+          <Container>
+            <Header>로그인</Header>
+            <div>
+              <label>아이디</label>
+              <br />
+              <input
+                id="loginId"
+                value={loginId}
+                onChange={(e) => setLoginId(e.target.value)}
+              />
+            </div>
+            <div>
+              <label>비밀번호</label>
+              <br />
+              <input
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <Button type="submit">로그인</Button>
+          </Container>
+          <StyledNavLink to="/register">회원가입</StyledNavLink>
+        </>
+      )}
+    </>
+  );
+}
