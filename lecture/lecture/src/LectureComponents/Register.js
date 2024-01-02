@@ -1,4 +1,18 @@
+import styled from "styled-components";
+
+const Container = styled.div``;
+const Header = styled.div``;
+const Righter = styled.div``;
+const Left = styled.div``;
+const Box = styled.div``;
+const CheckBox = styled.div``;
+const Text = styled.div``;
+const Button = styled.button``;
+
 export function Register() {
+  function onSubmit(e) {
+    e.preventDefault();
+  }
   return (
     <>
       <Container>
@@ -28,7 +42,7 @@ export function Register() {
           </Righter>
 
           <Left>
-            <Headers>약관동의</Headers>
+            <Header>약관동의</Header>
             <Box>
               <CheckBox></CheckBox>
               <Text>전체동의</Text>

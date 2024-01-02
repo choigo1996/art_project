@@ -4,10 +4,39 @@ import styled from "styled-components";
 import { LectureContext } from "./Lecture";
 import { useQuery } from "react-query";
 
-const Container = styled.div``;
-const Header = styled.div``;
-const StyledNavLink = styled(NavLink);
-
+const Container = styled.div`
+  width: 300px;
+  background-color: #eee;
+  box-shadow: 2px 2px 5px grey;
+  padding: 20px;
+  border-radius: 20px;
+  margin: 50px;
+`;
+const Header = styled.div`
+  font-size: 1.5rem;
+  text-align: center;
+`;
+const Button = styled.button`
+  width: 100%;
+  height: 25px;
+  margin-top: 20px;
+  background-color: lightblue;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+  border: 1px solid blue;
+`;
+const StyledNavLink = styled(NavLink)`
+  text-decoration: none;
+  color: #333;
+  margin-left: 60px;
+  &.active {
+    background-color: dodgerblue;
+    color: white;
+  }
+`;
 export function Login() {
   const [loginId, setLoginId] = useState("");
   const [password, setPassword] = useState("");
@@ -93,6 +122,7 @@ export function Login() {
               <input
                 id="password"
                 value={password}
+                type="password"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>

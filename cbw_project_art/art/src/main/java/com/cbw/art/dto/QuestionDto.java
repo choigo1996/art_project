@@ -1,5 +1,7 @@
 package com.cbw.art.dto;
 
+import java.util.List;
+
 import jakarta.validation.constraints.NotBlank;
 
 public class QuestionDto {
@@ -11,17 +13,24 @@ public class QuestionDto {
 	private String title;
 	@NotBlank
 	private String text;
+	@NotBlank
+	private Long userId;
+	@NotBlank
+	private List<Long> commentIds;
 	
 	public QuestionDto() {
 		super();
 	}
 
-	public QuestionDto(long id, @NotBlank String writer, @NotBlank String title, @NotBlank String text) {
+	public QuestionDto(long id, @NotBlank String writer, @NotBlank String title, @NotBlank String text,
+			@NotBlank Long userId, @NotBlank List<Long> commentIds) {
 		super();
 		this.id = id;
 		this.writer = writer;
 		this.title = title;
 		this.text = text;
+		this.userId = userId;
+		this.commentIds = commentIds;
 	}
 
 	public long getId() {
@@ -55,4 +64,22 @@ public class QuestionDto {
 	public void setText(String text) {
 		this.text = text;
 	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public List<Long> getCommentIds() {
+		return commentIds;
+	}
+
+	public void setCommentIds(List<Long> commentIds) {
+		this.commentIds = commentIds;
+	}
+	
+	
 }

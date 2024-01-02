@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { MusicShop } from "./TupacComponents/MusicShop";
+import { Lecture } from "./LectureComponents/Lecture";
 const GlobalStyle = createGlobalStyle`
 @font-face{
   font-family:'bitbit';
@@ -19,6 +19,7 @@ export function App() {
   return (
     <>
       <GlobalStyle />
+      <Lecture />
     </>
   );
 }

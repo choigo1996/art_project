@@ -6,4 +6,5 @@ import com.cbw.art.model.Question;
 
 public interface QuestionRepository extends JpaRepository<Question, Long>{
 
+	
 }

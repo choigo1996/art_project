@@ -23,13 +23,13 @@ export function Purchase({
       console.log("구매완료", data);
       setTimeout(() => {
         setPurchaseComplete(true);
-        setPurchaseFailed(false);
+        setPurchasing(false);
       }, 1000);
     } else if (data === "ERROR") {
       console.log("구매실패");
       setTimeout(() => {
         setPurchaseFailed(true);
-        setPurchaseComplete(false);
+        setPurchasing(false);
       }, 1000);
     }
   }, [data]);

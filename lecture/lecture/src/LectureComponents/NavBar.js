@@ -1,3 +1,19 @@
+import { NavLink } from "react-router-dom";
+import styled from "styled-components";
+
+const Container = styled.div`
+  display: flex;
+`;
+const StyledNavLink = styled(NavLink)`
+  text-decoration: none;
+  color: #333;
+  padding: 5px;
+  background-color: lightblue;
+  &.active {
+    background-color: dodgerblue;
+    color: white;
+  }
+`;
 export function NavBar() {
   return (
     <>

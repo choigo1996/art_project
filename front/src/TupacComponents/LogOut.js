@@ -11,6 +11,4 @@ export function LogOut() {
     setLoginState({ id: null });
     navigate("/");
   }, []);
-
-  return <></>;
 }

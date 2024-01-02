@@ -1,6 +1,5 @@
 package com.cbw.art.service;
 
-import com.cbw.art.dto.LoginDto;
 import com.cbw.art.dto.UserDto;
 
 public interface UserService {

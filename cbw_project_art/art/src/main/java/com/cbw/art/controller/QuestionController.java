@@ -36,14 +36,14 @@ public class QuestionController {
 		this.questionServiceImpl = questionServiceImpl;
 	}
 	
-	//공지사항 생성
+	//질의응답 생성
 	@PostMapping
 	public ResponseEntity<BaseResponse<Void>> createQuest(@RequestBody @Valid QuestionDto questionDto){
 		return new ResponseEntity<>(
 				questionServiceImpl.createQuest(questionDto),
 				HttpStatus.CREATED);
 	}
-	//공지사항 목록
+	//질의응답 목록
 	@GetMapping
 	public ResponseEntity<BaseResponse<List<Question>>> getAllQuest()
 	{
@@ -51,7 +51,7 @@ public class QuestionController {
 				questionServiceImpl.getAllQuest(),
 				HttpStatus.OK);
 		}
-	//공지사항 삭제
+	//질의응답 삭제
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<BaseResponse<Long>> deleteQuest (@PathVariable Long id) {
 		return new ResponseEntity<>(
