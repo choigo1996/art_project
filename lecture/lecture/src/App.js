@@ -19,7 +19,9 @@ export function App() {
   return (
     <>
       <GlobalStyle />
-      <Lecture />
+      <QueryClientProvider client={client}>
+        <Lecture />
+      </QueryClientProvider>
     </>
   );
 }

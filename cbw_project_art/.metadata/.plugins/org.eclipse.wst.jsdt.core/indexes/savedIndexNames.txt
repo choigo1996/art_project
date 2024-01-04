@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+C:\Users\admin\Desktop\cbw_project_art\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1209783611.index
+4289347896.index
+2632263034.index
+3921948656.index
+2258862650.index
+1210100687.index

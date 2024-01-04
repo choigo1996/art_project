@@ -19,4 +19,6 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	Optional<User> findAuthoritiesByLoginId(@Param("loginId") String loginId);
 	
 	User findByLoginId(String loginId);
+	
+	boolean existsByLoginId(String loginId);
 }

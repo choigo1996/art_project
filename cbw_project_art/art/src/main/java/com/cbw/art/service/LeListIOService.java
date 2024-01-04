@@ -28,11 +28,11 @@ public class LeListIOService {
 	@Value("classpath:lecturelist.json")
 	private Resource jsonFile;
 	
-//	@PostConstruct
-//    public void initialize() {
-//		System.out.println("Initializing leListIOService...");
-//        processJsonData(jsonFile);
-//    }
+	@PostConstruct
+    public void initialize() {
+		System.out.println("Initializing leListIOService...");
+        processJsonData(jsonFile);
+    }
 	
 	@Transactional
     public void processJsonData(Resource fileResource) {

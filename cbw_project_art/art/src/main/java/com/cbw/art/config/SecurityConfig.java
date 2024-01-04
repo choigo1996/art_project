@@ -50,7 +50,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers("/api/authenticate").permitAll()
                         .requestMatchers("/api/signup").permitAll()
-                        .requestMatchers("/api/basic/signup").permitAll()
+                        .requestMatchers("/api/products").permitAll()
                         .anyRequest().authenticated()
                 )
                 //세션관리(상태없음)

@@ -24,7 +24,7 @@ import com.cbw.art.service.impl.CommentServiceImpl;
 @RestController
 @RequestMapping("/api/comment")
 @CrossOrigin(origins="http://localhost:3000",
-methods= {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE})
+methods= {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE,RequestMethod.PUT})
 public class CommentController {
 	private final CommentServiceImpl commentServiceImpl;
 

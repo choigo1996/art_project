@@ -13,6 +13,8 @@ import { Login } from "./Login";
 import { LogOut } from "./LogOut";
 import { Register } from "./Register";
 import { Error } from "./Error";
+import { Dashboard } from "./Dashboard";
+
 const client = new QueryClient();
 export const LectureContext = createContext();
 
@@ -24,7 +26,7 @@ export function Lecture() {
         {!isLoading && data && (
           <LectureLoader
             lectures={data}
-            lecturesCheckList={data.map((a) => {
+            lecturesCheckList={data.map((l) => {
               return { id: l.id, checked: false };
             })}
           />

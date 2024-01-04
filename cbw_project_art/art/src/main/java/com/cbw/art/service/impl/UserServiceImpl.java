@@ -67,5 +67,10 @@ public class UserServiceImpl implements UserService{
 				.orElseThrow(() -> new InvalidRequestException("No current user","Current member not found")));
 	}
 
+	@Override
+	public boolean isUserIdDuplicate(String loginId) {
+		return userRepository.existsByLoginId(loginId);
+	}
+
 	
 }

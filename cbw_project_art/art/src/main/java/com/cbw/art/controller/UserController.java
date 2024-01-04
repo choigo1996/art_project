@@ -1,5 +1,8 @@
 package com.cbw.art.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -38,6 +41,22 @@ public class UserController {
 				ResultCode.SUCCESS.name(),
 				userServiceImpl.signUp(userDto),
 				ResultCode.SUCCESS.getMsg()));
+	}
+	//아이디 중복확인
+	@GetMapping("/cheackDuplicate/{loginId}")
+	public ResponseEntity<Map<String,String>> checkDuplicate(@PathVariable String loginId) {
+		Map<String, String> response = new HashMap<>();
+		
+		//아이디 중복 확인 로직
+		boolean isDuplicate = userServiceImpl.isUserIdDuplicate(loginId);
+		
+		if(isDuplicate) {
+			response.put("message", "중복된 아이디입니다.");
+		}else {
+			response.put("message", "사용가능한 아이디입니다");
+		}
+		
+		return ResponseEntity.ok(response);
 	}
 	//자신의 정보를 볼 수 있는 것
 	@GetMapping("/user")

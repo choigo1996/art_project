@@ -27,10 +27,10 @@ public class LectureIOService {
 	@Value("classpath:lecture.json")
 	private Resource jsonFile;
 	
-//	@PostConstruct
-//	public void initialize() {
-//		processJsonData(jsonFile);
-//	}
+	@PostConstruct
+	public void initialize() {
+		processJsonData(jsonFile);
+	}
 	
 	 @Transactional
 	    public void processJsonData(Resource fileResource) {

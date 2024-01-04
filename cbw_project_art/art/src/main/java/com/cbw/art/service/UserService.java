@@ -6,4 +6,5 @@ public interface UserService {
 	public UserDto signUp(UserDto userDto);
 	public UserDto getUserWithAuthorities(String username);
 	public UserDto getCurrentUserWithAuthorities();
+	public boolean isUserIdDuplicate(String loginId);
 }
