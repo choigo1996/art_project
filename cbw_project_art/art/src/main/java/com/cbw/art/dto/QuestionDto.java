@@ -13,9 +13,8 @@ public class QuestionDto {
 	private String title;
 	@NotBlank
 	private String text;
-	@NotBlank
 	private Long userId;
-	@NotBlank
+	
 	private List<Long> commentIds;
 	
 	public QuestionDto() {
