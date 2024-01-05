@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { Lecture } from "./Lecture";
+import { LectureContext } from "./Lecture";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -30,21 +30,31 @@ const Text = styled.p``;
 
 export function Products() {
   const navigate = useNavigate();
-  const { cheackList, setCheackList, lectures } = useContext(Lecture);
+  const { CheckList, setCheckList, lectures } = useContext(LectureContext);
 
   function onClick(id) {
     navigate(`${id}`);
   }
+
   function onChange(e) {
-    const temp = cheackList.map((item) => {
-      if (item.id === +e.target.id) {
-        return { ...item, checked: e.target.checked };
+    const { id, checked } = e.target;
+
+    if (!CheckList || CheckList.length <= +id) {
+      console.log(CheckList);
+      return;
+    }
+
+    const temp = CheckList.map((item, index) => {
+      if (index === +id) {
+        return { ...item, checked };
       } else {
         return item;
       }
     });
-    setCheackList(temp);
+
+    setCheckList(temp);
   }
+
   return (
     <>
       <Header>강의목록</Header>
@@ -55,13 +65,13 @@ export function Products() {
               <Img src={lecture.image} />
               <Text>강의명 : {lecture.title}</Text>
               <Text>강사 : {lecture.teacher}</Text>
-              <Text>가격 : {lecture.price}</Text>
+              <Text>가격 : {lecture.price}원</Text>
             </div>
             <input
-              type="cheackbox"
+              type="checkbox"
               id={lecture.id}
               onChange={onChange}
-              cheacked={cheackList[i].cheacked}
+              checked={CheckList && CheckList[i] ? CheckList[i].Checked : false}
             />
           </Card>
         ))}

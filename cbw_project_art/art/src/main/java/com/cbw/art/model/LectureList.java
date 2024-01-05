@@ -21,13 +21,13 @@ public class LectureList {
 	@ManyToOne
 	private Lecture lecture;
 	@Column
-	private int list;
+	private String list;
 	
 	public LectureList() {
 		super();
 	}
 
-	public LectureList(long id, String title, Lecture lecture, int list) {
+	public LectureList(long id, String title, Lecture lecture, String list) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -59,11 +59,11 @@ public class LectureList {
 		this.lecture = lecture;
 	}
 
-	public int getList() {
+	public String getList() {
 		return list;
 	}
 
-	public void setList(int list) {
+	public void setList(String list) {
 		this.list = list;
 	}
 }

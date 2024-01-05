@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { LectureContext } from "./Lecture";
 import { useQuery } from "react-query";
+import { login } from "./api";
 
 const Container = styled.div`
   width: 300px;
@@ -41,8 +42,8 @@ export function Login() {
   const [loginId, setLoginId] = useState("");
   const [password, setPassword] = useState("");
   const [userLogin, setUserLogin] = useState(null);
-  const [logginIn, setLoggingIn] = useState(null);
-  const { loginState, setloginState } = useContext(LectureContext);
+  const [logginIn, setLoggingIn] = useState(false);
+  const { loginState, setLoginState } = useContext(LectureContext);
 
   const navigate = useNavigate();
 
@@ -51,7 +52,7 @@ export function Login() {
     () => {
       if (userLogin) {
         setLoggingIn(true);
-        return loginId(userLogin);
+        return login(userLogin);
       }
     },
     { retry: 0 }
@@ -63,7 +64,7 @@ export function Login() {
         "loginState",
         JSON.stringify({ id: userLogin.loginId })
       );
-      setloginState({ id: userLogin.loginId });
+      setLoginState({ id: userLogin.loginId });
       setTimeout(() => {
         navigate("dashboard");
         setLoggingIn(false);
@@ -106,27 +107,29 @@ export function Login() {
       ) : (
         <>
           <Container>
-            <Header>로그인</Header>
-            <div>
-              <label>아이디</label>
-              <br />
-              <input
-                id="loginId"
-                value={loginId}
-                onChange={(e) => setLoginId(e.target.value)}
-              />
-            </div>
-            <div>
-              <label>비밀번호</label>
-              <br />
-              <input
-                id="password"
-                value={password}
-                type="password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <Button type="submit">로그인</Button>
+            <form onSubmit={onSubmit}>
+              <Header>로그인</Header>
+              <div>
+                <label>아이디</label>
+                <br />
+                <input
+                  id="loginId"
+                  value={loginId}
+                  onChange={(e) => setLoginId(e.target.value)}
+                />
+              </div>
+              <div>
+                <label>비밀번호</label>
+                <br />
+                <input
+                  id="password"
+                  value={password}
+                  type="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <Button type="submit">로그인</Button>
+            </form>
           </Container>
           <StyledNavLink to="/register">회원가입</StyledNavLink>
         </>

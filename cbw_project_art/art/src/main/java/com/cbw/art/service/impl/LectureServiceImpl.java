@@ -23,11 +23,11 @@ public class LectureServiceImpl implements LectureService{
 	private LectureListRepository leListRepository;
 	
 	@Autowired
-	public LectureServiceImpl(LectureRepository lectureRepository) {
+	public LectureServiceImpl(LectureRepository lectureRepository, LectureListRepository leListRepository) {
 		super();
 		this.lectureRepository = lectureRepository;
+		this.leListRepository = leListRepository;
 	}
-
 	//DB저장
 	public Lecture saveLecture(Lecture lecture) {
 		return lectureRepository.save(lecture);
@@ -43,7 +43,7 @@ public class LectureServiceImpl implements LectureService{
 			lectureDto.setId(lecture.getId());
 			lectureDto.setCategory(lecture.getCategory());
 			lectureDto.setImage(lecture.getImage());
-			lectureDto.setPirce(lecture.getPrice());
+			lectureDto.setPrice(lecture.getPrice());
 			lectureDto.setTeacher(lecture.getTeacher());
 			lectureDto.setTitle(lecture.getTitle());
 			

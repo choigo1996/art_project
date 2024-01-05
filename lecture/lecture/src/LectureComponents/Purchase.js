@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { LectureContext } from "./Lecture";
 import { useQuery } from "react-query";
+import { purchaseAllLecture } from "./api";
 
 export function Purchase({
   items,
@@ -11,7 +12,7 @@ export function Purchase({
   const { loginState } = useContext(LectureContext);
   const { data } = useQuery(
     "purchase",
-    () => purchaseLectures(items, loginState.id),
+    () => purchaseAllLecture(items, loginState.id),
     {
       retry: 0,
       staleTime: 1000,

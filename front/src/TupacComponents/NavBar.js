@@ -11,11 +11,6 @@ const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   color: #333;
   padding: 5px;
-  background-color: lightblue;
-  &.active {
-    background-color: dodgerblue;
-    color: white;
-  }
 `;
 export function NavBar() {
   const { loginState } = useContext(AlbumContext);

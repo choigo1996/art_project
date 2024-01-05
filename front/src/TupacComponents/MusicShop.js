@@ -40,7 +40,7 @@ export function MusicShop() {
 }
 
 function MusicShopLoader({ songs, albums, albumsCheckList }) {
-  const [checkList, setCheckList] = useState(albumsCheckList);
+  const [checkList, setcheckList] = useState(albumsCheckList);
   const [loginState, setLoginState] = useState(null);
   const [passwordState, setPasswordState] = useState(null);
   useEffect(() => {
@@ -56,7 +56,7 @@ function MusicShopLoader({ songs, albums, albumsCheckList }) {
       <AlbumContext.Provider
         value={{
           checkList,
-          setCheckList,
+          setcheckList,
           loginState,
           setLoginState,
           albums,

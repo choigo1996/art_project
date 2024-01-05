@@ -51,6 +51,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/authenticate").permitAll()
                         .requestMatchers("/api/signup").permitAll()
                         .requestMatchers("/api/products").permitAll()
+                        .requestMatchers("/api/cheackDuplicate/{loginId}").permitAll()
                         .anyRequest().authenticated()
                 )
                 //세션관리(상태없음)

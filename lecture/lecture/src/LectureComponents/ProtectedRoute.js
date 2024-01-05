@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { LectureContext } from "./Lecture";
-import { NavBar } from "./NavBar";
+import { Navigate } from "react-router-dom";
 
 export function ProtectedRoute({ children }) {
   const { loginState } = useContext(LectureContext);
@@ -8,6 +8,6 @@ export function ProtectedRoute({ children }) {
   if (loginState?.id) {
     return children;
   } else {
-    return <NavBar to="/login" />;
+    return <Navigate to="login" />;
   }
 }

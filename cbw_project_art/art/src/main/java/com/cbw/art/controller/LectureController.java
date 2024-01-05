@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cbw.art.dto.LectureDto;
 import com.cbw.art.model.Lecture;
 import com.cbw.art.service.LectureService;
+import com.cbw.art.service.impl.LectureServiceImpl;
 
 @RestController
 @RequestMapping("api/products")
@@ -26,37 +27,37 @@ import com.cbw.art.service.LectureService;
 methods= {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE,RequestMethod.PUT})
 public class LectureController {
 	
-	private LectureService lectureService;
+	private LectureServiceImpl lectureServiceImpl;
 
 	@Autowired
-	public LectureController(LectureService lectureService) {
+	public LectureController(LectureServiceImpl lectureServiceImpl) {
 		super();
-		this.lectureService = lectureService;
+		this.lectureServiceImpl = lectureServiceImpl;
 	}
 	//DB저장~
 	@PostMapping()
 	public ResponseEntity<Lecture> saveLecture(@RequestBody Lecture lecture){
 		return new ResponseEntity<Lecture>(
-				lectureService.saveLecture(lecture),HttpStatus.CREATED);
+				lectureServiceImpl.saveLecture(lecture),HttpStatus.CREATED);
 	}
 	//모든 정보 가져오기
 	@GetMapping()
 	public ResponseEntity<List<LectureDto>> getAllLectuer() {
 		return new ResponseEntity<List<LectureDto>>(
-				lectureService.getAllLectuer(),HttpStatus.OK);
+				lectureServiceImpl.getAllLectuer(),HttpStatus.OK);
 	}
 	//하나만 가져오기
 	@GetMapping("{id}")
 	public ResponseEntity<Lecture> getLectureById(@PathVariable long id) {
 		return new ResponseEntity<Lecture>(
-				lectureService.getLectureById(id),HttpStatus.OK);
+				lectureServiceImpl.getLectureById(id),HttpStatus.OK);
 	}
 	//id로 해당 정보 업뎃
 	@PutMapping("/update/{id}")
 	public ResponseEntity<Lecture> updateLectureById(
 			@RequestBody Lecture lecture,@PathVariable long id) {
 		return new ResponseEntity<Lecture>(
-				lectureService.updateLectureById(lecture, id),HttpStatus.OK);
+				lectureServiceImpl.updateLectureById(lecture, id),HttpStatus.OK);
 	}
 	//해당 정보 삭제
 	@DeleteMapping("/delete/{id}")

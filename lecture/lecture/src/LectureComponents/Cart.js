@@ -44,9 +44,16 @@ export function Cart() {
   const [purchaseFailed, setPurchaseFailed] = useState(false);
 
   const navigate = useNavigate();
+
   useEffect(() => {
+    // 예외 처리: checkList 또는 lectures가 undefined 또는 null인 경우
+    if (!checkList || !lectures) {
+      return;
+    }
+
     setNewList(lectures.filter((l, i) => checkList[i].checked));
   }, [checkList, lectures]);
+
   function onClick(e) {
     const temp = checkList.map((item) => {
       if (item.id === +e.target.id) {
@@ -63,9 +70,9 @@ export function Cart() {
     if (loginState && loginState.id) {
       setPurchasing(true);
     } else {
-      alert("로그인이 필요합니다");
-      console.log("login Page");
-      navigate("./login");
+      alert("로그인이 필요합니다.");
+      console.log("login page");
+      navigate("/login");
     }
   }
 
@@ -74,6 +81,7 @@ export function Cart() {
   }, [loginState]);
 
   useEffect(() => {
+    console.log("newList", newList.length);
     let price = 0;
     for (let i = 0; i < newList?.length; i++) {
       price = price + newList[i].price;
@@ -88,7 +96,7 @@ export function Cart() {
       });
       setCheckList(temp);
       setPurchaseComplete(false);
-      window.confirm("결제가 완료되었습니다");
+      window.confirm("결제가 완료 되었습니다.");
     }
   }, [purchaseComplete]);
 
@@ -115,8 +123,8 @@ export function Cart() {
               <Card key={lecture.id}>
                 <Img src={lecture.image} />
                 <div>
-                  <Text>강의명 : {lecture.title}</Text>
-                  <Text>강사명 : {lecture.teacher}</Text>
+                  <Text>타이틀 : {lecture.title}</Text>
+                  <Text>강사 : {lecture.teacher}</Text>
                   <Text>가격 : {lecture.price}</Text>
                 </div>
                 <Delete id={lecture.id} onClick={onClick}>

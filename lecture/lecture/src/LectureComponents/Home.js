@@ -12,11 +12,7 @@ export function Home() {
         <Header>강의배너</Header>
         <Body>
           <h1>인기강의</h1>
-          <Image src="">빵빵아</Image>
-          <Image src="">빵빵아</Image>
-          <Image src="">빵빵아</Image>
-          <Image src="">빵빵아</Image>
-          <Image src="">빵빵아</Image>
+          <Image src="" />
         </Body>
       </Container>
     </>

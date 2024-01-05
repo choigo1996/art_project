@@ -3,27 +3,48 @@ import styled from "styled-components";
 import { LectureContext } from "./Lecture";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
-import { checkDuplicate, signUp } from "./api";
-const Container = styled.div``;
-const Header = styled.div``;
+import { CheckDuplicate, signUp } from "./api";
+const Container = styled.div`
+  width: 350px;
+  background-color: #eee;
+  box-shadow: 2px 2px 5px grey;
+  padding: 20px;
+  border-radius: 20px;
+  margin: 50px;
+`;
+const Header = styled.div`
+  font-size: 1.5rem;
+  text-align: center;
+`;
 const Righter = styled.div``;
 const Left = styled.div``;
 const Box = styled.div``;
 const CheckBox = styled.div``;
 const Text = styled.div``;
-const Button = styled.button``;
-const CheackButton = styled.button``;
+const Button = styled.button`
+  width: 100%;
+  height: 25px;
+  margin-top: 20px;
+  background-color: lightblue;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+  border: 1px solid blue;
+`;
+const CheckButton = styled.button``;
 export function Register() {
   //오류메시지 상태저장
   const [passwordMessage, setPasswordMessage] = useState("");
-  const [passwordCheackMessage, setPasswordCheackMessage] = useState("");
+  const [passwordCheckMessage, setPasswordCheckMessage] = useState("");
   //유효성 검사
   const [isPassword, setIsPassword] = useState("");
-  const [isPasswordCheack, setIsPasswordCheack] = useState("");
+  const [isPasswordCheck, setIsPasswordCheck] = useState("");
   //회원가입란
   const [loginId, setLoginId] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordCheack, setPasswordCheack] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
   const [username, setUsername] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [email, setEmail] = useState("");
@@ -41,18 +62,6 @@ export function Register() {
       return signUp(userRegister);
     }
   });
-  //아이디 중복확인
-  const [message, setMassage] = useState("");
-
-  const handleCheackDuplicate = () => {
-    checkDuplicate(loginId)
-      .then((data) => {
-        setMassage(data.massage);
-      })
-      .catch(() => {
-        setMassage("죄송하지만,아이디가 중복됩니다.");
-      });
-  };
   useEffect(() => {
     if (data && data.resultCode === "SUCCESS" && userRegister) {
       console.log(data);
@@ -80,12 +89,12 @@ export function Register() {
   }, [userRegister]);
   //비밀번호 확인맨
   useEffect(() => {
-    if (password === passwordCheack) {
-      setPasswordCheackMessage("비밀번호가 일치합니다.");
-      setIsPasswordCheack(false);
+    if (password === passwordCheck) {
+      setPasswordCheckMessage("비밀번호가 일치합니다.");
+      setIsPasswordCheck(false);
     } else {
-      setPasswordCheackMessage("비밀번호가 일치하지않습니다");
-      setIsPasswordCheack();
+      setPasswordCheckMessage("비밀번호가 일치하지않습니다");
+      setIsPasswordCheck();
     }
   });
 
@@ -94,16 +103,16 @@ export function Register() {
     const user = {
       loginId: loginId,
       password: password,
-      passwordCheack: passwordCheack,
+      passwordCheck: passwordCheck,
       name: username,
       birthDate: birthDate,
       email: email,
     };
-    if (password === passwordCheack) {
-      setPasswordCheackMessage("비밀번호가 일치합니다.");
+    if (password === passwordCheck) {
+      setPasswordCheckMessage("비밀번호가 일치합니다.");
       setUserRegister(user);
     } else {
-      setPasswordCheackMessage("비밀번호가 일치하지 않습니다.");
+      setPasswordCheckMessage("비밀번호가 일치하지 않습니다.");
       window.alert("비밀번호를 일치하게 입력하세요.");
     }
   }
@@ -131,7 +140,7 @@ export function Register() {
                   value={loginId}
                   onChange={(e) => setLoginId(e.target.value)}
                 />
-                <CheackButton>중복확인</CheackButton>
+                <CheckButton>중복확인</CheckButton>
               </div>
               <div>
                 <label>비밀번호</label>
@@ -154,29 +163,47 @@ export function Register() {
                 <label>비밀번호 확인</label>
                 <br />
                 <input
-                  id="passwordCheack"
-                  value={passwordCheack}
+                  id="passwordCheck"
+                  value={passwordCheck}
                   type="password"
-                  onChange={(e) => setPasswordCheack(e.target.value)}
+                  onChange={(e) => setPasswordCheck(e.target.value)}
                 />
-                {passwordCheack.length > 0 && (
+                {passwordCheck.length > 0 && (
                   <span
                     className={`message ${
-                      isPasswordCheack ? "success" : "error"
+                      isPasswordCheck ? "success" : "error"
                     }`}
                   >
-                    {passwordCheackMessage}
+                    {passwordCheckMessage}
                   </span>
                 )}
               </div>
               <div>
                 <label>이름</label>
+                <br />
+                <input
+                  id="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
               </div>
               <div>
                 <label>생년월일</label>
+                <br />
+                <input
+                  id="birthDate"
+                  value={birthDate}
+                  onChange={(e) => setBirthDate(e.target.value)}
+                />
               </div>
               <div>
                 <label>이메일</label>
+                <br />
+                <input
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </div>
             </Righter>
 

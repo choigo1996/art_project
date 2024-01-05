@@ -14,7 +14,7 @@ public class LectureDto {
 	
 	private String image;
 	
-	private int pirce;
+	private int price;
 	
 	private String teacher;
 
@@ -24,14 +24,14 @@ public class LectureDto {
 		super();
 	}
 
-	public LectureDto(long id, String title, String category, String image, int pirce, String teacher,
+	public LectureDto(long id, String title, String category, String image, int price, String teacher,
 			List<LectureList> lectureLists) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.category = category;
 		this.image = image;
-		this.pirce = pirce;
+		this.price = price;
 		this.teacher = teacher;
 		this.lectureLists = lectureLists;
 	}
@@ -68,12 +68,12 @@ public class LectureDto {
 		this.image = image;
 	}
 
-	public int getPirce() {
-		return pirce;
+	public int getPrice() {
+		return price;
 	}
 
-	public void setPirce(int pirce) {
-		this.pirce = pirce;
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 	public String getTeacher() {
@@ -90,6 +90,6 @@ public class LectureDto {
 
 	public void setLectureLists(List<LectureList> lectureLists) {
 		this.lectureLists = lectureLists;
-	}
+	}	
 	
 }

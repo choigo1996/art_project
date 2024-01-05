@@ -14,6 +14,7 @@ import { LogOut } from "./LogOut";
 import { Register } from "./Register";
 import { Error } from "./Error";
 import { Dashboard } from "./Dashboard";
+import { Notification } from "./Notification";
 
 const client = new QueryClient();
 export const LectureContext = createContext();
@@ -36,8 +37,8 @@ export function Lecture() {
   );
 }
 
-function LectureLoader({ lelists, lectures, lecturesCheckList }) {
-  const [checkList, setCheckList] = useState(lecturesCheckList);
+function LectureLoader({ lelists, lectures, lecturescheckList }) {
+  const [CheckList, setCheckList] = useState(lecturescheckList);
   const [loginState, setLoginState] = useState(null);
   const [passwordState, setPasswordState] = useState(null);
   useEffect(() => {
@@ -52,7 +53,7 @@ function LectureLoader({ lelists, lectures, lecturesCheckList }) {
     <>
       <LectureContext.Provider
         value={{
-          checkList,
+          CheckList,
           setCheckList,
           loginState,
           setLoginState,
@@ -79,6 +80,7 @@ function LectureLoader({ lelists, lectures, lecturesCheckList }) {
                   </ProtectedRoute>
                 }
               ></Route>
+              <Route path="notification" element={<Notification />} />
               <Route path="cart" element={<Cart />} />
               <Route path="login" element={<Login />} />
               <Route path="logOut" element={<LogOut />} />

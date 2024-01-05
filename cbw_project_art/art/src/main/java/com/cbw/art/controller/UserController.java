@@ -48,7 +48,7 @@ public class UserController {
 		Map<String, String> response = new HashMap<>();
 		
 		//아이디 중복 확인 로직
-		boolean isDuplicate = userServiceImpl.isUserIdDuplicate(loginId);
+		boolean isDuplicate = userServiceImpl.cheackLoginDuplicate(loginId);
 		
 		if(isDuplicate) {
 			response.put("message", "중복된 아이디입니다.");
