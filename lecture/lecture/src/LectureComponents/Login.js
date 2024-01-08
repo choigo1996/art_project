@@ -66,7 +66,7 @@ export function Login() {
       );
       setLoginState({ id: userLogin.loginId });
       setTimeout(() => {
-        navigate("dashboard");
+        navigate("/dashboard");
         setLoggingIn(false);
       }, 1000);
     } else if (data && data.resultCode === "ERROR" && userLogin) {

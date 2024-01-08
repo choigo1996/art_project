@@ -8,6 +8,6 @@ export function ProtectedRoute({ children }) {
   if (loginState?.id) {
     return children;
   } else {
-    return <Navigate to="login" />;
+    return <Navigate to="/login" />;
   }
 }

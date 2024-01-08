@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { LectureContext } from "./Lecture";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
-import { CheckDuplicate, signUp } from "./api";
+import { signUp } from "./api";
 const Container = styled.div`
   width: 350px;
   background-color: #eee;
@@ -18,9 +18,6 @@ const Header = styled.div`
 `;
 const Righter = styled.div``;
 const Left = styled.div``;
-const Box = styled.div``;
-const CheckBox = styled.div``;
-const Text = styled.div``;
 const Button = styled.button`
   width: 100%;
   height: 25px;
@@ -33,7 +30,7 @@ const Button = styled.button`
   color: white;
   border: 1px solid blue;
 `;
-const CheckButton = styled.button``;
+
 export function Register() {
   //오류메시지 상태저장
   const [passwordMessage, setPasswordMessage] = useState("");
@@ -53,36 +50,45 @@ export function Register() {
   const [registering, setRegistering] = useState(false);
   const [registerComplete, setRegisteringComplete] = useState(false);
   const { loginState, setLoginState } = useContext(LectureContext);
+  //체크박스맨~
+  const [allAgreed, setAllAgreed] = useState(false);
+  const [agreements, setAgreements] = useState({
+    termsAgreed: false,
+    personalInfoAgreed: false,
+    provisionAgreed: false,
+    locationAgreed: false,
+    eventAlarmAgreed: false,
+    serviceAlarmAgreed: false,
+  });
+  const handleAgreementChange = (e) => {
+    const { name, checked } = e.target;
+    setAgreements((prevAgreements) => ({ ...prevAgreements, [name]: checked }));
+    const allChecked = Object.values({ ...agreements, [name]: checked }).every(
+      (value) => value === true
+    );
+    setAllAgreed(allChecked);
+  };
 
+  const handleAllAgreementChange = (e) => {
+    const { checked } = e.target;
+    setAgreements((prevAgreements) =>
+      Object.keys(prevAgreements).reduce(
+        (newAgreements, agreementKey) => ({
+          ...newAgreements,
+          [agreementKey]: checked,
+        }),
+        {}
+      )
+    );
+    setAllAgreed(checked);
+  };
   const navigate = useNavigate();
-
   const { data, isLoading, refetch } = useQuery("register", () => {
     if (userRegister) {
       setRegistering(true);
       return signUp(userRegister);
     }
   });
-  useEffect(() => {
-    if (data && data.resultCode === "SUCCESS" && userRegister) {
-      console.log(data);
-      // 1. 가입완료된 이후 자동로그인 하기
-      localStorage.setItem(
-        "loginState",
-        JSON.stringify({ id: userRegister.loginId })
-      );
-      setLoginState({ id: userRegister.loginId });
-      setTimeout(() => {
-        navigate("/dashboard");
-        setRegistering(false);
-      }, 1000);
-      // 2. 가입완료된 이후 다시 로그인하도록 하기
-      // setRegistering(false);
-      // setRegisteringComplete(true);
-    } else if (data && data.resultCode === "ERROR") {
-      console.log(data);
-      navigate("/login");
-    }
-  }, [data]);
 
   useEffect(() => {
     refetch();
@@ -100,17 +106,46 @@ export function Register() {
 
   function onSubmit(e) {
     e.preventDefault();
-    const user = {
-      loginId: loginId,
-      password: password,
-      passwordCheck: passwordCheck,
-      name: username,
-      birthDate: birthDate,
-      email: email,
-    };
+    if (
+      !loginId ||
+      !password ||
+      !passwordCheck ||
+      !username ||
+      !birthDate ||
+      !email
+    ) {
+      window.alert("죄송하지만, 가입란에 빈 공간을 발견했습니다.");
+      return;
+    }
     if (password === passwordCheck) {
       setPasswordCheckMessage("비밀번호가 일치합니다.");
-      setUserRegister(user);
+
+      const user = {
+        loginId: loginId,
+        password: password,
+        passwordCheck: passwordCheck,
+        name: username,
+        birthDate: birthDate,
+        email: email,
+      };
+
+      //API 호출
+      signUp(user)
+        .then((response) => {
+          if (response.resultCode === "SUCCESS") {
+            alert("회원가입을 축하드립니다!");
+            navigate("/login");
+          } else if (response.resultCode === "ERROR") {
+            const errorMessage =
+              response.data.message || response.data["Duplicated member"];
+            console.log(errorMessage);
+            window.alert(errorMessage);
+          }
+        })
+        .catch((error) => {
+          console.error("호출 실패 : ", error);
+          window.alert("에러가 발생했습니다.");
+        });
     } else {
       setPasswordCheckMessage("비밀번호가 일치하지 않습니다.");
       window.alert("비밀번호를 일치하게 입력하세요.");
@@ -138,9 +173,9 @@ export function Register() {
                 <input
                   id="loginId"
                   value={loginId}
+                  placeholder="영문 및 숫자만 입력"
                   onChange={(e) => setLoginId(e.target.value)}
                 />
-                <CheckButton>중복확인</CheckButton>
               </div>
               <div>
                 <label>비밀번호</label>
@@ -149,6 +184,7 @@ export function Register() {
                   id="password"
                   value={password}
                   type="password"
+                  placeholder="영문 숫자 특수문자를 포함한 8~20자리"
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 {password.length > 0 && (
@@ -165,6 +201,7 @@ export function Register() {
                 <input
                   id="passwordCheck"
                   value={passwordCheck}
+                  placeholder="영문 숫자 특수문자를 포함한 8~20자리"
                   type="password"
                   onChange={(e) => setPasswordCheck(e.target.value)}
                 />
@@ -184,6 +221,7 @@ export function Register() {
                 <input
                   id="username"
                   value={username}
+                  placeholder="2글자 이상 기입하세요."
                   onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
@@ -192,6 +230,7 @@ export function Register() {
                 <br />
                 <input
                   id="birthDate"
+                  placeholder="날짜형식(YYYY-MM-DD)"
                   value={birthDate}
                   onChange={(e) => setBirthDate(e.target.value)}
                 />
@@ -202,6 +241,7 @@ export function Register() {
                 <input
                   id="email"
                   value={email}
+                  placeholder="이메일 형식에 맞게 기입"
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
@@ -209,30 +249,91 @@ export function Register() {
 
             <Left>
               <Header>약관동의</Header>
-              <Box>
-                <CheckBox></CheckBox>
-                <Text>전체동의</Text>
-              </Box>
-              <Box>
-                <CheckBox></CheckBox>
-                <Text>[필수] 이용약관 동의</Text>
-              </Box>
-              <Box>
-                <CheckBox></CheckBox>
-                <Text>[필수] 이용약관 동의</Text>
-              </Box>
-              <Box>
-                <CheckBox></CheckBox>
-                <Text>[선택]</Text>
-              </Box>
-              <Box>
-                <CheckBox></CheckBox>
-                <Text>[선택]</Text>
-              </Box>
-              <Box>
-                <CheckBox></CheckBox>
-                <Text>[선택]</Text>
-              </Box>
+              <ul>
+                <li>
+                  <input
+                    type="checkbox"
+                    id="agree_check_all"
+                    name="agree_check_all"
+                    checked={allAgreed}
+                    onChange={handleAllAgreementChange}
+                  />
+                  <label htmlFor="agree_check_all">전체 동의</label>
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    id="agree_check_used"
+                    name="termsAgreed"
+                    required
+                    checked={agreements.termsAgreed}
+                    onChange={handleAgreementChange}
+                  />
+                  <label htmlFor="agree_check_used">[필수] 이용약관 동의</label>
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    id="agree_check_info"
+                    name="personalInfoAgreed"
+                    required
+                    checked={agreements.personalInfoAgreed}
+                    onChange={handleAgreementChange}
+                  />
+                  <label htmlFor="agree_check_info">
+                    [필수]개인정보 이용 수집 방침
+                  </label>
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    id="agree_check_info_other"
+                    name="provisionAgreed"
+                    checked={agreements.provisionAgreed}
+                    onChange={handleAgreementChange}
+                  />
+                  <label htmlFor="agree_check_info_other">
+                    [필수]개인정보 제 3자 제공동의
+                  </label>
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    id="agree_check_pos"
+                    name="locationAgreed"
+                    required
+                    checked={agreements.locationAgreed}
+                    onChange={handleAgreementChange}
+                  />
+                  <label htmlFor="agree_check_pos">
+                    [필수] 위치정보 동의 약관
+                  </label>
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    id="agree_check_event_receive"
+                    name="eventAlarmAgreed"
+                    checked={agreements.eventAlarmAgreed}
+                    onChange={handleAgreementChange}
+                  />
+                  <label htmlFor="agree_check_event_receive">
+                    [선택] 이벤트 및 혜택 알림 수신 동의
+                  </label>
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    id="agree_check_push"
+                    name="serviceAlarmAgreed"
+                    checked={agreements.serviceAlarmAgreed}
+                    onChange={handleAgreementChange}
+                  />
+                  <label htmlFor="agree_check_push">
+                    [선택] 서비스 알림 수신동의
+                  </label>
+                </li>
+              </ul>
             </Left>
             <Button>회원가입</Button>
           </form>

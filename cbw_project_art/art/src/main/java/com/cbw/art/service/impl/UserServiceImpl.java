@@ -31,11 +31,11 @@ public class UserServiceImpl implements UserService{
 	public UserDto signUp(UserDto userDto) {
 		if(userRepository.findOneWithAuthoritiesByLoginId(userDto.getLoginId())
 				.orElse(null) != null) {
-			throw new InvalidRequestException("Duplicated member","이미 가입되어 있는 유저입니다.");
+			throw new InvalidRequestException("Duplicated member","중복되는 아이디입니다.");
 		}
 		else if(userRepository.findOneWithAuthoritiesByEmail(userDto.getEmail())
 				.orElse(null) != null) {
-			throw new InvalidRequestException("Duplicated member","이미 가입되어 있는 유저입니다.");
+			throw new InvalidRequestException("Duplicated member","중복되는 이메일 입니다.");
 		}
 		
 		Authority authority = new Authority();
@@ -67,9 +67,6 @@ public class UserServiceImpl implements UserService{
 				.orElseThrow(() -> new InvalidRequestException("No current user","Current member not found")));
 	}
 
-	public boolean cheackLoginDuplicate(String loginId) {
-		return userRepository.existsByLoginId(loginId);
-	}
 
 	
 }

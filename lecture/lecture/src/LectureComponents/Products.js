@@ -36,25 +36,6 @@ export function Products() {
     navigate(`${id}`);
   }
 
-  function onChange(e) {
-    const { id, checked } = e.target;
-
-    if (!CheckList || CheckList.length <= +id) {
-      console.log(CheckList);
-      return;
-    }
-
-    const temp = CheckList.map((item, index) => {
-      if (index === +id) {
-        return { ...item, checked };
-      } else {
-        return item;
-      }
-    });
-
-    setCheckList(temp);
-  }
-
   return (
     <>
       <Header>강의목록</Header>
@@ -67,12 +48,6 @@ export function Products() {
               <Text>강사 : {lecture.teacher}</Text>
               <Text>가격 : {lecture.price}원</Text>
             </div>
-            <input
-              type="checkbox"
-              id={lecture.id}
-              onChange={onChange}
-              checked={CheckList && CheckList[i] ? CheckList[i].Checked : false}
-            />
           </Card>
         ))}
       </Container>

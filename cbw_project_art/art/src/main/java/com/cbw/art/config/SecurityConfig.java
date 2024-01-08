@@ -51,7 +51,6 @@ public class SecurityConfig {
                         .requestMatchers("/api/authenticate").permitAll()
                         .requestMatchers("/api/signup").permitAll()
                         .requestMatchers("/api/products").permitAll()
-                        .requestMatchers("/api/cheackDuplicate/{loginId}").permitAll()
                         .requestMatchers("/api/question").permitAll()
                         .anyRequest().authenticated()
                 )

@@ -1,4 +1,4 @@
-import styled from "react";
+import styled from "styled-components";
 
 const Container = styled.div``;
 const Number = styled.div``;

@@ -30,12 +30,7 @@ export function login(user) {
     body: JSON.stringify(user),
   }).then((response) => response.json());
 }
-//중복확인
-export function checkDuplicate(loginId) {
-  return fetch(`http://localhost:8080/api/CheckDuplicate/${loginId}`, {
-    method: "GET",
-  }).then((response) => response.json());
-}
+
 //구매한 상품이 대시보드에 표시
 export function purchaseAllLecture(lectures, loginId) {
   const purchases = lectures.map((lecture) => ({

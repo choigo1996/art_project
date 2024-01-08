@@ -1,0 +1,75 @@
+package com.cbw.art.service.impl;
+
+
+import java.util.Collections;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.cbw.art.dto.UserDto;
+import com.cbw.art.exception.InvalidRequestException;
+import com.cbw.art.model.Authority;
+import com.cbw.art.model.User;
+import com.cbw.art.repository.UserRepository;
+import com.cbw.art.securityUtil.SecurityUtil;
+import com.cbw.art.service.UserService;
+
+@Service
+public class UserServiceImpl implements UserService{
+	private final UserRepository userRepository;
+	private final PasswordEncoder passwordEncoder;
+	
+	public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+		super();
+		this.userRepository = userRepository;
+		this.passwordEncoder = passwordEncoder;
+	}
+
+	//회원가입
+	@Transactional
+	public UserDto signUp(UserDto userDto) {
+		if(userRepository.findOneWithAuthoritiesByLoginId(userDto.getLoginId())
+				.orElse(null) != null) {
+			throw new InvalidRequestException("Duplicated member","아이디를 올바르게 입력하세요.");
+		}
+		else if(userRepository.findOneWithAuthoritiesByEmail(userDto.getEmail())
+				.orElse(null) != null) {
+			throw new InvalidRequestException("Duplicated member","이메일을 올바르게 입력하세요.");
+		}
+		
+		Authority authority = new Authority();
+		authority.setAuthorityName("ROLE_USER");
+		
+		User user = new User();
+		user.setLoginId(userDto.getLoginId());
+		user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+		user.setName(userDto.getName());
+		user.setBirthDate(userDto.getBirthDate());
+		user.setEmail(userDto.getEmail());
+		user.setAuthorities(Collections.singleton(authority));
+		user.setActivated(true);
+		
+		return UserDto.from(userRepository.save(user));
+	}
+	//자신의 정보를 볼 수 있는 것
+	@Transactional(readOnly = true)
+	public UserDto getUserWithAuthorities(String username) {
+		return UserDto.from(userRepository.findOneWithAuthoritiesByLoginId(username)
+				.orElseThrow(() -> new InvalidRequestException(username,"member not found")));
+	}
+	//다른 사람의 정보를 볼 수 있음(관리자)
+	@Transactional(readOnly = true)
+	public UserDto getCurrentUserWithAuthorities() {
+		return UserDto.from(
+				SecurityUtil.getCurrentUsername()
+				.flatMap(userRepository::findOneWithAuthoritiesByLoginId)
+				.orElseThrow(() -> new InvalidRequestException("No current user","Current member not found")));
+	}
+
+	public boolean checkLoginDuplicate(String loginId) {
+		return userRepository.existsByLoginId(loginId);
+	}
+
+	
+}
