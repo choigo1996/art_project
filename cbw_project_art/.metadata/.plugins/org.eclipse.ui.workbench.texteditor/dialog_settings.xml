@@ -8,6 +8,8 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="BC"/>
+			<item value="cheack"/>
 			<item value="getAllLecture"/>
 		</list>
 		<list key="replacehistory">

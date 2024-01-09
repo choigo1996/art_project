@@ -3,6 +3,7 @@ package com.cbw.art.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,12 +20,14 @@ import com.cbw.art.repository.UserRepository;
 @Component("userDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
    private final UserRepository userRepository;
-
+ 
+   @Autowired
    public CustomUserDetailsService(UserRepository userRepository) {
-      this.userRepository = userRepository;
-   }
+	super();
+	this.userRepository = userRepository;
+}
 
-   //로그인
+//로그인
    @Override
    @Transactional
    public UserDetails loadUserByUsername(final String loginId) {
@@ -48,4 +51,5 @@ public class CustomUserDetailsService implements UserDetailsService {
               user.getPassword(),
               grantedAuthorities);
    }
+
 }
