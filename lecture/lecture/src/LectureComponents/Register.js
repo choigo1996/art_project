@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { LectureContext } from "./Lecture";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
-import { signUp } from "./api";
+import { checkDuplicateEmail, checkDuplicateLogin, signUp } from "./api";
 const Container = styled.div`
-  width: 350px;
+  width: 500px;
   background-color: #eee;
   box-shadow: 2px 2px 5px grey;
   padding: 20px;
@@ -30,6 +30,7 @@ const Button = styled.button`
   color: white;
   border: 1px solid blue;
 `;
+const DupliButton = styled.button``;
 const Ul = styled.ul`
   list-style-type: none;
 `;
@@ -38,9 +39,13 @@ export function Register() {
   //오류메시지 상태저장
   const [passwordMessage, setPasswordMessage] = useState("");
   const [passwordCheckMessage, setPasswordCheckMessage] = useState("");
+  const [emailMessage, setEmailMessage] = useState("");
+  const [loginMessage, setLoginMessage] = useState("");
   //유효성 검사
   const [isPassword, setIsPassword] = useState("");
   const [isPasswordCheck, setIsPasswordCheck] = useState("");
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isLoginValid, setIsLoginValid] = useState(false);
   //회원가입란
   const [loginId, setLoginId] = useState("");
   const [password, setPassword] = useState("");
@@ -96,7 +101,7 @@ export function Register() {
   useEffect(() => {
     refetch();
   }, [userRegister]);
-  //비밀번호 확인맨
+  //비밀번호 확인맨()
   useEffect(() => {
     if (password === passwordCheck) {
       setPasswordCheckMessage("비밀번호가 일치합니다.");
@@ -106,7 +111,97 @@ export function Register() {
       setIsPasswordCheck();
     }
   });
+  // 비밀번호 형식 체크맨
+  useEffect(() => {
+    // 비밀번호 정규식 (영문, 숫자, 특수문자 포함하여 8~20자리)
+    const passwordRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/;
 
+    if (passwordRegex.test(password)) {
+      setPasswordMessage("올바른 비밀번호 형식입니다.");
+      setIsPassword(true);
+    } else {
+      setPasswordMessage(
+        "비밀번호는 영문, 숫자, 특수문자를 포함하여 8~20자리여야 합니다."
+      );
+      setIsPassword(false);
+    }
+  }, [password]);
+
+  // 이메일 형식 체크맨
+  useEffect(() => {
+    // 이메일 정규식
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (emailRegex.test(email)) {
+      setEmailMessage("올바른 이메일 형식입니다.");
+      setIsEmailValid(true);
+    } else {
+      setEmailMessage("올바른 이메일 형식이 아닙니다.");
+      setIsEmailValid(false);
+    }
+  }, [email]);
+  //아이디 형식 체크맨
+  useEffect(() => {
+    //아이디 정규식
+    const loginRegex = /^[a-z0-9]{4,20}$/;
+    if (loginRegex.test(loginId)) {
+      setLoginMessage("올바른 아이디 형식입니다.");
+      setIsLoginValid(true);
+    } else {
+      setLoginMessage("올바른 아이디 형식이 아닙니다.");
+      setIsLoginValid(false);
+    }
+  });
+  // 아이디 중복확인 버튼 클릭 시 실행될 함수
+  const handleCheckDuplicateId = async () => {
+    try {
+      if (!/^[a-z0-9]{4,20}$/.test(loginId)) {
+        // 아이디 정규화에 맞지 않는 경우
+        window.alert(
+          "아이디는 영어 소문자와 숫자만 사용하여 4~20자리여야 합니다."
+        );
+        return;
+      }
+
+      const isIdTaken = await checkDuplicateLogin(loginId);
+      console.log(isIdTaken);
+
+      if (isIdTaken) {
+        window.alert(isIdTaken.message);
+      } else {
+        window.alert("Id is available!"); // 또는 다른 메시지 출력
+      }
+    } catch (error) {
+      console.error("Error while checking for duplicate ID:", error);
+      window.alert("아이디 입력란이 비었습니다.");
+    }
+  };
+
+  // 이메일 중복확인 버튼 클릭 시 실행될 함수
+  const handleCheckDuplicateEmail = async () => {
+    try {
+      // 이메일 정규식
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailRegex.test(email)) {
+        window.alert("이메일을 올바른 형식으로 입력해주세요.");
+        return; // 이메일 형식이 아니라면 중복 확인을 하지 않음
+      }
+
+      const isEmailTaken = await checkDuplicateEmail(email);
+      console.log(isEmailTaken);
+
+      if (isEmailTaken) {
+        window.alert(isEmailTaken.message);
+      } else {
+        window.alert("Email is available!");
+      }
+    } catch (error) {
+      console.error("Error while checking for duplicate ID:", error);
+      window.alert("이메일입력란이 비었습니다.");
+    }
+  };
   function onSubmit(e) {
     e.preventDefault();
     if (
@@ -179,6 +274,16 @@ export function Register() {
                   placeholder="영문 및 숫자만 입력"
                   onChange={(e) => setLoginId(e.target.value)}
                 />
+                <DupliButton onClick={handleCheckDuplicateId}>
+                  중복확인
+                </DupliButton>
+                {loginMessage && (
+                  <span
+                    className={`message${isLoginValid ? "succes" : "error"}`}
+                  >
+                    {loginMessage}
+                  </span>
+                )}
               </div>
               <div>
                 <label>비밀번호</label>
@@ -247,6 +352,16 @@ export function Register() {
                   placeholder="이메일 형식에 맞게 기입"
                   onChange={(e) => setEmail(e.target.value)}
                 />
+                <DupliButton type="button" onClick={handleCheckDuplicateEmail}>
+                  중복확인
+                </DupliButton>
+                {emailMessage && (
+                  <span
+                    className={`message ${isEmailValid ? "success" : "error"}`}
+                  >
+                    {emailMessage}
+                  </span>
+                )}
               </div>
             </Righter>
 

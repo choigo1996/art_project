@@ -64,19 +64,34 @@ public class UserController {
 		));
 	}
 	//중복체크
-	@GetMapping("/check/login/{loginId}")
-	public ResponseEntity<Map<String,Boolean>> checkLoginAvailability(@PathVariable String loginId){
-		boolean isTaken = userServiceImpl.isLoginTaken(loginId);
-		Map<String, Boolean> response = new HashMap<>();
-		response.put("isTaken", isTaken);
-		System.out.println(loginId);
+	@GetMapping("/checkDuplicate/loginId/{loginId}")
+	public ResponseEntity<Map<String,String>> checkDuplicateLogin(@PathVariable String loginId) {
+		Map<String, String> response = new HashMap<>();
+		
+		//아이디 중복 확인 로직
+		boolean isDuplicate = userServiceImpl.isUserIdDuplicate(loginId);
+		
+		if(isDuplicate) {
+			response.put("message", "중복된 아이디입니다.");
+		}else {
+			response.put("message", "사용가능한 아이디입니다");
+		}
+		System.out.println(isDuplicate);
 		return ResponseEntity.ok(response);
 	}
-	@GetMapping("check/{email}")
-	public ResponseEntity<Map<String,Boolean>> checkEmailAvailability(@PathVariable String email){
-		boolean isTaken = userServiceImpl.isEmailTaken(email);
-		Map<String, Boolean> response = new HashMap<>();
-		response.put("isTaken", isTaken);
+	@GetMapping("/checkDuplicate/email/{email}")
+	public ResponseEntity<Map<String,String>> checkDuplicateEmail(@PathVariable String email) {
+		Map<String, String> response = new HashMap<>();
+		
+		//아이디 중복 확인 로직
+		boolean isDuplicate = userServiceImpl.isEmailTaken(email);
+		
+		if(isDuplicate) {
+			response.put("message", "중복된 이메일입니다.");
+		}else {
+			response.put("message", "사용가능한 이메일입니다");
+		}
+		System.out.println(isDuplicate);
 		return ResponseEntity.ok(response);
 	}
 }

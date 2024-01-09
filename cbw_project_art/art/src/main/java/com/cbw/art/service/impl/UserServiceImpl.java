@@ -68,11 +68,13 @@ public class UserServiceImpl implements UserService{
 	}
 	//중복체크 
 	@Override
-	public boolean isLoginTaken(String loginId) {
+	public boolean isUserIdDuplicate(String loginId) {
 		return userRepository.existsByLoginId(loginId);
 	}
 	@Override
 	public boolean isEmailTaken(String email) {
 		return userRepository.existsByEmail(email);
 	}
+
+	
 }

@@ -10,6 +10,6 @@ public interface UserService {
 	//자기 정보보기
 	public UserDto getCurrentUserWithAuthorities();
 	//중복체크
-	public boolean isLoginTaken(String loginId);
+	public boolean isUserIdDuplicate(String loginId);
 	public boolean isEmailTaken(String email);
 }

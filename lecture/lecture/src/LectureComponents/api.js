@@ -60,3 +60,16 @@ export function getAllNotifi() {
     method: "GET",
   }).then((response) => response.json());
 }
+// 중복체크 API - loginId
+export function checkDuplicateLogin(loginId) {
+  return fetch(`http://localhost:8080/api/checkDuplicate/loginId/${loginId}`, {
+    method: "GET",
+  }).then((response) => response.json());
+}
+
+// 중복체크 API - email
+export function checkDuplicateEmail(email) {
+  return fetch(`http://localhost:8080/api/checkDuplicate/email/${email}`, {
+    method: "GET",
+  }).then((response) => response.json());
+}
