@@ -30,6 +30,9 @@ const Button = styled.button`
   color: white;
   border: 1px solid blue;
 `;
+const Ul = styled.ul`
+  list-style-type: none;
+`;
 
 export function Register() {
   //오류메시지 상태저장
@@ -249,7 +252,7 @@ export function Register() {
 
             <Left>
               <Header>약관동의</Header>
-              <ul>
+              <Ul>
                 <li>
                   <input
                     type="checkbox"
@@ -333,9 +336,17 @@ export function Register() {
                     [선택] 서비스 알림 수신동의
                   </label>
                 </li>
-              </ul>
+              </Ul>
             </Left>
-            <Button>회원가입</Button>
+            <Button
+              disabled={
+                !agreements.termsAgreed ||
+                !agreements.personalInfoAgreed ||
+                !agreements.locationAgreed
+              }
+            >
+              회원가입
+            </Button>
           </form>
         </Container>
       )}

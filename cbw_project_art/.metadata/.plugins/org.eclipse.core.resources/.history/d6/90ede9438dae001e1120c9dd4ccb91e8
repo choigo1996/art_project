@@ -1,0 +1,10 @@
+package com.cbw.art.service;
+
+import com.cbw.art.dto.UserDto;
+
+public interface UserService {
+	public UserDto signUp(UserDto userDto);
+	public UserDto getUserWithAuthorities(String username);
+	public UserDto getCurrentUserWithAuthorities();
+	boolean existsByLoginId(String loginId);
+}

@@ -1,6 +1,9 @@
 package com.cbw.art.controller;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -60,5 +63,20 @@ public class UserController {
 				ResultCode.SUCCESS.getMsg()
 		));
 	}
-	
+	//중복체크
+	@GetMapping("/check/login/{loginId}")
+	public ResponseEntity<Map<String,Boolean>> checkLoginAvailability(@PathVariable String loginId){
+		boolean isTaken = userServiceImpl.isLoginTaken(loginId);
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("isTaken", isTaken);
+		System.out.println(loginId);
+		return ResponseEntity.ok(response);
+	}
+	@GetMapping("check/{email}")
+	public ResponseEntity<Map<String,Boolean>> checkEmailAvailability(@PathVariable String email){
+		boolean isTaken = userServiceImpl.isEmailTaken(email);
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("isTaken", isTaken);
+		return ResponseEntity.ok(response);
+	}
 }

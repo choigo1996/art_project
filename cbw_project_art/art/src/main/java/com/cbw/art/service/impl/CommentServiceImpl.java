@@ -21,7 +21,7 @@ import jakarta.persistence.EntityNotFoundException;
 public class CommentServiceImpl implements CommentService{
 	
 	@Autowired
-	private CommentRepository commentRepository;
+	private final CommentRepository commentRepository;
 	
 	@Autowired
 	private UserRepository userRepository;

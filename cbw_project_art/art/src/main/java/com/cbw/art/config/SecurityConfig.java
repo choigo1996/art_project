@@ -52,6 +52,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/signup").permitAll()
                         .requestMatchers("/api/products").permitAll()
                         .requestMatchers("/api/question").permitAll()
+                        .requestMatchers("/api/check/login/{loginId}").permitAll()
                         .anyRequest().authenticated()
                 )
                 //세션관리(상태없음)

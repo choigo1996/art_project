@@ -34,7 +34,7 @@ public class QuestionServiceImpl implements QuestionService{
 	}
 
 	public BaseResponse<Void> createQuest(QuestionDto questionDto) {
-		User user = userRepository.findByLoginId(questionDto.getWriter());
+		Optional<User> user = userRepository.findOneWithAuthoritiesByLoginId(questionDto.getWriter());
 		if(user == null) {
 			throw new InvalidRequestException("Invalid Writer", "글쓰기 권한이 없습니다");
 		}

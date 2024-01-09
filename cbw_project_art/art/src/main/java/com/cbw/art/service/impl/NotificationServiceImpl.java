@@ -35,7 +35,7 @@ public class NotificationServiceImpl implements NotificationService{
 
 	//공지사항 생성
 	public BaseResponse<Void> createNoti(NotificationDto notificationDto) {
-		User user = userRepository.findByLoginId(notificationDto.getWriter());
+		Optional<User> user = userRepository.findOneWithAuthoritiesByLoginId(notificationDto.getWriter());
 		if(user == null) {
 			throw new InvalidRequestException("Invalid Writer", "글쓰기 권한이 없습니다");
 		}

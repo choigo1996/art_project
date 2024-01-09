@@ -17,6 +17,7 @@ import jakarta.validation.constraints.Size;
 public class UserDto {
 	@NotNull
 	@NotBlank
+	@Pattern(regexp = "^[a-z0-9]{4,20}$", message = "아이디는 영어 소문자와 숫자만 사용하여 4~20자리여야 합니다.")
 	@Size(min = 3, max = 50)
 	private String loginId;
 	
