@@ -54,6 +54,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/question").permitAll()
                         .requestMatchers("/api/checkDuplicate/loginId/{loginId}").permitAll()
                         .requestMatchers("/api/checkDuplicate/email/{email}").permitAll()
+                        .requestMatchers("/api/board/list").permitAll()
+                        .requestMatchers("/api/board/list/{id}").permitAll()
                         .anyRequest().authenticated()
                 )
                 //세션관리(상태없음)

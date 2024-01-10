@@ -77,4 +77,12 @@ public class NotificationServiceImpl implements NotificationService{
 				"공지사항이 삭제되었습니다.");
 	}
 	
+	//공지하나만 가져옴
+	@Override
+	public Notification getNotiById(long id) {
+		return notificationRepository.findById(id).orElseThrow(() -> null);
+	}
+	
+
+	
 }

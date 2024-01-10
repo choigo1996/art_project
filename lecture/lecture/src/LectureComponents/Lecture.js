@@ -15,6 +15,8 @@ import { Register } from "./Register";
 import { Error } from "./Error";
 import { Dashboard } from "./Dashboard";
 import { Notification } from "./Notification";
+import { NotificationWrapper } from "./NotificationWrapper";
+import { SingleNoti } from "./SingleNoti";
 
 const client = new QueryClient();
 export const LectureContext = createContext();
@@ -80,7 +82,10 @@ function LectureLoader({ lelists, lectures, lecturescheckList }) {
                   </ProtectedRoute>
                 }
               ></Route>
-              <Route path="notification" element={<Notification />} />
+              <Route path="notification" element={<NotificationWrapper />}>
+                <Route index element={<Notification />} />
+                <Route path=":id" element={<SingleNoti />} />
+              </Route>
               <Route path="cart" element={<Cart />} />
               <Route path="login" element={<Login />} />
               <Route path="logOut" element={<LogOut />} />

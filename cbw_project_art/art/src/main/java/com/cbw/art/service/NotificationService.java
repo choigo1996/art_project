@@ -14,4 +14,6 @@ public interface NotificationService {
 	public BaseResponse<List<Notification>>getAllNotifi();
 	//게시글 삭제
 	public BaseResponse<Long> deleteNotifi(Long id);
+	//게시글 하나의 정보만을 가져온다.
+	Notification getNotiById(long id);
 }

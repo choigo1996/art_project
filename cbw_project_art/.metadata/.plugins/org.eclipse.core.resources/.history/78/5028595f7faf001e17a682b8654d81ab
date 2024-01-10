@@ -1,0 +1,14 @@
+package com.cbw.art.service;
+
+import com.cbw.art.dto.BaseResponse;
+import com.cbw.art.dto.CommentDto;
+import java.util.List;
+
+import jakarta.validation.constraints.AssertFalse.List;
+
+public interface CommentService {
+	//댓글작성
+	public BaseResponse<Void> createComment(CommentDto commentDto);
+	//댓글 목록
+	public BaseResponse<List<>>
+}

@@ -30,7 +30,7 @@ const Text = styled.p``;
 
 export function Products() {
   const navigate = useNavigate();
-  const { CheckList, setCheckList, lectures } = useContext(LectureContext);
+  const { lectures } = useContext(LectureContext);
 
   function onClick(id) {
     navigate(`${id}`);

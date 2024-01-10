@@ -36,7 +36,7 @@ public class PurchaseController {
 				purchaseServiceImpl.savePurchase(purchase),HttpStatus.OK);
 	}
 	//모든 회원이 구매한 목록을 저장
-	@PostMapping("list")
+	@PostMapping("/list")
 	public ResponseEntity<List<Purchase>> savePurchaseList(
 			@RequestBody List<Purchase> purchaseList) {
 		List<Purchase> savedPurchaseList = new ArrayList<Purchase>();

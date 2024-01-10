@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cbw.art.dto.LectureDto;
 import com.cbw.art.model.Lecture;
-import com.cbw.art.service.LectureService;
 import com.cbw.art.service.impl.LectureServiceImpl;
 
 @RestController

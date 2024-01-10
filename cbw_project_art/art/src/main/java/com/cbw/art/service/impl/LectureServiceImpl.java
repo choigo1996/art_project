@@ -54,7 +54,7 @@ public class LectureServiceImpl implements LectureService{
 		}
 		return lectureDtos;
 	}
-
+	//하나만가져오기
 	public Lecture getLectureById(long id) {
 		return lectureRepository.findById(id).orElseThrow(()->null);
 	}

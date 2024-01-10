@@ -1,66 +1,76 @@
 package com.cbw.art.dto;
 
+import java.time.LocalDateTime;
+
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+
+
 
 public class CommentDto {
-	
 	private long id;
-	
 	@NotBlank
-	private String content;
-	
-	@NotNull
-	private Long userId;
-	
-	@NotNull
-	private Long questionId;
-	
-	private Long parentCommentId;
-	
+	private String writer;
+	@NotBlank
+	private String text;
+	private long question;
+
+
 	public CommentDto() {
 		super();
 	}
-	
-	public CommentDto(long id, @NotBlank String content, @NotNull Long userId, @NotNull Long questionId,
-			Long parentCommentId) {
+
+
+	public CommentDto(long id, String writer, String text,long question) {
 		super();
 		this.id = id;
-		this.content = content;
-		this.userId = userId;
-		this.questionId = questionId;
-		this.parentCommentId = parentCommentId;
+		this.writer = writer;
+		this.text = text;
+		this.question = question;
 	}
-	
+
+
 	public long getId() {
 		return id;
 	}
+
+
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getContent() {
-		return content;
+
+
+	public String getWriter() {
+		return writer;
 	}
-	public void setContent(String content) {
-		this.content = content;
+
+
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
-	public Long getUserId() {
-		return userId;
+
+
+	public String getText() {
+		return text;
 	}
-	public void setUserId(Long userId) {
-		this.userId = userId;
+
+
+	public void setText(String text) {
+		this.text = text;
 	}
-	public Long getQuestionId() {
-		return questionId;
+
+
+	
+
+	public long getQuestion() {
+		return question;
 	}
-	public void setQuestionId(Long questionId) {
-		this.questionId = questionId;
+
+
+	public void setQuestion(long question) {
+		this.question = question;
 	}
-	public Long getParentCommentId() {
-		return parentCommentId;
-	}
-	public void setParentCommentId(Long parentCommentId) {
-		this.parentCommentId = parentCommentId;
-	}
+	
+	
+	
 	
 }

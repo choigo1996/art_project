@@ -1,0 +1,39 @@
+package com.cbw.art.controller;
+
+import com.cbw.art.dto.CommentDto;
+import com.cbw.art.service.CommentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/comments")
+public class CommentController {
+
+    @Autowired
+    private CommentService commentService;
+    //댓글추가
+    @PostMapping("/add")
+    public ResponseEntity<CommentDto> addComment(@RequestBody CommentDto commentDto) {
+        CommentDto addedComment = commentService.addComment(commentDto);
+        return new ResponseEntity<>(addedComment, HttpStatus.CREATED);
+    }
+    //댓글수정
+    @PutMapping("/update/{commentId}")
+    public ResponseEntity<CommentDto> updateComment(
+            @PathVariable Long commentId,
+            @RequestBody CommentDto commentDto
+    ) {
+        CommentDto updatedComment = commentService.updateComment(commentId, commentDto);
+        return new ResponseEntity<>(updatedComment, HttpStatus.OK);
+    }
+    //댓글삭제
+    @DeleteMapping("/delete/{commentId}")
+    public ResponseEntity<Void> deleteComment(@PathVariable Long commentId) {
+        commentService.deleteComment(commentId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    // 기타 댓글 조회 및 관련 API 엔드포인트 추가
+}

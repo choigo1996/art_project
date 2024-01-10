@@ -1,0 +1,9 @@
+package com.cbw.art.dto;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+public class CommentDto {
+	private long id;
+	
+}

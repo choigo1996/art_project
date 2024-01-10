@@ -45,13 +45,14 @@ public class NotificationController {
 				HttpStatus.CREATED);
 	}
 	//공지사항 목록
-	@GetMapping
+	@GetMapping("/list")
 	public ResponseEntity<BaseResponse<List<Notification>>> getAllNotifi()
 	{
 		return new ResponseEntity<>(
 				notificationServiceImpl.getAllNotifi(),
-				HttpStatus.OK);
+				HttpStatus.OK); 
 	}
+
 	//공지사항 삭제
 	@DeleteMapping("/delete/{id}")
 	@PreAuthorize("hasAnyRole('ADMIN')")
@@ -59,5 +60,11 @@ public class NotificationController {
 		return new ResponseEntity<>(
 				notificationServiceImpl.deleteNotifi(id),
 				HttpStatus.OK);
+	}
+	//공지사항 하나만 가져옴
+	@GetMapping("/list/{id}")
+	public ResponseEntity<Notification> getNotiById (@PathVariable long id) {
+		return new ResponseEntity<Notification>(
+				notificationServiceImpl.getNotiById(id),HttpStatus.OK);
 	}
 }

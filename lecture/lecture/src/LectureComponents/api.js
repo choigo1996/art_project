@@ -36,7 +36,6 @@ export function purchaseAllLecture(lectures, loginId) {
   const purchases = lectures.map((lecture) => ({
     lecture: lecture,
     loginId: loginId,
-    quantity: 1, // 원하는 구매 수량을 여기에 설정
   }));
   return fetch(`http://localhost:8080/api/products/purchase/list`, {
     method: "POST",
@@ -54,9 +53,25 @@ export function getPurchaseById(loginId) {
     method: "GET",
   }).then((response) => response.json());
 }
-//공지사항 생성
-export function getAllNotifi() {
+//공지사항 생성(ADMIN)
+export function createNoti(admin) {
   return fetch(`http://localhost:8080/api/board`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(admin),
+  }).then((response) => response());
+}
+//공지사항 목록
+export function getAllNotifi() {
+  return fetch(`http://localhost:8080/api/board/list`, {
+    method: "GET",
+  }).then((response) => response.json());
+}
+//공지사항 하나의 정보를 가져온다.
+export function getNotiById(id) {
+  return fetch(`http://localhost:8080/api/board/list/${id}`, {
     method: "GET",
   }).then((response) => response.json());
 }

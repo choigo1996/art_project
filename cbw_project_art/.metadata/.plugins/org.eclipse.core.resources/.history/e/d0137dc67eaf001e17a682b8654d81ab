@@ -1,0 +1,39 @@
+package com.cbw.art.dto;
+
+import java.time.LocalDateTime;
+
+import com.cbw.art.model.Question;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+
+public class CommentDto {
+	private long id;
+	@Column(nullable = false)
+	private String writer;
+	
+	@Column(nullable = false,length = 1500)
+	private String text;
+	
+	@Column(nullable = false,updatable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private LocalDateTime createAt;
+	
+	@ManyToOne
+	@JoinColumn(name = "question_id")
+	private Question question;
+	
+	public enum CommentType{
+		GENERAL,
+	    IMPORTANT,
+	    QUESTION,
+	    ANSWER,
+	}
+
+	
+	
+	
+}

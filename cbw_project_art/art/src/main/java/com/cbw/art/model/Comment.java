@@ -1,106 +1,103 @@
 package com.cbw.art.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
 
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
-@Table(name = "comment")
+@Table(name = "Comment")
 public class Comment {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@NotBlank
-	private String content;
+	@Column(nullable = false)
+	private String writer;
 	
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
+	@Column(nullable = false,length = 1500)
+	private String text;
 	
+	@Column(nullable = false,updatable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private LocalDateTime createAt;
+
 	@ManyToOne
 	@JoinColumn(name = "question_id")
 	private Question question;
 	
-	@ManyToOne
-	@JoinColumn(name = "parent_comment_id")
-	private Comment parentComment;
-	
-	@OneToMany(mappedBy = "parentComment", cascade = CascadeType.ALL)
-	private List<Comment> childComments = new ArrayList<>();
 
 	public Comment() {
 		super();
 	}
 
-	public Comment(long id, @NotBlank String content, User user, Question question, Comment parentComment,
-			List<Comment> childComments) {
+
+	public Comment(long id, String writer, String text, LocalDateTime createAt, Question question) {
 		super();
 		this.id = id;
-		this.content = content;
-		this.user = user;
+		this.writer = writer;
+		this.text = text;
+		this.createAt = createAt;
 		this.question = question;
-		this.parentComment = parentComment;
-		this.childComments = childComments;
 	}
+
 
 	public long getId() {
 		return id;
 	}
 
+
 	public void setId(long id) {
 		this.id = id;
 	}
 
-	public String getContent() {
-		return content;
+
+	public String getWriter() {
+		return writer;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 
-	public User getUser() {
-		return user;
+
+	public String getText() {
+		return text;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+
+	public void setText(String text) {
+		this.text = text;
 	}
+
+
+	public LocalDateTime getCreateAt() {
+		return createAt;
+	}
+
+
+	public void setCreateAt(LocalDateTime createAt) {
+		this.createAt = createAt;
+	}
+
 
 	public Question getQuestion() {
 		return question;
 	}
 
+
 	public void setQuestion(Question question) {
 		this.question = question;
-	}
-
-	public Comment getParentComment() {
-		return parentComment;
-	}
-
-	public void setParentComment(Comment parentComment) {
-		this.parentComment = parentComment;
-	}
-
-	public List<Comment> getChildComments() {
-		return childComments;
-	}
-
-	public void setChildComments(List<Comment> childComments) {
-		this.childComments = childComments;
 	}
 	
 	

@@ -44,7 +44,7 @@ public class QuestionController {
 				HttpStatus.CREATED);
 	}
 	//질의응답 목록
-	@GetMapping
+	@GetMapping("/list")
 	public ResponseEntity<BaseResponse<List<Question>>> getAllQuest()
 	{
 		return new ResponseEntity<>(
@@ -58,4 +58,10 @@ public class QuestionController {
 				questionServiceImpl.deleteQuest(id),
 					HttpStatus.OK);
 		}
+	//질의응답 하나만 가져옴
+	@GetMapping("/list/{id}")
+	public ResponseEntity<Question> getQuestById (@PathVariable long id) {
+		return new ResponseEntity<Question>(
+				questionServiceImpl.getQuestById(id),HttpStatus.OK);
+	}
 }

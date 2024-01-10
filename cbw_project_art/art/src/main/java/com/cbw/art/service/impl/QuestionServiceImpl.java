@@ -32,7 +32,7 @@ public class QuestionServiceImpl implements QuestionService{
 		this.questionRepository = questionRepository;
 		this.userRepository = userRepository;
 	}
-
+	//게시글 생성
 	public BaseResponse<Void> createQuest(QuestionDto questionDto) {
 		Optional<User> user = userRepository.findOneWithAuthoritiesByLoginId(questionDto.getWriter());
 		if(user == null) {
@@ -50,7 +50,7 @@ public class QuestionServiceImpl implements QuestionService{
 	                null,
 	                "질문 생성 완료되었습니다");
 	}
-
+	//게시글목록 가져오기
 	public BaseResponse<List<Question>> getAllQuest() {
 		List<Question> questions = questionRepository.findAll();
 		if(questions.isEmpty()) {
@@ -61,7 +61,7 @@ public class QuestionServiceImpl implements QuestionService{
 				questions,
 				ResultCode.SUCCESS.getMsg());
 	}
-
+	//게시글 삭제
 	public BaseResponse<Long> deleteQuest(Long id) {
 		Optional<Question> question = questionRepository.findById(id);
 		if(question.isEmpty()) {
@@ -72,6 +72,11 @@ public class QuestionServiceImpl implements QuestionService{
 				ResultCode.SUCCESS.name(),
 				id,
 				"질문사항이 삭제되었습니다.");
+	}
+	//게시글 하나만 가져옴.
+	@Override
+	public Question getQuestById(long id) {
+		return questionRepository.findById(id).orElseThrow(() -> null);
 	}
 	
 	

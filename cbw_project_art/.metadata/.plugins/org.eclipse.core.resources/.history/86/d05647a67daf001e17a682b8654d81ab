@@ -1,0 +1,9 @@
+package com.cbw.art.model;
+
+import jakarta.persistence.Entity;
+
+@Entity
+@Table(name = "Comment")
+public class Comment {
+
+}

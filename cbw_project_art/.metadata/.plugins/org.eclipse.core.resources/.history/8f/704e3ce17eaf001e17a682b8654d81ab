@@ -1,0 +1,23 @@
+package com.cbw.art.dto;
+
+import java.time.LocalDateTime;
+
+
+
+public class CommentDto {
+	private long id;
+	
+	private String writer;
+	
+	private String text;
+	
+
+	private LocalDateTime createAt;
+	
+
+	private long question;
+	
+	
+
+	
+}

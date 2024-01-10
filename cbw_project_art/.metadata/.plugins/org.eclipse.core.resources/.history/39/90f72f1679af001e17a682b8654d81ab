@@ -1,0 +1,10 @@
+package com.cbw.art.dto;
+
+
+public class CommentDto {
+	private Long id;
+	private String writer;
+	private String text;
+	private Long questionId;
+	
+}

@@ -1,0 +1,65 @@
+package com.cbw.art.service.impl;
+
+import com.cbw.art.dto.CommentDto;
+import com.cbw.art.model.Comment;
+import com.cbw.art.model.Question;
+import com.cbw.art.repository.CommentRepository;
+import com.cbw.art.repository.QuestionRepository;
+import com.cbw.art.service.CommentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+@Service
+public class CommentServiceImpl implements CommentService {
+
+    @Autowired
+    private CommentRepository commentRepository;
+
+    @Autowired
+    private QuestionRepository questionRepository;
+
+        public CommentDto addComment(CommentDto commentDto) {
+            Comment comment = new Comment();
+            comment.setWriter(commentDto.getWriter());
+            comment.setText(commentDto.getText());
+
+            // 주의: questionId가 null인 경우 처리
+            if (commentDto.getQuestionId() != null) {
+                Question question = questionRepository.findById(commentDto.getQuestionId())
+                        .orElseThrow(() -> new RuntimeException("해당 질문을 찾을 수 없습니다."));
+                comment.setQuestion(question);
+            }
+
+            // Comment 엔터티의 id가 null인 경우에만 저장
+            if (comment.getId() == null) {
+                // Comment 엔터티 저장
+                Comment savedComment = commentRepository.save(comment);
+
+                // Comment 엔터티를 CommentDto로 변환하여 반환
+                return new CommentDto(
+                        savedComment.getId(),
+                        savedComment.getWriter(),
+                        savedComment.getText(),
+                        savedComment.getQuestion().getId()
+                );
+            } else {
+                // id가 이미 존재하는 경우 (예: 업데이트 요청 등) 추가적인 처리
+                // 여기에서는 예외를 던지거나, 로그를 남기는 등의 추가 작업이 필요할 수 있음
+                throw new IllegalArgumentException("Comment 엔터티의 id는 null이어야 합니다.");
+            }
+        }
+    
+
+
+    @Override
+    public CommentDto updateComment(Long commentId, CommentDto commentDto) {
+        // TODO: 댓글 업데이트 로직 구현
+        return null;
+    }
+
+    @Override
+    public void deleteComment(Long commentId) {
+        // TODO: 댓글 삭제 로직 구현
+    }
+}
