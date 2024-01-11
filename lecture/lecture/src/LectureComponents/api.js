@@ -61,7 +61,7 @@ export function createNoti(admin) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(admin),
-  }).then((response) => response());
+  }).then((response) => response.json());
 }
 //공지사항 목록
 export function getAllNotifi() {
@@ -75,16 +75,37 @@ export function getNotiById(id) {
     method: "GET",
   }).then((response) => response.json());
 }
+//공지사항 삭제
+export function deleteNotifi(id) {
+  return fetch(`http://localhost:8080/api/board/delete/${id}`, {
+    method: "DELETE",
+  }).then((response) => response.json());
+}
 // 중복체크 API - loginId
 export function checkDuplicateLogin(loginId) {
   return fetch(`http://localhost:8080/api/checkDuplicate/loginId/${loginId}`, {
     method: "GET",
   }).then((response) => response.json());
 }
-
 // 중복체크 API - email
 export function checkDuplicateEmail(email) {
   return fetch(`http://localhost:8080/api/checkDuplicate/email/${email}`, {
+    method: "GET",
+  }).then((response) => response.json());
+}
+//QnA게시글 작성
+export function createQuest(user) {
+  return fetch(`http://localhost:8080/api/question`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  }).then((response) => response.json());
+}
+//QnA게시글 목록
+export function getAllQuest() {
+  return fetch(`http://localhost:8080/api/question/list`, {
     method: "GET",
   }).then((response) => response.json());
 }

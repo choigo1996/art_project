@@ -43,7 +43,8 @@ public class QuestionServiceImpl implements QuestionService{
 		question.setTitle(questionDto.getTitle());
 		question.setText(questionDto.getText());
 		question.setWriter(questionDto.getWriter());
-		
+		question.setUser(user.get());
+		question.setComments(questionDto.getComments());
 		questionRepository.save(question);
 		 return new BaseResponse<>(
 	                ResultCode.SUCCESS.name(),
