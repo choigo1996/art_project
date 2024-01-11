@@ -44,7 +44,8 @@ public class QuestionServiceImpl implements QuestionService{
 		question.setText(questionDto.getText());
 		question.setWriter(questionDto.getWriter());
 		question.setUser(user.get());
-		question.setComments(questionDto.getComments());
+		
+//		question.setComments(questionDto.getComments());
 		questionRepository.save(question);
 		 return new BaseResponse<>(
 	                ResultCode.SUCCESS.name(),
@@ -64,10 +65,12 @@ public class QuestionServiceImpl implements QuestionService{
 	}
 	//게시글 삭제
 	public BaseResponse<Long> deleteQuest(Long id) {
+		
 		Optional<Question> question = questionRepository.findById(id);
 		if(question.isEmpty()) {
 			throw new InvalidRequestException(Long.toString(id), "해당 질문사항은 존재하지 않습니다.");
 		}
+		
 		questionRepository.deleteById(id);
 		return new BaseResponse<>(
 				ResultCode.SUCCESS.name(),
@@ -77,7 +80,8 @@ public class QuestionServiceImpl implements QuestionService{
 	//게시글 하나만 가져옴.
 	@Override
 	public Question getQuestById(long id) {
-		return questionRepository.findById(id).orElseThrow(() -> null);
+	    return questionRepository.findById(id)
+	            .orElseThrow(() -> new InvalidRequestException(String.valueOf(id), "해당 ID의 질문이 존재하지 않습니다."));
 	}
 	
 	

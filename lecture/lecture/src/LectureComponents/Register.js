@@ -12,12 +12,37 @@ const Container = styled.div`
   border-radius: 20px;
   margin: 50px;
 `;
+
 const Header = styled.div`
   font-size: 1.5rem;
   text-align: center;
 `;
-const Righter = styled.div``;
-const Left = styled.div``;
+
+const Righter = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  & > div {
+    margin-bottom: 10px;
+  }
+`;
+
+const Left = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  & > ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  & > ul > li {
+    margin-bottom: 10px;
+  }
+`;
+
 const Button = styled.button`
   width: 100%;
   height: 25px;
@@ -30,9 +55,34 @@ const Button = styled.button`
   color: white;
   border: 1px solid blue;
 `;
-const DupliButton = styled.button``;
+
+const DupliButton = styled.button`
+  margin-left: 10px;
+`;
+
 const Ul = styled.ul`
   list-style-type: none;
+`;
+
+// 추가된 스타일
+const Input = styled.input`
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+`;
+
+const Message = styled.span`
+  &.success {
+    color: green;
+  }
+
+  &.error {
+    color: red;
+  }
+`;
+
+const Li = styled.li`
+  margin-bottom: 10px;
 `;
 
 export function Register() {

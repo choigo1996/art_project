@@ -1,0 +1,45 @@
+package com.cbw.art.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cbw.art.dto.BaseResponse;
+import com.cbw.art.dto.LectureReviewDto;
+import com.cbw.art.model.LectureReview;
+import com.cbw.art.repository.LectureRepository;
+import com.cbw.art.repository.LectureReviewRepository;
+import com.cbw.art.service.LectureReviewService;
+
+@Service
+public class LectureReviewServiceImpl implements LectureReviewService{
+	
+	private final LectureRepository lectureRepository;
+	private final LectureReviewRepository lectureReviewRepository;
+	
+	@Autowired
+	public LectureReviewServiceImpl(LectureRepository lectureRepository,
+			LectureReviewRepository lectureReviewRepository) {
+		super();
+		this.lectureRepository = lectureRepository;
+		this.lectureReviewRepository = lectureReviewRepository;
+	}
+	
+	//후기 생성
+	@Override
+	public BaseResponse<Void> createReview(LectureReviewDto lectureReviewDto) {
+		return null;
+	}
+
+	@Override
+	public BaseResponse<List<LectureReview>> getAllReview() {
+		return null;
+	}
+
+	@Override
+	public BaseResponse<Long> deleteReview(Long id) {
+		return null;
+	}
+
+}

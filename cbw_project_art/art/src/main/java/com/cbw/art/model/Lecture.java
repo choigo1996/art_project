@@ -1,10 +1,14 @@
 package com.cbw.art.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -13,21 +17,31 @@ public class Lecture {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	
 	@Column
 	private String title;
+	
 	@Column
 	private String category;
+	
 	@Column
 	private String teacher;
+	
 	@Column
 	private String image;
+	
 	@Column
 	private int price;
+	
+	@OneToMany(mappedBy = "lecture")
+	private List<LectureReview> reviews = new ArrayList<>();
+	
 	public Lecture() {
 		super();
 	}
 
-	public Lecture(long id, String title, String category, String teacher, String image, int price) {
+	public Lecture(long id, String title, String category, String teacher, String image, int price,
+			List<LectureReview> reviews) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -35,6 +49,7 @@ public class Lecture {
 		this.teacher = teacher;
 		this.image = image;
 		this.price = price;
+		this.reviews = reviews;
 	}
 
 	public long getId() {
@@ -84,5 +99,15 @@ public class Lecture {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+
+	public List<LectureReview> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<LectureReview> reviews) {
+		this.reviews = reviews;
+	}
+
+	
 
 }
