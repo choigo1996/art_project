@@ -3,8 +3,10 @@ package com.cbw.art.service;
 import java.util.List;
 
 import com.cbw.art.dto.LectureDto;
+import com.cbw.art.dto.LectureReviewDto;
 import com.cbw.art.model.Lecture;
 import com.cbw.art.model.LectureList;
+import com.cbw.art.model.LectureReview;
 
 public interface LectureService{
 	
@@ -20,4 +22,8 @@ public interface LectureService{
 	void deleteLectureById(long id);
 	//강의 목록들을 강의안에 모두 DB로 저장
 	List<LectureList> getListsByLectureId(long lectureId);
+	//특정 강의에 속한 후기들 조회
+	List<LectureReview> getReviewByLectureId(long lectureId);
+	//특정 강의에 후기 추가
+	void addReviewToLecuture(long lectureId,LectureReviewDto reviewDto);
 }

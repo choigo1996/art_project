@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cbw.art.dto.BaseResponse;
 import com.cbw.art.dto.LectureDto;
+import com.cbw.art.enumstatus.ResultCode;
 import com.cbw.art.model.Lecture;
+import com.cbw.art.model.LectureReview;
 import com.cbw.art.service.impl.LectureServiceImpl;
 
 @RestController
@@ -63,5 +66,14 @@ public class LectureController {
 	public ResponseEntity<String> deleteLectureById(@PathVariable long id) {
 		return new ResponseEntity<String>(
 				"삭제 완료.",HttpStatus.OK);
+	}
+	//특정 강의에 속한 후기들 조회
+	@GetMapping("/{lectureId}/reviews")
+	public ResponseEntity<BaseResponse<List<LectureReview>>>getLectureReviews(@PathVariable long lectureId){
+		List<LectureReview> lectureReviews = lectureServiceImpl.getReviewByLectureId(lectureId);
+		return ResponseEntity.ok(new BaseResponse<>(
+				ResultCode.SUCCESS.name(),
+				lectureReviews,
+				ResultCode.SUCCESS.getMsg()));
 	}
 }

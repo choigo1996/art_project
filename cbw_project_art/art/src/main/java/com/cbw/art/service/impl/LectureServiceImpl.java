@@ -7,10 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cbw.art.dto.LectureDto;
+import com.cbw.art.dto.LectureReviewDto;
+import com.cbw.art.exception.InvalidRequestException;
 import com.cbw.art.model.Lecture;
 import com.cbw.art.model.LectureList;
+import com.cbw.art.model.LectureReview;
 import com.cbw.art.repository.LectureListRepository;
 import com.cbw.art.repository.LectureRepository;
+import com.cbw.art.repository.LectureReviewRepository;
 import com.cbw.art.service.LectureService;
 
 import jakarta.transaction.Transactional;
@@ -21,13 +25,17 @@ public class LectureServiceImpl implements LectureService{
 	
 	private LectureRepository lectureRepository;
 	private LectureListRepository leListRepository;
+	private LectureReviewRepository reviewRepository;
 	
 	@Autowired
-	public LectureServiceImpl(LectureRepository lectureRepository, LectureListRepository leListRepository) {
+	public LectureServiceImpl(LectureRepository lectureRepository, LectureListRepository leListRepository,
+			LectureReviewRepository reviewRepository) {
 		super();
 		this.lectureRepository = lectureRepository;
 		this.leListRepository = leListRepository;
+		this.reviewRepository = reviewRepository;
 	}
+	
 	//DB저장
 	public Lecture saveLecture(Lecture lecture) {
 		return lectureRepository.save(lecture);
@@ -79,6 +87,23 @@ public class LectureServiceImpl implements LectureService{
 	public List<LectureList> getListsByLectureId(long lectureId) {
 
 		return leListRepository.findByLectureId(lectureId);
+	}
+	@Override
+	public List<LectureReview> getReviewByLectureId(long lectureId) {
+		return lectureRepository.findLectureReivewsById(lectureId);
+	}
+	@Override
+	public void addReviewToLecuture(long lectureId, LectureReviewDto reviewDto) {
+		Lecture lecture = lectureRepository.findById(lectureId)
+				.orElseThrow(() -> new InvalidRequestException("Not lectureId", "해당 아이디가 존재하지 않습니다."));
+						
+		LectureReview lectureReview = new LectureReview();
+		lectureReview.setWriter(reviewDto.getWriter());
+		lectureReview.setText(reviewDto.getText());
+		lectureReview.setRating(reviewDto.getRating());
+		lectureReview.setLecture(lecture);
+		
+		reviewRepository.save(lectureReview);
 	}
 	
 

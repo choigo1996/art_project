@@ -3,6 +3,7 @@ package com.cbw.art.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,7 +34,7 @@ public class Lecture {
 	@Column
 	private int price;
 	
-	@OneToMany(mappedBy = "lecture")
+	@OneToMany(mappedBy = "lecture",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<LectureReview> reviews = new ArrayList<>();
 	
 	public Lecture() {

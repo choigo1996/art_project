@@ -14,5 +14,5 @@ public interface LectureReviewService {
 	//댓글 삭제
 	public BaseResponse<Long> deleteReview(Long id);
 	//댓글 상세 조회
-	
+	LectureReview getReviewById(long id);
 }

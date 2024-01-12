@@ -77,4 +77,10 @@ public class LectureReviewServiceImpl implements LectureReviewService{
 				"후기가 삭제되었습니다.");
 	}
 
+	@Override
+	public LectureReview getReviewById(long id) {
+		return lectureReviewRepository.findById(id)
+				.orElseThrow(() -> new InvalidRequestException(String.valueOf(id), "해당 ID는 존재하지않습니다."));
+	}
+
 }

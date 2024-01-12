@@ -20,12 +20,14 @@ public class LectureDto {
 
 	private List<LectureList> lectureLists;
 	
+	private List<LectureReviewDto> lectureReviews;
+	
 	public LectureDto() {
 		super();
 	}
 
 	public LectureDto(long id, String title, String category, String image, int price, String teacher,
-			List<LectureList> lectureLists) {
+			List<LectureList> lectureLists, List<LectureReviewDto> lectureReviews) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -34,6 +36,7 @@ public class LectureDto {
 		this.price = price;
 		this.teacher = teacher;
 		this.lectureLists = lectureLists;
+		this.lectureReviews = lectureReviews;
 	}
 
 	public long getId() {
@@ -90,6 +93,15 @@ public class LectureDto {
 
 	public void setLectureLists(List<LectureList> lectureLists) {
 		this.lectureLists = lectureLists;
-	}	
+	}
+
+	public List<LectureReviewDto> getLectureReviews() {
+		return lectureReviews;
+	}
+
+	public void setLectureReviews(List<LectureReviewDto> lectureReviews) {
+		this.lectureReviews = lectureReviews;
+	}
+	
 	
 }
