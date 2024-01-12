@@ -101,7 +101,7 @@ public class LectureServiceImpl implements LectureService{
 		lectureReview.setWriter(reviewDto.getWriter());
 		lectureReview.setText(reviewDto.getText());
 		lectureReview.setRating(reviewDto.getRating());
-		lectureReview.setLecture(lecture);
+//		lectureReview.setLecture(lecture);
 		
 		reviewRepository.save(lectureReview);
 	}

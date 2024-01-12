@@ -1,6 +1,7 @@
 package com.cbw.art.service;
 
 import com.cbw.art.dto.UserDto;
+import com.cbw.art.enumstatus.AuthorityType;
 
 public interface UserService {
 	//회원가입
@@ -12,4 +13,7 @@ public interface UserService {
 	//중복체크
 	public boolean isUserIdDuplicate(String loginId);
 	public boolean isEmailTaken(String email);
+	//ROLE_자동화
+	void updateUserRole(long userId,AuthorityType authorityType);
+
 }

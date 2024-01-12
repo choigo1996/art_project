@@ -1,11 +1,11 @@
 [
 	{
-		"authorityName" : "ROLE_ADMIN"
+		"authorityType" : "ROLE_ADMIN"
 	},
 	{
-		"authorityName" : "ROLE_USER"
+		"authorityType" : "ROLE_USER"
 	},
 	{
-		"authorityName" : "ROLE_TEACHER"
+		"authorityType" : "ROLE_TEACHER"
 	}
 ]

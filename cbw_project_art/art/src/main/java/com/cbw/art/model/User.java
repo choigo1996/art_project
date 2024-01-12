@@ -1,6 +1,7 @@
 package com.cbw.art.model;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -44,11 +45,12 @@ public class User {
 	private boolean activated;
 	
 	@ManyToMany
-	@JoinTable(
-			name = "user_authority",
-			joinColumns = {@JoinColumn(name = "id", referencedColumnName = "id")},
-			inverseJoinColumns = {@JoinColumn(name = "authority_name",referencedColumnName = "authority_name")})
-			private Set<Authority> authorities;
+    @JoinTable(
+        name = "user_authority",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "authority_type")
+    )
+	private Set<Authority> authorities = new HashSet<>();
 	
 	public User() {
 		super();
@@ -130,7 +132,4 @@ public class User {
 	public void setAuthorities(Set<Authority> authorities) {
 		this.authorities = authorities;
 	}
-
-	
-	
 }

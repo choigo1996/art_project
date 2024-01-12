@@ -4,6 +4,7 @@ package com.cbw.art.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cbw.art.dto.BaseResponse;
 import com.cbw.art.dto.UserDto;
+import com.cbw.art.enumstatus.AuthorityType;
 import com.cbw.art.enumstatus.ResultCode;
 import com.cbw.art.service.impl.UserServiceImpl;
 
@@ -93,5 +96,13 @@ public class UserController {
 		}
 		System.out.println(isDuplicate);
 		return ResponseEntity.ok(response);
+	}
+
+	//권한부여
+	@PostMapping("/{userId}/update-role")
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	public ResponseEntity<String> updateRole(@PathVariable long Id,@RequestParam AuthorityType authorityType) {
+		userServiceImpl.updateUserRole(Id, authorityType);
+		return new ResponseEntity<>("User role updated successfully",HttpStatus.OK);
 	}
 }

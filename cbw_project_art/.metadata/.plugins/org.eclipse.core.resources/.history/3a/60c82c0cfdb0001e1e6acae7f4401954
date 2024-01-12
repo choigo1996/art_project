@@ -1,0 +1,11 @@
+[
+	{
+		"authorityName" : "ROLE_ADMIN"
+	},
+	{
+		"authorityName" : "ROLE_USER"
+	},
+	{
+		"authorityName" : "ROLE_TEACHER"
+	}
+]

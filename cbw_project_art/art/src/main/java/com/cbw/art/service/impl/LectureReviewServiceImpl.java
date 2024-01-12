@@ -44,7 +44,7 @@ public class LectureReviewServiceImpl implements LectureReviewService{
 		long letureId = lectureReviewDto.getLectureId();
 		Lecture lecture = lectureRepository.findById(letureId)
 				.orElseThrow(() ->  new InvalidRequestException("Not lectureId", "해당 ID의 강의를 찾을 수 없음"));
-        lectureReview.setLecture(lecture);
+//        lectureReview.setLecture(lecture);
 		lectureReviewRepository.save(lectureReview);
 		return new BaseResponse<>(
 				ResultCode.SUCCESS.name(),

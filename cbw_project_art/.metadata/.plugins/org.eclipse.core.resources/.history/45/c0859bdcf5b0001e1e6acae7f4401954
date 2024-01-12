@@ -1,0 +1,46 @@
+package com.cbw.art.model;
+
+import com.cbw.art.enumstatus.AuthorityType;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "authority")
+public class Authority {
+	@Id
+	@Enumerated(EnumType.STRING)
+	@Column(name = "authority_type")
+	private AuthorityType authorityType;
+	
+	public Authority() {
+		super();
+	}
+
+	public Authority(String authorityName, AuthorityType authorityType) {
+		super();
+		this.authorityName = authorityName;
+		this.authorityType = authorityType;
+	}
+
+	public String getAuthorityName() {
+		return authorityName;
+	}
+
+	public void setAuthorityName(String authorityName) {
+		this.authorityName = authorityName;
+	}
+
+	public AuthorityType getAuthorityType() {
+		return authorityType;
+	}
+
+	public void setAuthorityType(AuthorityType authorityType) {
+		this.authorityType = authorityType;
+	}
+
+}

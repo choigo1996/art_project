@@ -1,7 +1,11 @@
 package com.cbw.art.model;
 
+import com.cbw.art.enumstatus.AuthorityType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -9,25 +13,26 @@ import jakarta.persistence.Table;
 @Table(name = "authority")
 public class Authority {
 	@Id
-	@Column(name = "authority_name", length = 50)
-	private String authorityName;
-
-	public Authority(String authorityName) {
-		super();
-		this.authorityName = authorityName;
-	}
-
+	@Enumerated(EnumType.STRING)
+	@Column(name = "authority_type")
+	private AuthorityType authorityType;
+	
 	public Authority() {
 		super();
 	}
 
-	public String getAuthorityName() {
-		return authorityName;
+	public Authority( AuthorityType authorityType) {
+		super();
+		this.authorityType = authorityType;
 	}
 
-	public void setAuthorityName(String authorityName) {
-		this.authorityName = authorityName;
+	
+	public AuthorityType getAuthorityType() {
+		return authorityType;
 	}
-	
-	
+
+	public void setAuthorityType(AuthorityType authorityType) {
+		this.authorityType = authorityType;
+	}
+
 }
