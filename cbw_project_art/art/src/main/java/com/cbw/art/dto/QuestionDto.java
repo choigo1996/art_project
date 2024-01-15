@@ -15,26 +15,27 @@ public class QuestionDto {
 	private String title;
 	@NotBlank
 	private String text;
-	private Long userId;
 	
 	private List<Long> commentIds;
 	
 	private List<Comment> comments;
 	
+	private Long lectureId;
+	
 	public QuestionDto() {
 		super();
 	}
 
-	public QuestionDto(long id, @NotBlank String writer, @NotBlank String title, @NotBlank String text, Long userId,
-			List<Long> commentIds, List<Comment> comments) {
+	public QuestionDto(long id, @NotBlank String writer, @NotBlank String title, @NotBlank String text,
+			List<Long> commentIds, List<Comment> comments, Long lectureId) {
 		super();
 		this.id = id;
 		this.writer = writer;
 		this.title = title;
 		this.text = text;
-		this.userId = userId;
 		this.commentIds = commentIds;
 		this.comments = comments;
+		this.lectureId = lectureId;
 	}
 
 	public long getId() {
@@ -69,14 +70,6 @@ public class QuestionDto {
 		this.text = text;
 	}
 
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-
 	public List<Long> getCommentIds() {
 		return commentIds;
 	}
@@ -93,5 +86,11 @@ public class QuestionDto {
 		this.comments = comments;
 	}
 
+	public Long getLectureId() {
+		return lectureId;
+	}
 
+	public void setLectureId(Long lectureId) {
+		this.lectureId = lectureId;
+	}	
 }

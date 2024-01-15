@@ -11,8 +11,10 @@ import com.cbw.art.dto.BaseResponse;
 import com.cbw.art.dto.QuestionDto;
 import com.cbw.art.enumstatus.ResultCode;
 import com.cbw.art.exception.InvalidRequestException;
+import com.cbw.art.model.Lecture;
 import com.cbw.art.model.Question;
 import com.cbw.art.model.User;
+import com.cbw.art.repository.LectureRepository;
 import com.cbw.art.repository.QuestionRepository;
 import com.cbw.art.repository.UserRepository;
 import com.cbw.art.service.QuestionService;
@@ -25,18 +27,27 @@ public class QuestionServiceImpl implements QuestionService{
 	
 	private final QuestionRepository questionRepository;
 	private final UserRepository userRepository;
+	private final LectureRepository lectureRepository;
 	
 	@Autowired
-	public QuestionServiceImpl(QuestionRepository questionRepository, UserRepository userRepository) {
+	public QuestionServiceImpl(QuestionRepository questionRepository, UserRepository userRepository,
+			LectureRepository lectureRepository) {
 		super();
 		this.questionRepository = questionRepository;
 		this.userRepository = userRepository;
+		this.lectureRepository = lectureRepository;
 	}
 	//게시글 생성
 	public BaseResponse<Void> createQuest(QuestionDto questionDto) {
+		//사용자 정보 가져오기
 		Optional<User> user = userRepository.findOneWithAuthoritiesByLoginId(questionDto.getWriter());
 		if(user == null) {
 			throw new InvalidRequestException("Invalid Writer", "글쓰기 권한이 없습니다");
+		}
+		//강의 정보 가져오기
+		Optional<Lecture> lecture = lectureRepository.findById(questionDto.getLectureId());
+		if(lecture == null) {
+			throw new InvalidRequestException("Invalid lecture", "존재하지않는 강의입니다.");
 		}
 		Question question = new Question();
 		question.setCreateAt(LocalDateTime.now());
@@ -44,14 +55,14 @@ public class QuestionServiceImpl implements QuestionService{
 		question.setText(questionDto.getText());
 		question.setWriter(questionDto.getWriter());
 		question.setUser(user.get());
-		
-//		question.setComments(questionDto.getComments());
+		question.setLecture(lecture.get());
 		questionRepository.save(question);
 		 return new BaseResponse<>(
 	                ResultCode.SUCCESS.name(),
 	                null,
 	                "질문 생성 완료되었습니다");
 	}
+
 	//게시글목록 가져오기
 	public BaseResponse<List<Question>> getAllQuest() {
 		List<Question> questions = questionRepository.findAll();

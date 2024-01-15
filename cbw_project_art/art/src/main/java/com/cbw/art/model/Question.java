@@ -1,19 +1,15 @@
 package com.cbw.art.model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
-import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -42,20 +38,16 @@ public class Question {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
-	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Comment> comments = new ArrayList<>();
-	
-	public void addComment(Comment comment) {
-		this.comments.add(comment);
-		comment.setQuestion(this);
-	}
+	@ManyToOne
+	@JoinColumn(name = "lecture_id")
+	private Lecture lecture;
 	
 	public Question() {
 		super();
 	}
 
 	public Question(long id, String writer, String title, String text, LocalDateTime createAt, User user,
-			List<Comment> comments) {
+			Lecture lecture) {
 		super();
 		this.id = id;
 		this.writer = writer;
@@ -63,7 +55,7 @@ public class Question {
 		this.text = text;
 		this.createAt = createAt;
 		this.user = user;
-		this.comments = comments;
+		this.lecture = lecture;
 	}
 
 	public long getId() {
@@ -114,12 +106,12 @@ public class Question {
 		this.user = user;
 	}
 
-	public List<Comment> getComments() {
-		return comments;
+	public Lecture getLecture() {
+		return lecture;
 	}
 
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
+	public void setLecture(Lecture lecture) {
+		this.lecture = lecture;
 	}
-	
+
 }

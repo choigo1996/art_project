@@ -59,6 +59,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/board/list/{id}").permitAll()
                         .requestMatchers("/api/question/list").permitAll()
                         .requestMatchers("/api/review").permitAll()
+                        .requestMatchers("/api/comment/list").permitAll()
+                        .requestMatchers("/api/comment/list/{id}").permitAll()
                         .anyRequest().authenticated()
                 )
                 //세션관리(상태없음)
