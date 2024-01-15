@@ -1,0 +1,47 @@
+package com.cbw.art.service.impl;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.cbw.art.dto.BaseResponse;
+import com.cbw.art.dto.PostDto;
+import com.cbw.art.repository.PostRepository;
+import com.cbw.art.service.PostService;
+
+@Service
+@Transactional
+public class PostServiceImpl implements PostService{
+	
+	private final PostRepository postRepository;
+	private
+	
+	@Override
+	public BaseResponse<Void> createPost(PostDto dto, String loginId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public BaseResponse<List<PostDto>> getAllPost() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BaseResponse<Long> deletePost(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PostDto getPostById(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	
+
+
+}

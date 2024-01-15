@@ -50,9 +50,9 @@ export function Products() {
         <select onChange={(e) => setSelectedCategory(e.target.value)}>
           <option value="">전체</option>
           {/* 여기에 강의에 존재하는 모든 카테고리 목록을 추가하세요. */}
-          <option value="만화 > 웹툰"> 웹툰</option>
-          <option value="만화 > 상업지 만화">상업지 만화</option>
-          <option value="소설 > 판타지">임마!</option>
+          <option value="웹툰"> 웹툰</option>
+          <option value="상업지 만화">상업지 만화</option>
+          <option value="소설">소설</option>
         </select>
       </div>
       <Container>

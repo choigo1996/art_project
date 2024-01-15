@@ -1,0 +1,23 @@
+[
+	{
+		"category" : "만화 > 웹툰",
+		"title" : "웹툰의 정석",
+		"teacher" : "김도",
+		"image" : "https://i.namu.wiki/i/kVdcBkNXfPmxO6M9pAYInpfefSY2ilu-Fl9Q1LTPjYb0LjiIm4HtuHaPyPWj6lYvFJbe1TlrM-6QyQn-QEnKCMicIHLseYpPxY6zz-n8EPRYGflRxhKKOeAWhX03MrhXbsEFU-M2vf6pQijROw6_Cw.webp",
+		"price" : 10000
+	},
+	{
+		"category" : "만화 > 상업지 만화",
+		"title" : "만화의 정석",
+		"teacher" : "김도",
+		"image" : "https://i.namu.wiki/i/kVdcBkNXfPmxO6M9pAYInpfefSY2ilu-Fl9Q1LTPjYb0LjiIm4HtuHaPyPWj6lYvFJbe1TlrM-6QyQn-QEnKCMicIHLseYpPxY6zz-n8EPRYGflRxhKKOeAWhX03MrhXbsEFU-M2vf6pQijROw6_Cw.webp",
+		"price" : 10000
+	},
+	{
+		"category" : "소설",
+		"title" : "등장인물 구성하기",
+		"teacher" : "김소월",
+		"image" : "https://lh3.googleusercontent.com/pw/ABLVV84qaM41vWfbHdnOvbvi5mEWya1D48rd4xmhfGfjAdULfinf28ieJb5YRe88BS9gtWYxUUu7TzK4cqQ_5vK1kkOU1GvNIs2MWqHZ0HxCdTIF4zykkSNiA-PEDFF3RiKEUXBYP20s3UAfVe-mqJqnkTFffPNSiZY0y9QmCMjrdR-a9eO1Sz39XSM57HXezfMTVsseWXE2N1urt57lzKSnqaQ0lMiraSM-7Ucl8lMao6pLnbWhg3EUyl2R9wR3buwW1dQKtDM4j3dZ6HlHZ8BmxdfoxZv6i7H4F38mycNZJDqpwMe6M7JCY7rX9WFulpPNlBnSHc-1uv-CdMJP86dBVbWjQ9I_fLAjYpzDhfrMUvJuICSqC6lJIFW-1F0Ua0STrqDCIrNZBktMGI91nLw562XlT9uPugS6Vz2keUedCNJTJq9OhJ02nXyH_SItZ0nB_FxOFnsCMlqw5SHIfWpFgmQejQqyouB5BbXHHnOPmCC0adU1RXzr6EcXGPtbJeHtFwh781zy3YIhdMIBbI2Yz5GslX-ogaa0DtRg7Cqh6MFa-12ckG2qvXdeatwzf487I9NLDv9bLEe3e0G3OlNrooViRQ0JX3DPCDC_g2bzHnIvu46dbpwvAfFkMb-gjxAtF38IsfOc-3jIKMuHKN8SNd0CC01QukattkhdV4LrwK5zwIOYW-c3OwcFIzPJmbWi2Pq1aKNVPZx1VvMracFi7JIbpXgjk0986JQaLcmw0yBU8W3CUXn6GVp0-SxAvuy3YUWVI-4p6Oovyjdsuf81z-UYDaxbauKiNNqBb8Rakg8knP4-sgDbk1v_83VREPzRmcAxmBywa96XLADHxkAUyiv-b_Voru3iHCREeSBFb_2MtJfDSnyu6LQ6jQ1HzMf1otojTw=w500-h751-s-no-gm?authuser=0",
+		"price" : 10000
+	}
+]

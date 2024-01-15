@@ -1,0 +1,24 @@
+package com.cbw.art.service;
+
+import com.cbw.art.dto.BaseResponse;
+import com.cbw.art.dto.CommentDto;
+import com.cbw.art.model.Comment;
+
+import java.util.List;
+
+
+public interface CommentService {
+
+    // 댓글 작성
+    CommentDto createComment(long questionId, CommentDto commentDto);
+
+    // 해당 질문의 댓글 목록 조회
+    List<CommentDto> getCommentsByQuestionId(long questionId);
+
+    // 댓글 목록 조회
+    BaseResponse<List<Comment>> getAllComments();
+
+    // 댓글 삭제
+    BaseResponse<Long> deleteComment(Long id);
+}
+

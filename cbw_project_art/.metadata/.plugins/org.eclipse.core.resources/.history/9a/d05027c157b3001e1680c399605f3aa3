@@ -1,0 +1,67 @@
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cbw.art.dto.CommentDto;
+import com.cbw.art.repository.CommentRepository;
+import com.cbw.art.repository.QuestionRepository;
+import com.cbw.art.service.CommentService;
+
+@Service
+public class CommentServiceImpl implements CommentService {
+
+    private final CommentRepository commentRepository;
+    private final QuestionRepository questionRepository;
+
+    @Autowired
+    public CommentServiceImpl(CommentRepository commentRepository, QuestionRepository questionRepository) {
+        this.commentRepository = commentRepository;
+        this.questionRepository = questionRepository;
+    }
+
+    @Override
+    public CommentDto createComment(long questionId, CommentDto commentDto) {
+        if (commentDto.getWriter() == null || commentDto.getWriter().isEmpty()) {
+            throw new InvalidRequestException("Invalid Writer", "댓글 작성자가 없습니다.");
+        }
+
+        Question question = questionRepository.findById(questionId)
+                .orElseThrow(() -> new InvalidRequestException("Invalid Question", "존재하지 않는 질문입니다."));
+
+        Comment comment = new Comment();
+        comment.setWriter(commentDto.getWriter());
+        comment.setText(commentDto.getText());
+        comment.setCreateAt(LocalDateTime.now());
+        comment.setQuestion(question);
+
+        commentRepository.save(comment);
+
+        // 여기서 CommentDto를 생성하여 반환하도록 수정해야 합니다.
+        // CommentDto의 구조에 따라서 어떤 정보를 반환할지 결정하셔야 합니다.
+        return new CommentDto();
+    }
+
+    @Override
+    public List<CommentDto> getCommentsByQuestionId(long questionId) {
+        // 여기서 해당 질문의 댓글 목록을 조회하여 CommentDto 리스트를 생성하여 반환해야 합니다.
+        // 구체적인 구현은 생략했으므로 실제 로직에 맞게 구현하셔야 합니다.
+        return new ArrayList<>();
+    }
+
+    @Override
+    public BaseResponse<List<Comment>> getAllComments() {
+        List<Comment> comments = commentRepository.findAll();
+        if (comments.isEmpty()) {
+            throw new InvalidRequestException("Not Found", "등록된 댓글이 없음.");
+        }
+        return new BaseResponse<>(ResultCode.SUCCESS.name(), comments, ResultCode.SUCCESS.getMsg());
+    }
+
+    @Override
+    public BaseResponse<Long> deleteComment(Long id) {
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(() -> new InvalidRequestException("Invalid Comment", "존재하지 않는 댓글입니다."));
+
+        commentRepository.deleteById(id);
+        return new BaseResponse<>(ResultCode.SUCCESS.name(), id, "댓글이 성공적으로 삭제되었습니다.");
+    }
+}

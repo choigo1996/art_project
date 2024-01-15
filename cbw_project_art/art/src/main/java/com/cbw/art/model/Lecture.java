@@ -26,14 +26,14 @@ public class Lecture {
 	@Column
 	private String teacher;
 	
-	@Column
+	@Column(length = 1500)
 	private String image;
 	
 	@Column
 	private int price;
 	
-	@OneToMany(mappedBy = "lecture")
-	private List<LectureReview> reviews;
+//	@OneToMany(mappedBy = "lecture")
+//	private List<LectureReview> reviews;
 	
 	public Lecture() {
 		super();
@@ -48,7 +48,7 @@ public class Lecture {
 		this.teacher = teacher;
 		this.image = image;
 		this.price = price;
-		this.reviews = reviews;
+//		this.reviews = reviews;
 	}
 
 	public long getId() {
@@ -99,13 +99,13 @@ public class Lecture {
 		this.price = price;
 	}
 
-	public List<LectureReview> getReviews() {
-		return reviews;
-	}
-
-	public void setReviews(List<LectureReview> reviews) {
-		this.reviews = reviews;
-	}
+//	public List<LectureReview> getReviews() {
+//		return reviews;
+//	}
+//
+//	public void setReviews(List<LectureReview> reviews) {
+//		this.reviews = reviews;
+//	}
 
 	
 

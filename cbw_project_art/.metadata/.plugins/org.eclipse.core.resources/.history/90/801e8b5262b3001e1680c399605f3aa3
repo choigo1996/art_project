@@ -1,0 +1,11 @@
+package com.cbw.art.dto;
+
+import java.util.List;
+
+public class PostDto {
+	private long id;
+	private String writer;
+	private String title;
+	private String text;
+	private List<CommentDto> commentDtos;
+}

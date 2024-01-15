@@ -1,75 +1,55 @@
 package com.cbw.art.dto;
 
 
-import jakarta.validation.constraints.NotBlank;
-
-
-
 public class CommentDto {
 	private long id;
-	@NotBlank
 	private String writer;
-	@NotBlank
 	private String text;
-	private long question;
-
-
+	private PostDto postDto;
+	
 	public CommentDto() {
 		super();
 	}
 
-
-	public CommentDto(long id, String writer, String text,long question) {
+	public CommentDto(long id, String writer, String text, PostDto postDto) {
 		super();
 		this.id = id;
 		this.writer = writer;
 		this.text = text;
-		this.question = question;
+		this.postDto = postDto;
 	}
-
 
 	public long getId() {
 		return id;
 	}
 
-
 	public void setId(long id) {
 		this.id = id;
 	}
-
 
 	public String getWriter() {
 		return writer;
 	}
 
-
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
-
 
 	public String getText() {
 		return text;
 	}
 
-
 	public void setText(String text) {
 		this.text = text;
 	}
 
-
-	
-
-	public long getQuestion() {
-		return question;
+	public PostDto getPostDto() {
+		return postDto;
 	}
 
-
-	public void setQuestion(long question) {
-		this.question = question;
+	public void setPostDto(PostDto postDto) {
+		this.postDto = postDto;
 	}
-	
-	
 	
 	
 }
