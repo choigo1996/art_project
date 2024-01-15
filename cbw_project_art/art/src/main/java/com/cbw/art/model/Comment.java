@@ -9,92 +9,96 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
-@Table(name = "comments")
+@Table(name = "Comment")
 public class Comment {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	@Column
-	private String writer;
-	@Column
-	private String text;
-	@Column
-	@Temporal(TemporalType.TIMESTAMP)
-	private LocalDateTime createdAt;
-	@ManyToOne
-	private Post post;
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
+	private long id;
 	
+	@Column(nullable = false)
+	private String writer;
+	
+	@Column(nullable = false,length = 1500)
+	private String text;
+	
+	@Column(nullable = false,updatable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private LocalDateTime createAt;
+
+	@ManyToOne
+	@JoinColumn(name = "question_id")
+	private Question question;
+	
+
 	public Comment() {
 		super();
 	}
 
-	public Comment(Long id, String writer, String text, LocalDateTime createdAt, Post post, User user) {
+
+	public Comment(long id, String writer, String text, LocalDateTime createAt, Question question) {
 		super();
 		this.id = id;
 		this.writer = writer;
 		this.text = text;
-		this.createdAt = createdAt;
-		this.post = post;
-		this.user = user;
+		this.createAt = createAt;
+		this.question = question;
 	}
 
-	public Long getId() {
+
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+
+	public void setId(long id) {
 		this.id = id;
 	}
+
 
 	public String getWriter() {
 		return writer;
 	}
 
+
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
+
 
 	public String getText() {
 		return text;
 	}
 
+
 	public void setText(String text) {
 		this.text = text;
 	}
 
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
+
+	public LocalDateTime getCreateAt() {
+		return createAt;
 	}
 
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
+
+	public void setCreateAt(LocalDateTime createAt) {
+		this.createAt = createAt;
 	}
 
-	public Post getPost() {
-		return post;
+
+	public Question getQuestion() {
+		return question;
 	}
 
-	public void setPost(Post post) {
-		this.post = post;
-	}
 
-	public User getUser() {
-		return user;
+	public void setQuestion(Question question) {
+		this.question = question;
 	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	
 	
 }
