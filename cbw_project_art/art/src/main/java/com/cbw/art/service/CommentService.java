@@ -14,6 +14,4 @@ public interface CommentService {
 	public BaseResponse<List<Comment>> getAllComment();
 	//댓글 삭제
 	public BaseResponse<Long> deleteComment(Long id);
-	
-
 }

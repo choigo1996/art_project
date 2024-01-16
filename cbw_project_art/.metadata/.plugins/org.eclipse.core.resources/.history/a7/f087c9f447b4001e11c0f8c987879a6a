@@ -1,0 +1,10 @@
+package com.cbw.art.model;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "lecture_index")
+public class LectureIndex {
+
+}

@@ -1,0 +1,19 @@
+package com.cbw.art.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.cbw.art.repository.LectureRepository;
+
+@Service
+@Transactional
+public class LectureServiceImpl {
+	private final LectureRepository lectureRepository;
+
+	@Autowired
+	public LectureServiceImpl(LectureRepository lectureRepository) {
+		super();
+		this.lectureRepository = lectureRepository;
+	}	
+}

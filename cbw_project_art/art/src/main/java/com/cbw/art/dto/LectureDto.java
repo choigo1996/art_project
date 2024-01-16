@@ -2,41 +2,30 @@ package com.cbw.art.dto;
 
 import java.util.List;
 
-import com.cbw.art.model.LectureList;
+import com.cbw.art.model.Review;
 
 public class LectureDto {
-
 	private long id;
 	
 	private String title;
 	
-	private String category;
-	
-	private String image;
+	private String teacher;
 	
 	private int price;
 	
-	private String teacher;
-
-	private List<LectureList> lectureLists;
-	
-	private List<LectureReviewDto> lectureReviews;
+	private String image;
 	
 	public LectureDto() {
 		super();
 	}
 
-	public LectureDto(long id, String title, String category, String image, int price, String teacher,
-			List<LectureList> lectureLists, List<LectureReviewDto> lectureReviews) {
+	public LectureDto(long id, String title, String teacher, int price, String image) {
 		super();
 		this.id = id;
 		this.title = title;
-		this.category = category;
-		this.image = image;
-		this.price = price;
 		this.teacher = teacher;
-		this.lectureLists = lectureLists;
-		this.lectureReviews = lectureReviews;
+		this.price = price;
+		this.image = image;
 	}
 
 	public long getId() {
@@ -55,20 +44,12 @@ public class LectureDto {
 		this.title = title;
 	}
 
-	public String getCategory() {
-		return category;
+	public String getTeacher() {
+		return teacher;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
+	public void setTeacher(String teacher) {
+		this.teacher = teacher;
 	}
 
 	public int getPrice() {
@@ -79,29 +60,12 @@ public class LectureDto {
 		this.price = price;
 	}
 
-	public String getTeacher() {
-		return teacher;
+	public String getImage() {
+		return image;
 	}
 
-	public void setTeacher(String teacher) {
-		this.teacher = teacher;
+	public void setImage(String image) {
+		this.image = image;
 	}
-
-	public List<LectureList> getLectureLists() {
-		return lectureLists;
-	}
-
-	public void setLectureLists(List<LectureList> lectureLists) {
-		this.lectureLists = lectureLists;
-	}
-
-	public List<LectureReviewDto> getLectureReviews() {
-		return lectureReviews;
-	}
-
-	public void setLectureReviews(List<LectureReviewDto> lectureReviews) {
-		this.lectureReviews = lectureReviews;
-	}
-	
-	
+		
 }

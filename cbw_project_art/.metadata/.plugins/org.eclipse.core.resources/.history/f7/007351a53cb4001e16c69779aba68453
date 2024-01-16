@@ -1,0 +1,13 @@
+package com.cbw.art.dto;
+
+import jakarta.validation.constraints.NotBlank;
+
+public class ReviewDto {
+	private long id;
+	@NotBlank
+	private String writer;
+	@NotBlank
+	private String text;
+	private int rating;
+	private long lecture;
+}

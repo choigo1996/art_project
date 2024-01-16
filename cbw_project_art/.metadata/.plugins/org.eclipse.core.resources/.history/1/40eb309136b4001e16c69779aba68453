@@ -1,0 +1,65 @@
+package com.cbw.art.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.cbw.art.dto.BaseResponse;
+import com.cbw.art.dto.LectureDto;
+import com.cbw.art.enumstatus.ResultCode;
+import com.cbw.art.exception.InvalidRequestException;
+import com.cbw.art.model.Lecture;
+import com.cbw.art.repository.LectureRepository;
+import com.cbw.art.service.LectureService;
+
+@Service
+@Transactional
+public class LectureServiceImpl implements LectureService{
+	private final LectureRepository lectureRepository;
+
+	@Autowired
+	public LectureServiceImpl(LectureRepository lectureRepository) {
+		super();
+		this.lectureRepository = lectureRepository;
+	}
+
+	@Override
+	public BaseResponse<Void> createLecture(LectureDto lectureDto) {
+		Lecture lecture = new Lecture();
+		lecture.setTitle(lectureDto.getTitle());
+		lecture.setTeacher(lecture.getTeacher());
+		lecture.setPrice(lectureDto.getPrice());
+		lecture.setImage(lectureDto.getImage());
+		
+		lectureRepository.save(lecture);
+		return new BaseResponse<>(
+				ResultCode.SUCCESS.name(),
+				null,
+				"강의생성 완료!");
+	}
+
+	@Override
+	public BaseResponse<List<Lecture>> getAllLecture() {
+		List<Lecture> lectures = lectureRepository.findAll();
+		if(lectures.isEmpty()) {
+			throw new InvalidRequestException("lecture empty", "존재하지 않는 강의 입니다.")
+		}
+		return null;
+	}
+
+	@Override
+	public BaseResponse<Long> deleteLecture(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Lecture getLectureById(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}	
+	
+	
+}

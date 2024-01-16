@@ -7,48 +7,39 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "lecture")
 public class Lecture {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column
+	@Column(nullable = false)
 	private String title;
 	
-	@Column
-	private String category;
-	
-	@Column
+	@Column(nullable = false)
 	private String teacher;
 	
-	@Column
-	private String image;
-	
-	@Column
+	@Column(nullable = false)
 	private int price;
 	
-	@OneToMany(mappedBy = "lecture")
-	private List<LectureReview> reviews;
+	@Column(nullable = false,length = 1500)
+	private String image;
 	
 	public Lecture() {
 		super();
 	}
 
-	public Lecture(long id, String title, String category, String teacher, String image, int price,
-			List<LectureReview> reviews) {
+	public Lecture(long id, String title, String teacher, int price, String image) {
 		super();
 		this.id = id;
 		this.title = title;
-		this.category = category;
 		this.teacher = teacher;
-		this.image = image;
 		this.price = price;
-		this.reviews = reviews;
+		this.image = image;
 	}
 
 	public long getId() {
@@ -67,28 +58,12 @@ public class Lecture {
 		this.title = title;
 	}
 
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
 	public String getTeacher() {
 		return teacher;
 	}
 
 	public void setTeacher(String teacher) {
 		this.teacher = teacher;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
 	}
 
 	public int getPrice() {
@@ -99,14 +74,11 @@ public class Lecture {
 		this.price = price;
 	}
 
-	public List<LectureReview> getReviews() {
-		return reviews;
+	public String getImage() {
+		return image;
 	}
 
-	public void setReviews(List<LectureReview> reviews) {
-		this.reviews = reviews;
-	}
-
-	
-
+	public void setImage(String image) {
+		this.image = image;
+	}	
 }

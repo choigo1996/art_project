@@ -11,6 +11,7 @@ import com.cbw.art.dto.BaseResponse;
 import com.cbw.art.dto.QuestionDto;
 import com.cbw.art.enumstatus.ResultCode;
 import com.cbw.art.exception.InvalidRequestException;
+import com.cbw.art.model.Comment;
 import com.cbw.art.model.Lecture;
 import com.cbw.art.model.Question;
 import com.cbw.art.model.User;
@@ -78,6 +79,7 @@ public class QuestionServiceImpl implements QuestionService{
 	public BaseResponse<Long> deleteQuest(Long id) {
 		
 		Optional<Question> question = questionRepository.findById(id);
+		
 		if(question.isEmpty()) {
 			throw new InvalidRequestException(Long.toString(id), "해당 질문사항은 존재하지 않습니다.");
 		}
