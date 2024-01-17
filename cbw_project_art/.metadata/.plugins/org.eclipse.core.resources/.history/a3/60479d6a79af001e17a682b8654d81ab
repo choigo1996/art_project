@@ -1,7 +1,0 @@
-package com.cbw.art.enumstatus;
-
-public enum CommentType {
-	GENERAL,
-    IMPORTANT,
-    QUESTION,
-    ANSWER,}

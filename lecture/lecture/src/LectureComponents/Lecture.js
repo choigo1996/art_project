@@ -29,9 +29,9 @@ export function Lecture() {
         {!isLoading && data && (
           <LectureLoader
             lectures={data}
-            lecturesCheckList={data.map((l) => {
-              return { id: l.id, checked: false };
-            })}
+            // lecturesCheckList={data.map((l) => {
+            //   return { id: l.id, checked: false };
+            // })}
           />
         )}
       </QueryClientProvider>
@@ -39,7 +39,7 @@ export function Lecture() {
   );
 }
 
-function LectureLoader({ lelists, lectures, lecturescheckList }) {
+function LectureLoader({ lectures, lecturescheckList }) {
   const [CheckList, setCheckList] = useState(lecturescheckList);
   const [loginState, setLoginState] = useState(null);
   const [passwordState, setPasswordState] = useState(null);
@@ -62,7 +62,6 @@ function LectureLoader({ lelists, lectures, lecturescheckList }) {
           lectures,
           passwordState,
           setPasswordState,
-          lelists,
         }}
       >
         <BrowserRouter>

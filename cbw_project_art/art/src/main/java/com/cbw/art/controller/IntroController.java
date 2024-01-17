@@ -17,6 +17,7 @@ import com.cbw.art.dto.BaseResponse;
 import com.cbw.art.dto.IntroDto;
 import com.cbw.art.enumstatus.ResultCode;
 import com.cbw.art.exception.InvalidRequestException;
+import com.cbw.art.model.Intro;
 import com.cbw.art.service.impl.IntroServiceImpl;
 
 import jakarta.validation.Valid;
@@ -44,16 +45,9 @@ public class IntroController {
 	}
 	//소개글 가져와
 	@GetMapping("/{id}")
-	public ResponseEntity<BaseResponse<IntroDto>> getIntro(@PathVariable Long id) {
-	    try {
-	        BaseResponse<IntroDto> response = introServiceImpl.getIntro();
-	        return ResponseEntity.ok(response);
-	    } catch (InvalidRequestException e) {
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-	                .body(new BaseResponse<>(ResultCode.ERROR.name(),
-	                		null,
-	                		e.getMessage()));
-	    }
+	public ResponseEntity<Intro> getIntro (@PathVariable long id) {
+		return new ResponseEntity<Intro>(
+				introServiceImpl.getIntro(id),HttpStatus.OK);
 	}
 
 

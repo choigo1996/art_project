@@ -21,7 +21,6 @@ public class Intro {
 	@Column
 	private String text;
 	
-	@PrimaryKeyJoinColumn(name = "lecture_id")
 	@OneToOne
 	private Lecture lecture;
 
