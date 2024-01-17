@@ -34,6 +34,9 @@ public class ReviewServiceImpl implements ReviewService{
 		if(reviewDto.getWriter() == null || reviewDto.getWriter().isEmpty()) {
 			throw new InvalidRequestException("Invalid Writer", "후기 작성자가 없음");
 		}
+		if(reviewRepository.existsByWriter(reviewDto.getWriter())) {
+			throw new InvalidRequestException("Duplicate Review", "이미 후기를 작성했습니다.");
+		}
 		Lecture lecture = lectureRepository.findById(reviewDto.getLecture())
 				.orElseThrow(() -> new InvalidRequestException("Invalid Lecture","존재하지 않는 강의입니다."));
 		Review review = new Review();

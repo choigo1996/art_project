@@ -60,9 +60,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/review").permitAll()
                         .requestMatchers("/api/comment/list").permitAll()
                         .requestMatchers("/api/comment/list/{id}").permitAll()
+                        .requestMatchers("/api/lecture").permitAll()
                         .requestMatchers("/api/lecture/list").permitAll()
                         .requestMatchers("/api/lecture/list/{id}").permitAll()
-                        
                         .anyRequest().authenticated()
                 )
                 //세션관리(상태없음)

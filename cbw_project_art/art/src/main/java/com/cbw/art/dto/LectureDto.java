@@ -1,8 +1,5 @@
 package com.cbw.art.dto;
 
-import java.util.List;
-
-import com.cbw.art.model.Review;
 
 public class LectureDto {
 	private long id;

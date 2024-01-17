@@ -1,12 +1,12 @@
 //강의의 모든 정보를 가져온다.
 export function getAllLectuer() {
-  return fetch(`http://localhost:8080/api/lecture`, {
+  return fetch(`http://localhost:8080/api/lecture/list`, {
     method: "GET",
   }).then((response) => response.json());
 }
 //강의 하나의 정보를 가져온다.
 export function getLectureById(id) {
-  return fetch(`http://localhost:8080/api/lecure/${id}`, {
+  return fetch(`http://localhost:8080/api/lecture/${id}`, {
     method: "GET",
   }).then((response) => response.json());
 }

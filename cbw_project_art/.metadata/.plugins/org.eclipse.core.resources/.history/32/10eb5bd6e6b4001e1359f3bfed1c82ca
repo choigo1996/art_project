@@ -1,0 +1,45 @@
+package com.cbw.art.dto;
+
+public class IntroDto {
+	
+	private String text;
+	private Long lecture;
+	private String admin;
+	
+	public IntroDto() {
+		super();
+	}
+
+	public IntroDto(String text, Long lecture, String admin) {
+		super();
+		this.text = text;
+		this.lecture = lecture;
+		this.admin = admin;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public Long getLecture() {
+		return lecture;
+	}
+
+	public void setLecture(Long lecture) {
+		this.lecture = lecture;
+	}
+
+	public String getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(String admin) {
+		this.admin = admin;
+	}
+
+	
+}

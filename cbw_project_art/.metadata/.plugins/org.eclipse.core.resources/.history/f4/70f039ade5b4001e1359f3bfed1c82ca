@@ -1,0 +1,7 @@
+package com.cbw.art.service.impl;
+
+import com.cbw.art.service.IntroService;
+
+public class IntroServiceImpl implements IntroService{
+
+}

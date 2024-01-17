@@ -1,0 +1,36 @@
+package com.cbw.art.dto;
+
+import jakarta.validation.constraints.NotBlank;
+
+public class LectureListDto {
+	@NotBlank
+	private String title;
+	@NotBlank
+	private String video;
+	private long lecture;
+	public LectureListDto() {
+		super();
+	}
+
+	public LectureListDto(String title, String video) {
+		super();
+		this.title = title;
+		this.video = video;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getVideo() {
+		return video;
+	}
+
+	public void setVideo(String video) {
+		this.video = video;
+	}
+}

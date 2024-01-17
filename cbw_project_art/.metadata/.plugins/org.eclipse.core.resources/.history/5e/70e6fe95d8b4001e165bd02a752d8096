@@ -1,0 +1,19 @@
+package com.cbw.art.service.impl;
+
+import com.cbw.art.repository.LectureListRepository;
+import com.cbw.art.repository.LectureRepository;
+import com.cbw.art.service.LectureListService;
+
+public class LectureListServiceImpl implements LectureListService{
+	
+	private final LectureListRepository lectureListRepository;
+	private final LectureRepository lectureRepository;
+	
+	public LectureListServiceImpl(LectureListRepository lectureListRepository, LectureRepository lectureRepository) {
+		super();
+		this.lectureListRepository = lectureListRepository;
+		this.lectureRepository = lectureRepository;
+	}
+	
+	
+}

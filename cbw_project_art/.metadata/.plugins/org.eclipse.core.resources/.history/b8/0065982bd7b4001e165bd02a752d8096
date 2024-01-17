@@ -1,0 +1,6 @@
+package com.cbw.art.dto;
+
+public class LectureListDto {
+	private String title;
+	private String video;
+}

@@ -17,3 +17,18 @@
 1705384007910	Delete element
 1705387357737	Delete element
 1705393341776	Rename compilation unit 'LectureIndex.java'
+1705450685018	Rename type 'Index'
+1705450727595	Rename type 'IndexServiceImpl'
+1705450746145	Rename type 'IndexService'
+1705450759656	Rename type 'IndexRepository'
+1705450777118	Rename type 'IndexDto'
+1705450795565	Rename type 'IndexController'
+1705450851559	Delete element
+1705450854649	Delete element
+1705450858483	Delete element
+1705450868617	Delete element
+1705450880890	Delete element
+1705450884525	Delete element
+1705454512358	Delete element
+1705454571806	Rename type 'List'
+1705459688049	Rename type 'LectureIntro'
