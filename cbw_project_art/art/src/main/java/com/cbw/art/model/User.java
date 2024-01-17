@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -52,12 +53,15 @@ public class User {
     )
 	private Set<Authority> authorities = new HashSet<>();
 	
+	@ManyToOne
+	private Purchase purchase;
+	
 	public User() {
 		super();
 	}
 
 	public User(Long id, String loginId, String password, String name, LocalDate birthDate, @Email String email,
-			boolean activated, Set<Authority> authorities) {
+			boolean activated, Set<Authority> authorities, Purchase purchase) {
 		super();
 		this.id = id;
 		this.loginId = loginId;
@@ -67,6 +71,7 @@ public class User {
 		this.email = email;
 		this.activated = activated;
 		this.authorities = authorities;
+		this.purchase = purchase;
 	}
 
 	public Long getId() {
@@ -132,4 +137,14 @@ public class User {
 	public void setAuthorities(Set<Authority> authorities) {
 		this.authorities = authorities;
 	}
+
+	public Purchase getPurchase() {
+		return purchase;
+	}
+
+	public void setPurchase(Purchase purchase) {
+		this.purchase = purchase;
+	}
+
+	
 }

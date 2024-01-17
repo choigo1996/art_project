@@ -1,5 +1,6 @@
 package com.cbw.art.service.impl;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,9 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cbw.art.dto.BaseResponse;
 import com.cbw.art.dto.LectureDto;
+import com.cbw.art.enumstatus.CategoryType;
 import com.cbw.art.enumstatus.ResultCode;
 import com.cbw.art.exception.InvalidRequestException;
+import com.cbw.art.model.Category;
 import com.cbw.art.model.Lecture;
+import com.cbw.art.repository.CategoryRepository;
 import com.cbw.art.repository.LectureRepository;
 import com.cbw.art.repository.ReviewRepository;
 import com.cbw.art.service.LectureService;
@@ -19,30 +23,38 @@ import com.cbw.art.service.LectureService;
 @Service
 @Transactional
 public class LectureServiceImpl implements LectureService{
+	
 	private final LectureRepository lectureRepository;
 	private final ReviewRepository reviewRepository;
-
+	private final CategoryRepository categoryRepository;
+	
 	@Autowired
-	public LectureServiceImpl(LectureRepository lectureRepository, ReviewRepository reviewRepository) {
+	public LectureServiceImpl(LectureRepository lectureRepository, ReviewRepository reviewRepository,
+			CategoryRepository categoryRepository) {
 		super();
 		this.lectureRepository = lectureRepository;
 		this.reviewRepository = reviewRepository;
-	}
+		this.categoryRepository = categoryRepository;
+	}	
 
 	@Override
 	public BaseResponse<Void> createLecture(LectureDto lectureDto) {
+		Category category = categoryRepository.findByCategoryType(CategoryType.ALL)
+				.orElseThrow(() -> new InvalidRequestException("Default category not found", "전체항목에 없음."));
 		Lecture lecture = new Lecture();
 		lecture.setTitle(lectureDto.getTitle());
 		lecture.setTeacher(lectureDto.getTeacher());
 		lecture.setPrice(lectureDto.getPrice());
 		lecture.setImage(lectureDto.getImage());
-		
+		lecture.setCategorys(Collections.singleton(category));
 		lectureRepository.save(lecture);
 		return new BaseResponse<>(
 				ResultCode.SUCCESS.name(),
 				null,
 				"강의생성 완료!");
 	}
+
+
 
 	@Override
 	public BaseResponse<List<Lecture>> getAllLecture() {

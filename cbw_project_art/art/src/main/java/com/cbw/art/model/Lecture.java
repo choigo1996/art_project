@@ -1,11 +1,17 @@
 package com.cbw.art.model;
 
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -28,17 +34,25 @@ public class Lecture {
 	@Column(nullable = false,length = 1500)
 	private String image;
 	
+	@ManyToMany
+	@JoinTable(
+			name = "lecture_category",
+			joinColumns = @JoinColumn(name = "lecture_id"),
+			inverseJoinColumns = @JoinColumn(name = "category_type"))
+	private Set<Category> categorys = new HashSet<>();
+	
 	public Lecture() {
 		super();
 	}
 
-	public Lecture(long id, String title, String teacher, int price, String image) {
+	public Lecture(long id, String title, String teacher, int price, String image, Set<Category> categorys) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.teacher = teacher;
 		this.price = price;
 		this.image = image;
+		this.categorys = categorys;
 	}
 
 	public long getId() {
@@ -79,5 +93,15 @@ public class Lecture {
 
 	public void setImage(String image) {
 		this.image = image;
-	}	
+	}
+
+	public Set<Category> getCategorys() {
+		return categorys;
+	}
+
+	public void setCategorys(Set<Category> categorys) {
+		this.categorys = categorys;
+	}
+
+	
 }
