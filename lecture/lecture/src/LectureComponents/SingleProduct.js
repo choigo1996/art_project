@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { LectureContext } from "./Lecture";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { LectureNav } from "./LectureNav";
 
 const Container = styled.div`
   width: 100%;
@@ -31,15 +32,7 @@ export function SingleProduct() {
 
   const lecture = lectures.find((l) => l.id === +id);
 
-  const {
-    title: lectureTitle,
-    category,
-    teacher,
-    image,
-    price,
-    lectureLists,
-  } = lecture;
-  console.log(lecture);
+  const { title: lectureTitle, category, teacher, image, price } = lecture;
   return (
     <>
       <Title>{lectureTitle}</Title>
@@ -49,15 +42,8 @@ export function SingleProduct() {
           <p>카테고리 : {category}</p>
           <p>가격 : {price}원</p>
           <p>강사 : {teacher}</p>
-          <h2>강의목록</h2>
-          <ul>
-            {lectureLists.map((lectureList) => (
-              <li key={lectureList.id}>
-                {lectureList.list}. {lectureList.title}
-              </li>
-            ))}
-          </ul>
         </Content>
+        <LectureNav />
       </Container>
     </>
   );

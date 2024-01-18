@@ -6,7 +6,7 @@ export function getAllLectuer() {
 }
 //강의 하나의 정보를 가져온다.
 export function getLectureById(id) {
-  return fetch(`http://localhost:8080/api/lecture/${id}`, {
+  return fetch(`http://localhost:8080/api/lecture/list/${id}`, {
     method: "GET",
   }).then((response) => response.json());
 }
@@ -30,7 +30,6 @@ export function login(user) {
     body: JSON.stringify(user),
   }).then((response) => response.json());
 }
-
 //구매한 상품이 대시보드에 표시
 export function purchaseAllLecture(lectures, loginId) {
   const purchases = lectures.map((lecture) => ({
@@ -106,6 +105,56 @@ export function createQuest(user) {
 //QnA게시글 목록
 export function getAllQuest() {
   return fetch(`http://localhost:8080/api/question/list`, {
+    method: "GET",
+  }).then((response) => response.json());
+}
+//QnA게시글 하나만 가져옴
+export function getQuestById(id) {
+  return fetch(`http://localhost:8080/api/question/list/${id}`, {
+    method: "GET",
+  }).then((response) => response.json());
+}
+//강의목록 불러오기
+export function getAllLeList() {
+  return fetch(`http://localhost:8080/api/lelist`, {
+    method: "GET",
+  }).then((response) => response.json());
+}
+//후기 작성
+export function createReview(user) {
+  fetch(`http://localhost:8080/api/review`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  }).then((response) => response.json());
+}
+//후기 목록
+export function getAllReview() {
+  return fetch(`http://localhost:8080/api/review/list`, {
+    method: "GET",
+  }).then((response) => response.json());
+}
+//후기 삭제
+export function deleteReview(id) {
+  return fetch(`http://localhost:8080/api/review/delete/${id}`, {
+    method: "DELETE",
+  }).then((response) => response.json);
+}
+//소개글 작성(ADMIN만 사용가능)
+export function createIntro(admin) {
+  return fetch(`http://localhost:8080/api/intro`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(admin),
+  }).then((response) => response.json());
+}
+//소개글 가져와
+export function getIntro(id) {
+  return fetch(`http://localhost:8080/api/intro/${id}`, {
     method: "GET",
   }).then((response) => response.json());
 }

@@ -28,10 +28,11 @@ export function Lecture() {
       <QueryClientProvider client={client}>
         {!isLoading && data && (
           <LectureLoader
-            lectures={data}
-            // lecturesCheckList={data.map((l) => {
-            //   return { id: l.id, checked: false };
-            // })}
+            lectures={data.data}
+            lecturesCheckList={data.data.map((l) => ({
+              id: l.id,
+              checked: false,
+            }))}
           />
         )}
       </QueryClientProvider>
