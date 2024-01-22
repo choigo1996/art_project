@@ -43,7 +43,7 @@ public class LectureListController {
 				HttpStatus.CREATED);
 	}
 	//목록
-	@GetMapping
+	@GetMapping("lecturelist")
 	public ResponseEntity<BaseResponse<List<LectureList>>> getAllLeList() {
 		return new ResponseEntity<>(
 				lectureListServiceImpl.getAllLeList(),

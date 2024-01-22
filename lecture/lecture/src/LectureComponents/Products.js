@@ -1,7 +1,8 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LectureContext } from "./Lecture";
 import styled from "styled-components";
+import { getAllCategory } from "./api";
 
 const Container = styled.div`
   margin-top: 10px;
@@ -28,10 +29,35 @@ const Img = styled.img`
   width: 100%;
 `;
 const Text = styled.p``;
+const CategoryList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex; /* 수정된 부분 */
+  flex-wrap: wrap; /* 수정된 부분 */
+`;
+const CategoryItem = styled.li`
+  /* 수정된 부분 */
+  margin-right: 5px; /* 수정된 부분 */
+  margin-bottom: 5px; /* 수정된 부분 */
+`;
 
 export function Products() {
   const navigate = useNavigate();
   const { lectures } = useContext(LectureContext);
+  const [category, setCategory] = useState([]);
+
+  useEffect(() => {
+    const fetchCate = async () => {
+      try {
+        const response = await getAllCategory();
+        setCategory(category);
+      } catch (error) {
+        console.error("카테고리 목록 조회 중 오류 발생", error);
+      }
+    };
+    fetchCate();
+  }, []);
 
   function onClick(id) {
     navigate(`${id}`);
@@ -48,6 +74,11 @@ export function Products() {
               <Text>강의명 : {lecture.title}</Text>
               <Text>강사 : {lecture.teacher}</Text>
               <Text>가격 : {lecture.price}원</Text>
+              <CategoryList>
+                {lecture.categories.map((category) => (
+                  <CategoryItem key={category}>{category}</CategoryItem>
+                ))}
+              </CategoryList>
             </div>
           </Card>
         ))}

@@ -44,6 +44,7 @@ const Container = styled.div`
   background-color: #fff;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 80%; /* 원하는 넓이로 조절하세요 */
 `;
 
 const Text = styled.p`
@@ -72,13 +73,16 @@ export function Question() {
     fetchQuestion();
   }, []);
 
-  const sortedQuestions = questions
-    .filter((question) => question.lecture.id === Number(lectureId))
-    .sort((a, b) => new Date(b.createAt) - new Date(a.createAt))
-    .map((question, i, arr) => ({
-      ...question,
-      number: arr.length - i,
-    }));
+  const sortedQuestions =
+    questions.length > 0
+      ? questions
+          .filter((question) => question.lecture.id === Number(lectureId))
+          .sort((a, b) => new Date(b.createAt) - new Date(a.createAt))
+          .map((question, i, arr) => ({
+            ...question,
+            number: arr.length - i,
+          }))
+      : [];
 
   return (
     <>

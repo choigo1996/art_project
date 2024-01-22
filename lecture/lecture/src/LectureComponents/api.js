@@ -118,10 +118,13 @@ export function getQuestById(id) {
   }).then((response) => response.json());
 }
 //강의목록 불러오기
-export function getAllLeList() {
-  return fetch(`http://localhost:8080/api/lelist`, {
-    method: "GET",
-  }).then((response) => response.json());
+export function getAllLeList(lectureId) {
+  return fetch(
+    `http://localhost:8080/api/lelist/lecturelist?lectureId=${lectureId}`,
+    {
+      method: "GET",
+    }
+  ).then((response) => response.json());
 }
 //후기 작성
 export function createReview(user) {
@@ -158,6 +161,12 @@ export function createIntro(admin) {
 //소개글 가져와
 export function getIntro(id) {
   return fetch(`http://localhost:8080/api/intro/${id}`, {
+    method: "GET",
+  }).then((response) => response.json());
+}
+//카테고리 목록 불러오기
+export function getAllCategory() {
+  return fetch(`http://localhost:8080/api/lecture/category`, {
     method: "GET",
   }).then((response) => response.json());
 }
