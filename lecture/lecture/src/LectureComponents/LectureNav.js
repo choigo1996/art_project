@@ -1,6 +1,5 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Outlet, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { ProductWrapper } from "./ProductWrapper";
 
 const NavContainer = styled.div`
   background-color: #3498db;
@@ -32,17 +31,19 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 export function LectureNav() {
+  const { id } = useParams();
+
   return (
     <>
       <NavContainer>
         <NavLinks>
-          <StyledNavLink to="/intro">강의 소개</StyledNavLink>
-          <StyledNavLink to="/lecturelist">강의 목록</StyledNavLink>
-          <StyledNavLink to="/question">QnA게시글</StyledNavLink>
-          <StyledNavLink to="/review">강의 후기</StyledNavLink>
+          <StyledNavLink to="intro">강의 소개</StyledNavLink>
+          <StyledNavLink to="lecturelist">강의 목록</StyledNavLink>
+          <StyledNavLink to="question">QnA게시글</StyledNavLink>
+          <StyledNavLink to="review">강의 후기</StyledNavLink>
         </NavLinks>
       </NavContainer>
-      <ProductWrapper />
+      <Outlet />
     </>
   );
 }

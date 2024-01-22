@@ -1,0 +1,25 @@
+package com.cbw.art.repository;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import com.cbw.art.model.User;
+
+public interface UserRepository extends JpaRepository<User, Long>{
+
+	@EntityGraph(attributePaths = "authorities")
+	Optional<User> findOneWithAuthoritiesByLoginId(String loginId);
+	Optional<User> findOneWithAuthoritiesByEmail(String Email);
+	
+	Boolean existsByLoginId(String loginId);
+	Boolean existsByEmail(String email);
+	
+	@Modifying
+	@Query("UPDATE User u SET u.password = :newPassword WHERE u.loginId = :loginId")
+	void updatePassword(@Param("loginId") String loginId, @Param("newPassword") String newPassword);
+
+}

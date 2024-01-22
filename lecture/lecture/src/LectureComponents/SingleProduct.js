@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { LectureContext } from "./Lecture";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { LectureNav } from "./LectureNav";
 
@@ -30,9 +30,11 @@ export function SingleProduct() {
 
   const { id } = useParams();
 
+  const navigate = useNavigate();
   const lecture = lectures.find((l) => l.id === +id);
 
   const { title: lectureTitle, category, teacher, image, price } = lecture;
+  console.log(lecture);
   return (
     <>
       <Title>{lectureTitle}</Title>

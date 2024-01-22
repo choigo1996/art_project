@@ -7,7 +7,7 @@ import { Home } from "./Home";
 import { Cart } from "./Cart";
 import { ProductWrapper } from "./ProductWrapper";
 import { Products } from "./Products";
-import { SingleProduct } from "./SingleProduct";
+import { LectureList } from "./LectureList";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { Login } from "./Login";
 import { LogOut } from "./LogOut";
@@ -17,6 +17,12 @@ import { Dashboard } from "./Dashboard";
 import { Notification } from "./Notification";
 import { NotificationWrapper } from "./NotificationWrapper";
 import { SingleNoti } from "./SingleNoti";
+import { Question } from "./Question";
+import { Intro } from "./Intro";
+import { Review } from "./Review";
+import { SingleProduct } from "./SingleProduct";
+import { QuestionWrapper } from "./QuestionWrapper";
+import { SingleQuest } from "./SingleQuest";
 
 const client = new QueryClient();
 export const LectureContext = createContext();
@@ -72,7 +78,15 @@ function LectureLoader({ lectures, lecturescheckList }) {
               <Route path="home" element={<Home />} />
               <Route path="products" element={<ProductWrapper />}>
                 <Route index element={<Products />} />
-                <Route path=":id" element={<SingleProduct />} />
+                <Route path=":id" element={<SingleProduct />}>
+                  <Route path="intro" element={<Intro />} />
+                  <Route path="lecturelist" element={<LectureList />} />
+                  <Route path="question" element={<QuestionWrapper />}>
+                    <Route index element={<Question />} />
+                    <Route path=":questionid" element={<SingleQuest />} />
+                  </Route>
+                  <Route path="review" element={<Review />} />
+                </Route>
               </Route>
               <Route
                 path="dashboard"

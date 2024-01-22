@@ -96,6 +96,5 @@ public class QuestionServiceImpl implements QuestionService{
 	    return questionRepository.findById(id)
 	            .orElseThrow(() -> new InvalidRequestException(String.valueOf(id), "해당 ID의 질문이 존재하지 않습니다."));
 	}
-	
-	
+
 }

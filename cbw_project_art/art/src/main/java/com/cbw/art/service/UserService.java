@@ -13,7 +13,6 @@ public interface UserService {
 	//중복체크
 	public boolean isUserIdDuplicate(String loginId);
 	public boolean isEmailTaken(String email);
-	//ROLE_자동화
+	//ROLE_부여
 	void updateUserRole(long userId,AuthorityType authorityType);
-
 }

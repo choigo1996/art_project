@@ -63,7 +63,6 @@ export function Notification() {
       try {
         const response = await getAllNotifi();
 
-        // 데이터 구조에 맞게 수정
         if (response.data.length > 0) {
           setNotices(response.data.reverse());
         } else {

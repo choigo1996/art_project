@@ -103,10 +103,13 @@ export function createQuest(user) {
   }).then((response) => response.json());
 }
 //QnA게시글 목록
-export function getAllQuest() {
-  return fetch(`http://localhost:8080/api/question/list`, {
-    method: "GET",
-  }).then((response) => response.json());
+export function getAllQuest(lectureId) {
+  return fetch(
+    `http://localhost:8080/api/question/list?lectureId=${lectureId}`,
+    {
+      method: "GET",
+    }
+  ).then((response) => response.json());
 }
 //QnA게시글 하나만 가져옴
 export function getQuestById(id) {

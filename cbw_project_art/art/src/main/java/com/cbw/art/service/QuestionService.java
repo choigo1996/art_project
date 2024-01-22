@@ -1,6 +1,7 @@
 package com.cbw.art.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.cbw.art.dto.BaseResponse;
 import com.cbw.art.dto.QuestionDto;
@@ -16,4 +17,5 @@ public interface QuestionService {
 		public BaseResponse<Long> deleteQuest(Long id);
 		//게시글 하나의 정보만을 가져온
 		Question getQuestById(long id);
+
 }

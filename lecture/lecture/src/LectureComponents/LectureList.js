@@ -5,4 +5,12 @@ import styled from "styled-components";
 const Container = styled.div``;
 const ListItem = styled.div``;
 
-export function LectureList() {}
+export function LectureList() {
+  return (
+    <>
+      <Container>
+        <ListItem></ListItem>
+      </Container>
+    </>
+  );
+}

@@ -105,4 +105,5 @@ public class UserController {
 		userServiceImpl.updateUserRole(Id, authorityType);
 		return new ResponseEntity<>("User role updated successfully",HttpStatus.OK);
 	}
+
 }
