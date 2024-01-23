@@ -25,6 +25,10 @@ const Content = styled.div`
   margin-left: 10px;
   font-size: 1rem;
 `;
+const CategoryList = styled.div`
+  display: flex;
+  list-style: none;
+`;
 export function SingleProduct() {
   const { lectures } = useContext(LectureContext);
 
@@ -32,7 +36,7 @@ export function SingleProduct() {
 
   const lecture = lectures.find((l) => l.id === +id);
 
-  const { title: lectureTitle, category, teacher, image, price } = lecture;
+  const { title: lectureTitle, teacher, image, price } = lecture;
   console.log(lecture);
   return (
     <>
@@ -40,9 +44,16 @@ export function SingleProduct() {
       <Container>
         <Img src={image} />
         <Content>
-          <p>카테고리 : {category}</p>
           <p>가격 : {price}원</p>
           <p>강사 : {teacher}</p>
+          <CategoryList>
+            카테고리 :
+            {lecture.categorys
+              .filter((category) => category.categoryType !== "ALL")
+              .map((category, i) => (
+                <li key={i}>{category.categoryType}</li>
+              ))}
+          </CategoryList>
         </Content>
         <LectureNav />
       </Container>

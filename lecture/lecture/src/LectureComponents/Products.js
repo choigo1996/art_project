@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LectureContext } from "./Lecture";
 import styled from "styled-components";
@@ -29,56 +29,83 @@ const Img = styled.img`
   width: 100%;
 `;
 const Text = styled.p``;
-const CategoryList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex; /* 수정된 부분 */
-  flex-wrap: wrap; /* 수정된 부분 */
+
+const CategoryContainer = styled.div`
+  margin-top: 10px;
 `;
-const CategoryItem = styled.li`
-  /* 수정된 부분 */
-  margin-right: 5px; /* 수정된 부분 */
-  margin-bottom: 5px; /* 수정된 부분 */
+
+const CategoryItem = styled.div`
+  display: inline-block;
+  margin-right: 10px;
+  cursor: pointer;
+  color: ${(props) => (props.selected ? "red" : "black")};
 `;
 
 export function Products() {
   const navigate = useNavigate();
   const { lectures } = useContext(LectureContext);
-  const [category, setCategory] = useState([]);
+  const [categoryList, setCategoryList] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("ALL");
 
   useEffect(() => {
-    const fetchCate = async () => {
+    const fetchCategories = async () => {
       try {
         const response = await getAllCategory();
-        setCategory(category);
+        setCategoryList(response);
       } catch (error) {
         console.error("카테고리 목록 조회 중 오류 발생", error);
       }
     };
-    fetchCate();
+
+    fetchCategories();
   }, []);
 
   function onClick(id) {
     navigate(`${id}`);
   }
 
+  const filteredLectures =
+    selectedCategory === "ALL"
+      ? lectures
+      : lectures.filter((lecture) =>
+          lecture.categorys.some(
+            (category) => category.categoryType === selectedCategory
+          )
+        );
+
   return (
     <>
       <Header>강의목록</Header>
+      <CategoryContainer>
+        {categoryList.map((category) => (
+          <CategoryItem
+            key={category}
+            selected={selectedCategory === category}
+            onClick={() => setSelectedCategory(category)}
+          >
+            {category}
+          </CategoryItem>
+        ))}
+      </CategoryContainer>
       <Container>
-        {lectures.map((lecture, i) => (
+        {filteredLectures.map((lecture) => (
           <Card key={lecture.id}>
             <div onClick={() => onClick(lecture.id)}>
               <Img src={lecture.image} />
-              <Text>강의명 : {lecture.title}</Text>
-              <Text>강사 : {lecture.teacher}</Text>
-              <Text>가격 : {lecture.price}원</Text>
-              <CategoryList>
-                {lecture.categories.map((category) => (
-                  <CategoryItem key={category}>{category}</CategoryItem>
-                ))}
-              </CategoryList>
+              <Text>강의명: {lecture.title}</Text>
+              <Text>강사: {lecture.teacher}</Text>
+              <Text>가격: {lecture.price}원</Text>
+              <div>
+                카테고리:
+                {lecture.categorys.map(
+                  (category) =>
+                    category.categoryType !== "ALL" && (
+                      <CategoryItem key={category.categoryType}>
+                        {category.categoryType}
+                      </CategoryItem>
+                    )
+                )}
+              </div>
             </div>
           </Card>
         ))}

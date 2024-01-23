@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getAllReview } from "./api";
 
@@ -80,6 +80,7 @@ export function Review() {
     <>
       <Container>
         <h2>수강후기</h2>
+        <Link to="create">글쓰기</Link>
         <Ul>
           <span>번호</span>
           <Title>제목</Title>

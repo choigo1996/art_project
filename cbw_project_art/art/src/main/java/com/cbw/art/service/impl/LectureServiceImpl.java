@@ -27,7 +27,7 @@ public class LectureServiceImpl implements LectureService{
 	private final LectureRepository lectureRepository;
 	private final ReviewRepository reviewRepository;
 	private final CategoryRepository categoryRepository;
-	
+
 	@Autowired
 	public LectureServiceImpl(LectureRepository lectureRepository, ReviewRepository reviewRepository,
 			CategoryRepository categoryRepository) {
@@ -36,7 +36,8 @@ public class LectureServiceImpl implements LectureService{
 		this.reviewRepository = reviewRepository;
 		this.categoryRepository = categoryRepository;
 	}	
-
+	
+	//강의 생성
 	@Override
 	public BaseResponse<Void> createLecture(LectureDto lectureDto) {
 		Category category = categoryRepository.findByCategoryType(CategoryType.ALL)
@@ -53,9 +54,8 @@ public class LectureServiceImpl implements LectureService{
 				null,
 				"강의생성 완료!");
 	}
-
-
-
+	
+	//강의 목록
 	@Override
 	public BaseResponse<List<Lecture>> getAllLecture() {
 		List<Lecture> lectures = lectureRepository.findAll();
@@ -67,7 +67,8 @@ public class LectureServiceImpl implements LectureService{
 				lectures,
 				ResultCode.SUCCESS.getMsg());
 	}
-
+	
+	//강의 삭제
 	@Override
 	public BaseResponse<Long> deleteLecture(Long id) {
 		Optional<Lecture> lecture = lectureRepository.findById(id);
@@ -83,12 +84,20 @@ public class LectureServiceImpl implements LectureService{
 				id,
 				"강의와 리뷰가 삭제되었습니다.");
 	}
-
+	
+	//강의 하나의 정보를 불러옴
 	@Override
 	public Lecture getLectureById(long id) {
 		return lectureRepository.findById(id)
 				.orElseThrow(() -> new InvalidRequestException(String.valueOf(id), "해당 ID의 강의는 존재하지 않습니다."));
+	}
+	//카테고리 추가
+	@Override
+	public Lecture addCategoryToLecture(Long lectureId, Category category) {
+		Lecture lecture = lectureRepository.findById(lectureId)
+				.orElseThrow(() -> new InvalidRequestException("Lecture not found with id", "존재하지 않는 아이디입니다."));
+		lecture.getCategorys().add(category);
+		return lectureRepository.save(lecture);
 	}	
-	
 	
 }

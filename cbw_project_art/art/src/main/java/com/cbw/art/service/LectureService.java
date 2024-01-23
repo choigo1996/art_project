@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cbw.art.dto.BaseResponse;
 import com.cbw.art.dto.LectureDto;
+import com.cbw.art.model.Category;
 import com.cbw.art.model.Lecture;
 
 public interface LectureService {
@@ -15,4 +16,6 @@ public interface LectureService {
 	public BaseResponse<Long> deleteLecture(Long id);
 	//강의 하나의 정보만을 가져옴
 	Lecture getLectureById(long id);
+	//카테고리 추가
+	Lecture addCategoryToLecture(Long lectureId,Category category);
 }
