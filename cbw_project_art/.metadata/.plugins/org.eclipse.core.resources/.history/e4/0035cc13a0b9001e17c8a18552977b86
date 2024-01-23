@@ -1,0 +1,35 @@
+package com.cbw.art.dto;
+
+public class LeCatagoryDto {
+	
+	private long category;
+	private long lecture;
+	
+	public LeCatagoryDto() {
+		super();
+	}
+
+	public LeCatagoryDto(long category, long lecture) {
+		super();
+		this.category = category;
+		this.lecture = lecture;
+	}
+
+	public long getCategory() {
+		return category;
+	}
+
+	public void setCategory(long category) {
+		this.category = category;
+	}
+
+	public long getLecture() {
+		return lecture;
+	}
+
+	public void setLecture(long lecture) {
+		this.lecture = lecture;
+	}
+	
+	
+}

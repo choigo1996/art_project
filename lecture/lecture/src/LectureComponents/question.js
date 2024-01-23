@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { getAllQuest } from "./api";
 import styled from "styled-components";
+import { LectureContext } from "./Lecture";
 
 const Ul = styled.ul`
   list-style: none;
@@ -51,13 +52,26 @@ const Text = styled.p`
   margin: 0;
   padding: 8px;
 `;
+
+const Button = styled.button``;
 export function Question() {
   const navigate = useNavigate();
   const { id: lectureId } = useParams();
   const [questions, setQuestions] = useState([]);
-
+  const { loginState } = useContext(LectureContext);
   function onClick(id) {
     navigate(`${id}`);
+  }
+
+  function handleWriteButtonClick() {
+    console.log(loginState);
+    if (loginState && loginState.id) {
+      navigate("write");
+    } else {
+      alert("로그인후에 이용해주세요.");
+      console.log("로그인 페이지로 이동");
+      navigate("/login");
+    }
   }
 
   useEffect(() => {
@@ -88,7 +102,7 @@ export function Question() {
     <>
       <Container>
         <h2>QnA게시글</h2>
-        <Link to="create">글쓰기</Link>
+        <Button onClick={handleWriteButtonClick}>글쓰기</Button>
         <Ul>
           <span>번호</span>
           <Text>제목</Text>

@@ -47,6 +47,7 @@ const Text = styled.p`
   padding: 8px;
 `;
 
+const Button = styled.button``;
 const Rating = styled.div``;
 export function Review() {
   const { id: lectureId } = useParams();
@@ -80,7 +81,7 @@ export function Review() {
     <>
       <Container>
         <h2>수강후기</h2>
-        <Link to="create">글쓰기</Link>
+        <Button>글쓰기</Button>
         <Ul>
           <span>번호</span>
           <Title>제목</Title>
