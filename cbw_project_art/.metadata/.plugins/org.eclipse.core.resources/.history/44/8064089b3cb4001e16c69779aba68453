@@ -1,9 +1,0 @@
-package com.cbw.art.dto;
-
-public class ReviewDto {
-	private long id;
-	private String writer;
-	private String text;
-	private int rating;
-	private long lecture;
-}

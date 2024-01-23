@@ -18,5 +18,5 @@ public interface LectureService {
 	//강의 하나의 정보만을 가져옴
 	Lecture getLectureById(long id);
 	//카테고리 추가
-	public BaseResponse<Void> addCategory(Long lectureId, CategoryDto categoryDto);
+	public BaseResponse<Void> addCategory(CategoryDto categoryDto);
 }

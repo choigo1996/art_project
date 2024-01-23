@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getAllQuest } from "./api";
 import styled from "styled-components";
 import { LectureContext } from "./Lecture";
+import { CreateQuest } from "./CreateQuest";
 
 const Ul = styled.ul`
   list-style: none;
@@ -66,7 +67,7 @@ export function Question() {
   function handleWriteButtonClick() {
     console.log(loginState);
     if (loginState && loginState.id) {
-      navigate("write");
+      navigate("create");
     } else {
       alert("로그인후에 이용해주세요.");
       console.log("로그인 페이지로 이동");
@@ -103,6 +104,7 @@ export function Question() {
       <Container>
         <h2>QnA게시글</h2>
         <Button onClick={handleWriteButtonClick}>글쓰기</Button>
+        <CreateQuest />
         <Ul>
           <span>번호</span>
           <Text>제목</Text>
