@@ -23,6 +23,7 @@ import { Review } from "./Review";
 import { SingleProduct } from "./SingleProduct";
 import { QuestionWrapper } from "./QuestionWrapper";
 import { SingleQuest } from "./SingleQuest";
+import { CreateQuest } from "./CreateQuest";
 
 const client = new QueryClient();
 export const LectureContext = createContext();
@@ -54,8 +55,8 @@ function LectureLoader({ lectures, lecturescheckList }) {
     const storedLoginState = setLoginState(
       JSON.parse(localStorage.getItem("loginState"))
     );
-    console.log("Login State", storedLoginState);
     setLoginState(storedLoginState);
+    console.log("Login State", storedLoginState);
   }, []);
 
   return (
@@ -83,6 +84,7 @@ function LectureLoader({ lectures, lecturescheckList }) {
                   <Route path="lecturelist" element={<LectureList />} />
                   <Route path="question" element={<QuestionWrapper />}>
                     <Route index element={<Question />} />
+                    <Route path="create" element={<CreateQuest />} />
                     <Route path=":questionid" element={<SingleQuest />} />
                   </Route>
                   <Route path="review" element={<Review />} />

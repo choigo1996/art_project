@@ -104,7 +104,6 @@ export function Question() {
       <Container>
         <h2>QnA게시글</h2>
         <Button onClick={handleWriteButtonClick}>글쓰기</Button>
-        <CreateQuest />
         <Ul>
           <span>번호</span>
           <Text>제목</Text>

@@ -31,7 +31,7 @@ export function CreateQuest() {
       } else {
         const response = createQuest({ title, text });
         console.log("글 작성이 완료되었습니다.", response);
-        navigate(`/products/${id}/question`);
+        navigate(`/products/${questionId}/question`);
       }
     } catch (error) {
       console.error("글작성중 오류", error);
