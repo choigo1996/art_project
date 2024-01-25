@@ -159,15 +159,15 @@ export function createReview(user) {
   }).then((response) => response.json());
 }
 //후기 목록
-export function getAllReview(lectureId) {
-  return fetch(`http://localhost:8080/api/review/list?lectureId=${lectureId}`, {
+export function getAllReview() {
+  return fetch(`http://localhost:8080/api/review/list`, {
     method: "GET",
   })
     .then((response) => response.json())
     .then((response) => {
       const reviewWithAuthor = response.data.map((review) => ({
         ...review,
-        author: review.user.loginId,
+        author: review.loginId,
       }));
       return {
         ...response,

@@ -6,7 +6,8 @@ const GlobalStyle = createGlobalStyle`
   font-family:'bitbit';
   src:url('//cdn.df.nexon.com/img/common/font/DNFBitBit-Regular.woff'),url('//cdn.df.nexon.com/img/common/font/DNFBitBit-Regular.woff2') ;
 }
-  *{margin: 0;
+  *{width: 95%; /* 전체 화면의 80%를 차지하도록 설정 */
+  margin: 0 auto; /* 중앙 정렬을 위해 사용 */
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins','bitbit';
