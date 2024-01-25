@@ -94,7 +94,7 @@ export function Notification() {
             <Li>
               <span>{notices.length - i}</span>
               <Title onClick={() => onClick(notice.id)}>{notice.title}</Title>
-              <Text>{notice.writer}</Text>
+              <Text>{notice.author}</Text>
               <Text>{notice.createAt}</Text>
             </Li>
           </Ul>

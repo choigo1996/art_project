@@ -2,6 +2,8 @@ package com.cbw.art.service;
 
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+
 import com.cbw.art.dto.BaseResponse;
 import com.cbw.art.dto.ReviewDto;
 import com.cbw.art.model.Review;
@@ -9,7 +11,7 @@ import com.cbw.art.model.Review;
 
 public interface ReviewService {
 	//후기작성
-	public BaseResponse<Void> createReview(ReviewDto reviewDto);
+	public BaseResponse<Void> createReview(Authentication authentication ,ReviewDto reviewDto);
 	//후기목록
 	public BaseResponse<List<Review>> getAllReview();
 	//후기삭제

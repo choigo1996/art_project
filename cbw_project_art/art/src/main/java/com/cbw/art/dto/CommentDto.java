@@ -7,8 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public class CommentDto {
 	private long id;
-	@NotBlank
-	private String writer;
+
 	@NotBlank
 	private String text;
 	private long question;
@@ -19,10 +18,9 @@ public class CommentDto {
 	}
 
 
-	public CommentDto(long id, String writer, String text,long question) {
+	public CommentDto(long id, @NotBlank String text, long question) {
 		super();
 		this.id = id;
-		this.writer = writer;
 		this.text = text;
 		this.question = question;
 	}
@@ -38,16 +36,6 @@ public class CommentDto {
 	}
 
 
-	public String getWriter() {
-		return writer;
-	}
-
-
-	public void setWriter(String writer) {
-		this.writer = writer;
-	}
-
-
 	public String getText() {
 		return text;
 	}
@@ -58,8 +46,6 @@ public class CommentDto {
 	}
 
 
-	
-
 	public long getQuestion() {
 		return question;
 	}
@@ -68,8 +54,6 @@ public class CommentDto {
 	public void setQuestion(long question) {
 		this.question = question;
 	}
-	
-	
-	
+
 	
 }

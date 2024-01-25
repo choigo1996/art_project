@@ -6,8 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 public class NotificationDto {
 	
 	private long id;
-	@NotBlank
-	private String writer;
+
 	@NotBlank
 	private String title;
 	@NotBlank
@@ -17,11 +16,9 @@ public class NotificationDto {
 		super();
 	}
 
-	public NotificationDto(long id, @NotBlank String writer, @NotBlank String title,
-			@NotBlank String text) {
+	public NotificationDto(long id, @NotBlank String title, @NotBlank String text) {
 		super();
 		this.id = id;
-		this.writer = writer;
 		this.title = title;
 		this.text = text;
 	}
@@ -32,14 +29,6 @@ public class NotificationDto {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getWriter() {
-		return writer;
-	}
-
-	public void setWriter(String writer) {
-		this.writer = writer;
 	}
 
 	public String getTitle() {
@@ -58,4 +47,5 @@ public class NotificationDto {
 		this.text = text;
 	}
 
+	
 }

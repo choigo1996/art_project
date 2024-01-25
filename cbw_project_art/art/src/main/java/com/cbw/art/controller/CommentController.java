@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,9 +38,9 @@ public class CommentController {
 	
 	//댓글생성
 	@PostMapping
-	public ResponseEntity<BaseResponse<Void>> createComment(@RequestBody @Valid CommentDto commentDto){
+	public ResponseEntity<BaseResponse<Void>> createComment(@RequestBody @Valid CommentDto commentDto,Authentication authentication){
 		return new ResponseEntity<> (
-				commentServiceImpl.createComment(commentDto),
+				commentServiceImpl.createComment(authentication, commentDto),
 				HttpStatus.CREATED);
 	}
 	//댓글목록

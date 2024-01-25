@@ -10,8 +10,6 @@ public class QuestionDto {
 
 	private long id;
 	@NotBlank
-	private String writer;
-	@NotBlank
 	private String title;
 	@NotBlank
 	private String text;
@@ -26,11 +24,10 @@ public class QuestionDto {
 		super();
 	}
 
-	public QuestionDto(long id, @NotBlank String writer, @NotBlank String title, @NotBlank String text,
-			List<Long> commentIds, List<Comment> comments, Long lectureId) {
+	public QuestionDto(long id, @NotBlank String title, @NotBlank String text, List<Long> commentIds,
+			List<Comment> comments, Long lectureId) {
 		super();
 		this.id = id;
-		this.writer = writer;
 		this.title = title;
 		this.text = text;
 		this.commentIds = commentIds;
@@ -44,14 +41,6 @@ public class QuestionDto {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getWriter() {
-		return writer;
-	}
-
-	public void setWriter(String writer) {
-		this.writer = writer;
 	}
 
 	public String getTitle() {
@@ -92,5 +81,7 @@ public class QuestionDto {
 
 	public void setLectureId(Long lectureId) {
 		this.lectureId = lectureId;
-	}	
+	}
+
+	
 }

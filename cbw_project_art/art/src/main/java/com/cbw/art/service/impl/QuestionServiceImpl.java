@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.cbw.art.dto.BaseResponse;
 import com.cbw.art.dto.QuestionDto;
 import com.cbw.art.enumstatus.ResultCode;
 import com.cbw.art.exception.InvalidRequestException;
-import com.cbw.art.model.Comment;
 import com.cbw.art.model.Lecture;
 import com.cbw.art.model.Question;
 import com.cbw.art.model.User;
@@ -39,10 +39,15 @@ public class QuestionServiceImpl implements QuestionService{
 		this.lectureRepository = lectureRepository;
 	}
 	//게시글 생성
-	public BaseResponse<Void> createQuest(QuestionDto questionDto) {
+	public BaseResponse<Void> createQuest(Authentication authentication,QuestionDto questionDto) {
+		//사용자 정보가 null이거나 인증되지 않은 경우 예외처리
+		if(authentication == null||!authentication.isAuthenticated()) {
+			throw new InvalidRequestException("Invalid Authentication", "인증되지않은 사용자입니다.");
+		}
 		//사용자 정보 가져오기
-		Optional<User> user = userRepository.findOneWithAuthoritiesByLoginId(questionDto.getWriter());
-		if(user == null) {
+		String loginId = authentication.getName();
+		Optional<User> user = userRepository.findOneWithAuthoritiesByLoginId(loginId);
+		if(!user.isPresent()) {
 			throw new InvalidRequestException("Invalid Writer", "글쓰기 권한이 없습니다");
 		}
 		//강의 정보 가져오기
@@ -54,7 +59,6 @@ public class QuestionServiceImpl implements QuestionService{
 		question.setCreateAt(LocalDateTime.now());
 		question.setTitle(questionDto.getTitle());
 		question.setText(questionDto.getText());
-		question.setWriter(questionDto.getWriter());
 		question.setUser(user.get());
 		question.setLecture(lecture.get());
 		questionRepository.save(question);

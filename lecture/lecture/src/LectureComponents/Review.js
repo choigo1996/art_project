@@ -55,14 +55,14 @@ export function Review() {
   useEffect(() => {
     const fetchReview = async () => {
       try {
-        const response = await getAllReview();
+        const response = await getAllReview(lectureId);
         setReview(response.data);
       } catch (error) {
         console.error("질문 목록 조회 중 오류 발생", error);
       }
     };
     fetchReview();
-  }, []);
+  }, [lectureId]);
   const sortedReview =
     reviews.length > 0
       ? reviews
@@ -94,7 +94,7 @@ export function Review() {
             <Li>
               <span>{review.number}</span>
               <Title>{review.text}</Title>
-              <Text>{review.writer}</Text>
+              <Text>{review.author}</Text>
               <Text>{review.createAt}</Text>
               <Rating>{review.rating}</Rating>
             </Li>

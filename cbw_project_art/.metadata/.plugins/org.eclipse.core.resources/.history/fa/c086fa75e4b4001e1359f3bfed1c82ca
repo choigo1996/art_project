@@ -1,6 +1,0 @@
-package com.cbw.art.dto;
-
-public class IntroDto {
-	private String text;
-	private Long lecture;
-}

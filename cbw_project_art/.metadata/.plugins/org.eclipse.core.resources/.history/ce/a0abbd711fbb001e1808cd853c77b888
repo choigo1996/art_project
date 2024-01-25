@@ -1,0 +1,22 @@
+package com.cbw.art.dto;
+
+import java.util.List;
+
+import com.cbw.art.enumstatus.CategoryType;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+
+public class CategoryDto {
+	
+	@NotBlank
+	private List<String> categoryType;
+	private Long lectureId;
+	
+	public CategoryDto() {
+		super();
+	}
+
+	
+	
+}

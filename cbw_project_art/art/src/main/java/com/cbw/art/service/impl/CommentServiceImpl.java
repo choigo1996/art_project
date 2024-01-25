@@ -2,8 +2,9 @@ package com.cbw.art.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
-
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.cbw.art.dto.BaseResponse;
@@ -12,6 +13,7 @@ import com.cbw.art.enumstatus.ResultCode;
 import com.cbw.art.exception.InvalidRequestException;
 import com.cbw.art.model.Comment;
 import com.cbw.art.model.Question;
+import com.cbw.art.model.User;
 import com.cbw.art.repository.CommentRepository;
 import com.cbw.art.repository.QuestionRepository;
 import com.cbw.art.service.CommentService;
@@ -30,14 +32,13 @@ public class CommentServiceImpl implements CommentService{
 
 	//댓글작성
 	@Override
-	public BaseResponse<Void> createComment(CommentDto commentDto) {
-		if(commentDto.getWriter() == null || commentDto.getWriter().isEmpty()) {
-			throw new InvalidRequestException("Invalid Writer" , "댓글 작성자가 없습니다.");
+	public BaseResponse<Void> createComment(Authentication authentication,CommentDto commentDto) {
+		if(authentication == null || authentication.isAuthenticated()) {
+			throw new InvalidRequestException("Invalid Authentication" , "인증되지않은 사용자입니다.");
 		}
 		Question question = questionRepository.findById(commentDto.getQuestion())
 				.orElseThrow(() -> new InvalidRequestException("Invalid Question","존재하지 않는 질문입니다."));
 		Comment comment = new Comment();
-		comment.setWriter(commentDto.getWriter());
 		comment.setText(commentDto.getText());
 		comment.setCreateAt(LocalDateTime.now());
 		

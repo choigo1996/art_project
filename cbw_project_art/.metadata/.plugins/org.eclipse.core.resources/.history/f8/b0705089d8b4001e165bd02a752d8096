@@ -1,7 +1,0 @@
-package com.cbw.art.service.impl;
-
-import com.cbw.art.service.LectureListService;
-
-public class LectureListServiceImpl implements LectureListService{
-
-}

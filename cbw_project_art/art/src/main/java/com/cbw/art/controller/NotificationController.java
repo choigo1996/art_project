@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,9 +40,9 @@ public class NotificationController {
 	//공지사항 생성
 	@PostMapping
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	public ResponseEntity<BaseResponse<Void>> createNoti(@RequestBody @Valid NotificationDto notificationDto){
+	public ResponseEntity<BaseResponse<Void>> createNoti(@RequestBody @Valid NotificationDto notificationDto,Authentication authentication){
 		return new ResponseEntity<>(
-				notificationServiceImpl.createNoti(notificationDto),
+				notificationServiceImpl.createNoti(authentication, notificationDto),
 				HttpStatus.CREATED);
 	}
 	//공지사항 목록

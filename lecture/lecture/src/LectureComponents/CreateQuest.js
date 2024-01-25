@@ -11,8 +11,7 @@ export function CreateQuest() {
   const { loginState } = useContext(LectureContext);
   const { id: questionId } = useParams();
   const [title, setTitle] = useState("");
-  const [text, setText] = useState([]);
-
+  const [text, setText] = useState("");
   useEffect(() => {
     if (!loginState) {
       alert("로그인 후에 작성바랍니다.");

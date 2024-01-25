@@ -20,10 +20,7 @@ public class Comment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
-	@Column(nullable = false)
-	private String writer;
-	
+		
 	@Column(nullable = false,length = 1500)
 	private String text;
 	
@@ -41,10 +38,9 @@ public class Comment {
 	}
 
 
-	public Comment(long id, String writer, String text, LocalDateTime createAt, Question question) {
+	public Comment(long id, String text, LocalDateTime createAt, Question question) {
 		super();
 		this.id = id;
-		this.writer = writer;
 		this.text = text;
 		this.createAt = createAt;
 		this.question = question;
@@ -58,16 +54,6 @@ public class Comment {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-
-	public String getWriter() {
-		return writer;
-	}
-
-
-	public void setWriter(String writer) {
-		this.writer = writer;
 	}
 
 
@@ -99,6 +85,9 @@ public class Comment {
 	public void setQuestion(Question question) {
 		this.question = question;
 	}
+
+
+	
 	
 	
 }

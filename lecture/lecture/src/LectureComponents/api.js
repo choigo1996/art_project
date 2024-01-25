@@ -66,7 +66,18 @@ export function createNoti(admin) {
 export function getAllNotifi() {
   return fetch(`http://localhost:8080/api/board/list`, {
     method: "GET",
-  }).then((response) => response.json());
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      const notiWithAuthor = response.data.map((notification) => ({
+        ...notification,
+        author: notification.user.loginId,
+      }));
+      return {
+        ...response,
+        data: notiWithAuthor,
+      };
+    });
 }
 //공지사항 하나의 정보를 가져온다.
 export function getNotiById(id) {
@@ -109,7 +120,18 @@ export function getAllQuest(lectureId) {
     {
       method: "GET",
     }
-  ).then((response) => response.json());
+  )
+    .then((response) => response.json())
+    .then((response) => {
+      const questionsWithAuthor = response.data.map((question) => ({
+        ...question,
+        author: question.user.loginId,
+      }));
+      return {
+        ...response,
+        data: questionsWithAuthor,
+      };
+    });
 }
 //QnA게시글 하나만 가져옴
 export function getQuestById(id) {
@@ -137,10 +159,21 @@ export function createReview(user) {
   }).then((response) => response.json());
 }
 //후기 목록
-export function getAllReview() {
-  return fetch(`http://localhost:8080/api/review/list`, {
+export function getAllReview(lectureId) {
+  return fetch(`http://localhost:8080/api/review/list?lectureId=${lectureId}`, {
     method: "GET",
-  }).then((response) => response.json());
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      const reviewWithAuthor = response.data.map((review) => ({
+        ...review,
+        author: review.user.loginId,
+      }));
+      return {
+        ...response,
+        data: reviewWithAuthor,
+      };
+    });
 }
 //후기 삭제
 export function deleteReview(id) {

@@ -22,9 +22,6 @@ public class Question {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(nullable = false)
-	private String writer;
-	
 	@Column(nullable = false,length = 50)
 	private String title;
 	
@@ -46,11 +43,9 @@ public class Question {
 		super();
 	}
 
-	public Question(long id, String writer, String title, String text, LocalDateTime createAt, User user,
-			Lecture lecture) {
+	public Question(long id, String title, String text, LocalDateTime createAt, User user, Lecture lecture) {
 		super();
 		this.id = id;
-		this.writer = writer;
 		this.title = title;
 		this.text = text;
 		this.createAt = createAt;
@@ -64,14 +59,6 @@ public class Question {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getWriter() {
-		return writer;
-	}
-
-	public void setWriter(String writer) {
-		this.writer = writer;
 	}
 
 	public String getTitle() {
@@ -113,5 +100,7 @@ public class Question {
 	public void setLecture(Lecture lecture) {
 		this.lecture = lecture;
 	}
+
+	
 
 }

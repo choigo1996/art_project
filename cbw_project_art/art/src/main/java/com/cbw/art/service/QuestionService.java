@@ -1,7 +1,8 @@
 package com.cbw.art.service;
 
 import java.util.List;
-import java.util.Optional;
+
+import org.springframework.security.core.Authentication;
 
 import com.cbw.art.dto.BaseResponse;
 import com.cbw.art.dto.QuestionDto;
@@ -10,7 +11,7 @@ import com.cbw.art.model.Question;
 
 public interface QuestionService {
 		//게시글 생성
-		public BaseResponse<Void> createQuest(QuestionDto questionDto);
+		public BaseResponse<Void> createQuest(Authentication authentication, QuestionDto questionDto);
 		//게시글 목록
 		public BaseResponse<List<Question>> getAllQuest();
 		//게시글 삭제

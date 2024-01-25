@@ -7,9 +7,6 @@ public class ReviewDto {
 	private long id;
 	
 	@NotBlank
-	private String writer;
-	
-	@NotBlank
 	private String text;
 	
 	private int rating;
@@ -20,10 +17,9 @@ public class ReviewDto {
 		super();
 	}
 
-	public ReviewDto(long id, @NotBlank String writer, @NotBlank String text, int rating, long lecture) {
+	public ReviewDto(long id, @NotBlank String text, int rating, long lecture) {
 		super();
 		this.id = id;
-		this.writer = writer;
 		this.text = text;
 		this.rating = rating;
 		this.lecture = lecture;
@@ -35,14 +31,6 @@ public class ReviewDto {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getWriter() {
-		return writer;
-	}
-
-	public void setWriter(String writer) {
-		this.writer = writer;
 	}
 
 	public String getText() {
@@ -68,7 +56,7 @@ public class ReviewDto {
 	public void setLecture(long lecture) {
 		this.lecture = lecture;
 	}
-	
+
 	
 	
 }

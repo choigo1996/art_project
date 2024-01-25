@@ -1,5 +1,0 @@
-package com.cbw.art.enumstatus;
-
-public enum CategoryType {
-
-}

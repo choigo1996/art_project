@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.cbw.art.dto.BaseResponse;
@@ -35,23 +35,29 @@ public class NotificationServiceImpl implements NotificationService{
 	}
 
 	//공지사항 생성
-	public BaseResponse<Void> createNoti(NotificationDto notificationDto) {
-		Optional<User> user = userRepository.findOneWithAuthoritiesByLoginId(notificationDto.getWriter());
-		if(user == null) {
+	public BaseResponse<Void> createNoti(Authentication authentication, NotificationDto notificationDto) {
+		//사용자 정보가 null이거나 인증되지 않은 경우
+		if(authentication == null || !authentication.isAuthenticated()) {
+			throw new InvalidRequestException("Invalid Authentication", "인증되지않은 사용자입니다.");
+		}
+		//사용자 정보 가져오기
+		String loginId = authentication.getName();
+		Optional<User> user = userRepository.findOneWithAuthoritiesByLoginId(loginId);
+		if(!user.isPresent()) {
 			throw new InvalidRequestException("Invalid Writer", "글쓰기 권한이 없습니다");
 		}
 		Notification notification = new Notification();
 		notification.setCreateAt(LocalDateTime.now());
 		notification.setTitle(notificationDto.getTitle());
 		notification.setText(notificationDto.getText());
-		notification.setWriter(notificationDto.getWriter());
-		
+		notification.setUser(user.get());
 		notificationRepository.save(notification);
 		 return new BaseResponse<>(
 	                ResultCode.SUCCESS.name(),
 	                null,
 	                "공지사항이 생성 완료되었습니다");	
-		 }
+	}
+
 
 	//공지목록 읽어오기
 	public BaseResponse<List<Notification>> getAllNotifi() {
@@ -83,6 +89,9 @@ public class NotificationServiceImpl implements NotificationService{
 	public Notification getNotiById(long id) {
 		return notificationRepository.findById(id).orElseThrow(() -> null);
 	}
+
+	
+	
 	
 
 	

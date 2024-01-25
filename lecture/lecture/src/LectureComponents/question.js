@@ -78,7 +78,7 @@ export function Question() {
   useEffect(() => {
     const fetchQuestion = async () => {
       try {
-        const response = await getAllQuest();
+        const response = await getAllQuest(lectureId);
         setQuestions(response.data);
       } catch (error) {
         console.error("질문 목록 조회 중 오류 발생", error);
@@ -86,7 +86,7 @@ export function Question() {
     };
 
     fetchQuestion();
-  }, []);
+  }, [lectureId]);
 
   const sortedQuestions =
     questions.length > 0
@@ -117,7 +117,7 @@ export function Question() {
               <Title onClick={() => onClick(question.id)}>
                 {question.title}
               </Title>
-              <Text>{question.writer}</Text>
+              <Text>{question.author}</Text>
               <Text>{question.createAt}</Text>
             </Li>
           </Ul>

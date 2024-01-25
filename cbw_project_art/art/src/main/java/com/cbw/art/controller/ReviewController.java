@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,9 +41,9 @@ public class ReviewController {
 	//후기 작성
 	@PostMapping
 	@PreAuthorize("hasAnyRole('USER','ADMIN','TEACHER')")
-	public ResponseEntity<BaseResponse<Void>> createReview(@RequestBody @Valid ReviewDto reviewDto){
+	public ResponseEntity<BaseResponse<Void>> createReview(@RequestBody @Valid ReviewDto reviewDto,Authentication authentication){
 		return new ResponseEntity<>(
-				reviewServiceImpl.createReview(reviewDto),
+				reviewServiceImpl.createReview(authentication, reviewDto),
 				HttpStatus.CREATED);
 	}
 	//후기 목록

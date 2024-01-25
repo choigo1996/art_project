@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.cbw.art.dto.BaseResponse;
@@ -12,8 +13,10 @@ import com.cbw.art.enumstatus.ResultCode;
 import com.cbw.art.exception.InvalidRequestException;
 import com.cbw.art.model.Lecture;
 import com.cbw.art.model.Review;
+import com.cbw.art.model.User;
 import com.cbw.art.repository.LectureRepository;
 import com.cbw.art.repository.ReviewRepository;
+import com.cbw.art.repository.UserRepository;
 import com.cbw.art.service.ReviewService;
 
 @Service
@@ -21,32 +24,37 @@ public class ReviewServiceImpl implements ReviewService{
 	
 	private ReviewRepository reviewRepository;
 	private LectureRepository lectureRepository;
-	
+	private UserRepository userRepository;
 	@Autowired
-	public ReviewServiceImpl(ReviewRepository reviewRepository, LectureRepository lectureRepository) {
+	public ReviewServiceImpl(ReviewRepository reviewRepository, LectureRepository lectureRepository,
+			UserRepository userRepository) {
 		super();
 		this.reviewRepository = reviewRepository;
 		this.lectureRepository = lectureRepository;
+		this.userRepository = userRepository;
 	}
+
 	//후기작성
 	@Override
-	public BaseResponse<Void> createReview(ReviewDto reviewDto) {
-		if(reviewDto.getWriter() == null || reviewDto.getWriter().isEmpty()) {
-			throw new InvalidRequestException("Invalid Writer", "후기 작성자가 없음");
+	public BaseResponse<Void> createReview(Authentication authentication, ReviewDto reviewDto) {
+		if(authentication == null||!authentication.isAuthenticated()) {
+			throw new InvalidRequestException("Invalid Authentication", "인증되지않은 사용자입니다.");
 		}
-		if(reviewRepository.existsByWriter(reviewDto.getWriter())) {
-			throw new InvalidRequestException("Duplicate Review", "이미 후기를 작성했습니다.");
+		User user = userRepository.findOneWithAuthoritiesByLoginId(authentication.getName())
+				.orElseThrow(() -> new InvalidRequestException("Invalid User", "존재하지 않는 사용자입니다."));
+		if (reviewRepository.existsByUserAndLecture(user, lectureRepository.findById(reviewDto.getLecture())
+		        .orElseThrow(() -> new InvalidRequestException("Invalid Lecture", "존재하지 않는 강의입니다.")))) {
+		    throw new InvalidRequestException("Duplicate Review", "이미 후기를 작성했습니다.");
 		}
 		Lecture lecture = lectureRepository.findById(reviewDto.getLecture())
 				.orElseThrow(() -> new InvalidRequestException("Invalid Lecture","존재하지 않는 강의입니다."));
 		Review review = new Review();
-		review.setWriter(reviewDto.getWriter());
 		review.setText(reviewDto.getText());
 		review.setRating(reviewDto.getRating());
 		review.setCreateAt(LocalDateTime.now());
 		
 		review.setLecture(lecture);
-		
+		review.setUser(user);
 		reviewRepository.save(review);
 		
 		return new BaseResponse<>(

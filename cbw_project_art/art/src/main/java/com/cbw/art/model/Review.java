@@ -21,9 +21,6 @@ public class Review {
 	private long id;
 	
 	@Column(nullable = false)
-	private String writer;
-	
-	@Column(nullable = false)
 	private String text;
 	
 	@Column(nullable = false)
@@ -37,68 +34,60 @@ public class Review {
 	@JoinColumn(name = "lecture_id")
 	private Lecture lecture;
 
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+	
 	public Review() {
 		super();
 	}
-
-	public Review(long id, String writer, String text, int rating, LocalDateTime createAt, Lecture lecture) {
+	
+	public Review(long id, String text, int rating, LocalDateTime createAt, Lecture lecture, User user) {
 		super();
 		this.id = id;
-		this.writer = writer;
 		this.text = text;
 		this.rating = rating;
 		this.createAt = createAt;
 		this.lecture = lecture;
+		this.user = user;
 	}
-
+	
 	public long getId() {
 		return id;
 	}
-
 	public void setId(long id) {
 		this.id = id;
 	}
-
-	public String getWriter() {
-		return writer;
-	}
-
-	public void setWriter(String writer) {
-		this.writer = writer;
-	}
-
 	public String getText() {
 		return text;
 	}
-
 	public void setText(String text) {
 		this.text = text;
 	}
-
 	public int getRating() {
 		return rating;
 	}
-
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
-
 	public LocalDateTime getCreateAt() {
 		return createAt;
 	}
-
 	public void setCreateAt(LocalDateTime createAt) {
 		this.createAt = createAt;
 	}
-
 	public Lecture getLecture() {
 		return lecture;
 	}
-
 	public void setLecture(Lecture lecture) {
 		this.lecture = lecture;
 	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-	
 	
 }
