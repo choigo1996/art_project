@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getAllQuest } from "./api";
 import styled from "styled-components";
 import { LectureContext } from "./Lecture";
-import { CreateQuest } from "./CreateQuest";
 
 const Ul = styled.ul`
   list-style: none;

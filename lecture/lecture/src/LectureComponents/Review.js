@@ -94,7 +94,7 @@ export function Review() {
             <Li>
               <span>{review.number}</span>
               <Title>{review.text}</Title>
-              <Text>{review.author}</Text>
+              {/* <Text>{review.author}</Text> */}
               <Text>{review.createAt}</Text>
               <Rating>{review.rating}</Rating>
             </Li>

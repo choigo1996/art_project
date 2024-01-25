@@ -28,7 +28,7 @@ export function CreateQuest() {
       } else if (!text) {
         alert("내용이 없습니다.");
       } else {
-        const response = createQuest({ title, text });
+        const response = createQuest({ text: "", title: "" });
         console.log("글 작성이 완료되었습니다.", response);
         navigate(`/products/${questionId}/question`);
       }
