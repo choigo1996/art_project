@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { createQuest } from "./api";
+import { createQuest, getAuthToken, login } from "./api";
 import { useContext, useEffect, useState } from "react";
 import { LectureContext } from "./Lecture";
 import styled from "styled-components";
@@ -41,9 +41,10 @@ const Header = styled.div`
 `;
 
 export function CreateQuest() {
-  //제목,내용
+  //제목,내용,lectureId
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+  const { id: lectureId } = useParams();
   //작성글 저장
   const [userQuest, setUserQuest] = useState(null);
   const [questing, setQuesting] = useState(false);
@@ -74,6 +75,7 @@ export function CreateQuest() {
   const handleBack = () => {
     navigate(`/products/${questionId}/question`);
   };
+
   function onSubmit(e) {
     e.preventDefault();
 
@@ -81,14 +83,16 @@ export function CreateQuest() {
       window.alert("죄송하지만, 빈 공간이 존재합니다.");
       return;
     } else {
-      const user = {
+      const questData = {
         title: title,
         text: text,
+        lectureId: lectureId,
       };
 
-      console.log(user);
+      const token = getAuthToken();
+      console.log(questData);
       //API호출
-      createQuest(user)
+      createQuest(questData, token)
         .then((response) => {
           console.log("응답확인 :", response);
           if (response.resultCode === "SUCCESS") {

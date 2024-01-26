@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getAllReview } from "./api";
+import { LectureContext } from "./Lecture";
 
 const Ul = styled.ul`
   list-style: none;
@@ -57,6 +58,7 @@ const Rating = styled.p`
 export function Review() {
   const { id: lectureId } = useParams();
   const [reviews, setReview] = useState([]);
+  const { loginState } = useContext(LectureContext);
   useEffect(() => {
     const fetchReview = async () => {
       try {
@@ -68,6 +70,12 @@ export function Review() {
     };
     fetchReview();
   }, [lectureId]);
+  function handleWriterButtonClick() {
+    console.log(loginState);
+    if (loginState && loginState.id) {
+      navigator("create");
+    }
+  }
   const sortedReview =
     reviews.length > 0
       ? reviews

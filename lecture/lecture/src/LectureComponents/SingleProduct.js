@@ -29,6 +29,9 @@ const CategoryList = styled.div`
   display: flex;
   list-style: none;
 `;
+const Buy = styled.button``;
+const Basket = styled.button``;
+
 export function SingleProduct() {
   const { lectures } = useContext(LectureContext);
 
@@ -55,6 +58,8 @@ export function SingleProduct() {
               ))}
           </CategoryList>
         </Content>
+        <Basket>장바구니</Basket>
+        <Buy>수강신청</Buy>
         <LectureNav />
       </Container>
     </>

@@ -104,14 +104,19 @@ export function checkDuplicateEmail(email) {
   }).then((response) => response.json());
 }
 //QnA게시글 작성
-export function createQuest(user) {
+export function createQuest(questData, token) {
   return fetch(`http://localhost:8080/api/question`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(user),
+    body: JSON.stringify(questData),
   }).then((response) => response.json());
+}
+//토큰 가져오는 로직
+export function getAuthToken() {
+  return localStorage.getItem("accessToken");
 }
 //QnA게시글 목록
 export function getAllQuest(lectureId) {
@@ -167,7 +172,7 @@ export function getAllReview() {
     .then((response) => {
       const reviewWithAuthor = response.data.map((review) => ({
         ...review,
-        author: review.loginId,
+        author: review.user.loginId,
       }));
       return {
         ...response,
