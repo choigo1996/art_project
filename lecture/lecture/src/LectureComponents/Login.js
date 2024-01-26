@@ -86,14 +86,13 @@ export function Login() {
 
   function onSubmit(e) {
     e.preventDefault();
+    console.log(data);
     const user = {
       loginId: loginId,
       password: password,
     };
-    if (!loginId) {
-      alert("ID를 입력하세요");
-    } else if (!password) {
-      alert("PW를 입력하세요");
+    if (!loginId || !password) {
+      alert("아이디 및 비밀번호를 입력하세요");
     } else {
       setUserLogin(user);
     }

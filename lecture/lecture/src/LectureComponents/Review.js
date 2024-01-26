@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getAllReview } from "./api";
 
@@ -9,7 +9,9 @@ const Ul = styled.ul`
   margin: 0;
   border-bottom: 1px solid #ccc;
   display: flex;
-  display: grid-template-columns(4fr);
+  flex-wrap: wrap;
+  width: 100%;
+  display: grid-template-columns(5fr);
   align-items: center;
   span {
     flex: 1;
@@ -48,7 +50,10 @@ const Text = styled.p`
 `;
 
 const Button = styled.button``;
-const Rating = styled.div``;
+const Rating = styled.p`
+  margin: 0;
+  padding: 8px;
+`;
 export function Review() {
   const { id: lectureId } = useParams();
   const [reviews, setReview] = useState([]);
@@ -84,7 +89,7 @@ export function Review() {
         <Button>글쓰기</Button>
         <Ul>
           <span>번호</span>
-          <Title>제목</Title>
+          <Title>후기</Title>
           <Text>작성자</Text>
           <Text>작성일</Text>
           <Rating>점수</Rating>
@@ -94,7 +99,7 @@ export function Review() {
             <Li>
               <span>{review.number}</span>
               <Title>{review.text}</Title>
-              {/* <Text>{review.author}</Text> */}
+              <Text>{review.author}</Text>
               <Text>{review.createAt}</Text>
               <Rating>{review.rating}</Rating>
             </Li>

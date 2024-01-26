@@ -3,62 +3,145 @@ import { createQuest } from "./api";
 import { useContext, useEffect, useState } from "react";
 import { LectureContext } from "./Lecture";
 import styled from "styled-components";
+import { useQuery } from "react-query";
 
-const Container = styled.div``;
-const Button = styled.button``;
+const Container = styled.div`
+  width: 500px;
+  background-color: #eee;
+  box-shadow: 2px 2px 5px gray;
+  padding: 20px;
+  border-radius: 20px;
+  margin: 50px;
+`;
+const Button = styled.button`
+  width: 100%;
+  height: 25px;
+  margin-top: 20px;
+  background-color: lightblue;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+  border: 1px solid blue;
+`;
+const BackButton = styled.button`
+  width: 100%;
+  height: 25px;
+  margin-top: 20px;
+  background-color: lightblue;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+  border: 1px solid blue;
+`;
+const Header = styled.div`
+  font-size: 1.5rem;
+  text-align: center;
+`;
+
 export function CreateQuest() {
-  const navigate = useNavigate();
-  const { loginState } = useContext(LectureContext);
-  const { id: questionId } = useParams();
+  //제목,내용
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+  //작성글 저장
+  const [userQuest, setUserQuest] = useState(null);
+  const [questing, setQuesting] = useState(false);
+  const [questComplete, setQuestComplete] = useState(false);
+  //로그인 되어있는지 확인용
+  const { loginState } = useContext(LectureContext);
+  //Question목록으로 넘김
+  const { id: questionId } = useParams();
+  const navigate = useNavigate();
+
+  const { data, isLoading, refetch } = useQuery("question", () => {
+    if (userQuest) {
+      setQuesting(true);
+      return createQuest(userQuest);
+    }
+  });
+
+  useEffect(() => {
+    refetch();
+  }, [userQuest]);
+
   useEffect(() => {
     if (!loginState) {
       alert("로그인 후에 작성바랍니다.");
       navigate("/login");
     }
   }, [loginState, navigate]);
-
+  const handleBack = () => {
+    navigate(`/products/${questionId}/question`);
+  };
   function onSubmit(e) {
     e.preventDefault();
 
-    try {
-      if (!title) {
-        alert("제목이 비었습니다.");
-      } else if (!text) {
-        alert("내용이 없습니다.");
-      } else {
-        const response = createQuest({ text: "", title: "" });
-        console.log("글 작성이 완료되었습니다.", response);
-        navigate(`/products/${questionId}/question`);
-      }
-    } catch (error) {
-      console.error("글작성중 오류", error);
+    if (!title || !text) {
+      window.alert("죄송하지만, 빈 공간이 존재합니다.");
+      return;
+    } else {
+      const user = {
+        title: title,
+        text: text,
+      };
+
+      console.log(user);
+      //API호출
+      createQuest(user)
+        .then((response) => {
+          console.log("응답확인 :", response);
+          if (response.resultCode === "SUCCESS") {
+            alert("글 작성이 완료되었습니다.");
+          } else if (response.resultCode === "ERROR") {
+            const errorMassage =
+              response.data.message || response.data["Invalid Writer"];
+            console.log(response);
+            console.log(errorMassage);
+            window.alert(errorMassage);
+          }
+        })
+        .catch((error) => {
+          console.error("호출 실패 :", error);
+          window.alert("에러 발생");
+        });
     }
   }
   return (
     <>
-      <Container>
-        <form onSubmit={onSubmit}>
-          <label>
-            제목 :
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </label>
-          <label>
-            내용 :
-            <input
-              type="text"
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-            />
-          </label>
-          <Button type="submit">글 작성</Button>
-        </form>
-      </Container>
+      {questing ? (
+        <h1>글 작성중입니다...</h1>
+      ) : questComplete ? (
+        <h1>글 작성이 완료되었습니다.</h1>
+      ) : (
+        <Container>
+          <form onSubmit={onSubmit}>
+            <Header>질문 사항 작성</Header>
+            <div>
+              <span>제목</span>
+              <input
+                id="title"
+                value={title}
+                placeholder="제목을 입력하세요."
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </div>
+            <div>
+              <span>내용</span>
+              <textarea
+                name="text"
+                cols={20}
+                rows={10}
+                value={text}
+                placeholder="내용을 입력하세요"
+                onChange={(e) => setText(e.target.value)}
+              />
+            </div>
+            <Button>글 작성</Button>
+            <BackButton onClick={handleBack}>취소</BackButton>
+          </form>
+        </Container>
+      )}
     </>
   );
 }

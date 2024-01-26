@@ -87,29 +87,33 @@ export function Products() {
           </CategoryItem>
         ))}
       </CategoryContainer>
-      <Container>
-        {filteredLectures.map((lecture) => (
-          <Card key={lecture.id}>
-            <div onClick={() => onClick(lecture.id)}>
-              <Img src={lecture.image} />
-              <Text>강의명: {lecture.title}</Text>
-              <Text>강사: {lecture.teacher}</Text>
-              <Text>가격: {lecture.price}원</Text>
-              <div>
-                카테고리:
-                {lecture.categorys.map(
-                  (category) =>
-                    category.categoryType !== "ALL" && (
-                      <CategoryItem key={category.categoryType}>
-                        {category.categoryType}
-                      </CategoryItem>
-                    )
-                )}
+      {filteredLectures.length === 0 ? (
+        <div>No lectures available.</div>
+      ) : (
+        <Container>
+          {filteredLectures.map((lecture) => (
+            <Card key={lecture.id}>
+              <div onClick={() => onClick(lecture.id)}>
+                <Img src={lecture.image} />
+                <Text>강의명: {lecture.title}</Text>
+                <Text>강사: {lecture.teacher}</Text>
+                <Text>가격: {lecture.price}원</Text>
+                <div>
+                  카테고리:
+                  {lecture.categorys.map(
+                    (category) =>
+                      category.categoryType !== "ALL" && (
+                        <CategoryItem key={category.categoryType}>
+                          {category.categoryType}
+                        </CategoryItem>
+                      )
+                  )}
+                </div>
               </div>
-            </div>
-          </Card>
-        ))}
-      </Container>
+            </Card>
+          ))}
+        </Container>
+      )}
     </>
   );
 }

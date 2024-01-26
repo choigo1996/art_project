@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { checkDuplicateEmail, checkDuplicateLogin, signUp } from "./api";
 const Container = styled.div`
-  width: 500px;
+  width: 80%;
   background-color: #eee;
   box-shadow: 2px 2px 5px grey;
-  padding: 20px;
+  padding: 30px;
   border-radius: 20px;
-  margin: 50px;
+  margin-top: 25px;
 `;
 
 const Header = styled.div`
@@ -24,7 +24,39 @@ const Righter = styled.div`
   align-items: flex-start;
 
   & > div {
-    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  label {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: #555;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+
+    &:focus {
+      border-color: #4caf50;
+    }
+  }
+
+  .message {
+    font-size: 0.8rem;
+    margin-top: 8px;
+
+    &.success {
+      color: green;
+    }
+
+    &.error {
+      color: red;
+    }
   }
 `;
 
@@ -32,14 +64,39 @@ const Left = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-top: 20px;
 
-  & > ul {
+  ul {
     list-style-type: none;
     padding: 0;
+    margin: 0;
   }
 
-  & > ul > li {
-    margin-bottom: 10px;
+  ul > li {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+
+    input[type="checkbox"] {
+      margin-right: 8px;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #4caf50;
+      border-radius: 3px;
+      outline: none;
+      cursor: pointer;
+
+      &:checked {
+        background-color: #4caf50;
+        border: 2px solid #4caf50;
+      }
+    }
+
+    label {
+      font-size: 1rem;
+      color: #333;
+    }
   }
 `;
 
@@ -118,6 +175,18 @@ export function Register() {
     eventAlarmAgreed: false,
     serviceAlarmAgreed: false,
   });
+  const navigate = useNavigate();
+
+  const { data, isLoading, refetch } = useQuery("register", () => {
+    if (userRegister) {
+      setRegistering(true);
+      return signUp(userRegister);
+    }
+  });
+  useEffect(() => {
+    refetch();
+  }, [userRegister]);
+  //필수사항 및 선택사항 체크
   const handleAgreementChange = (e) => {
     const { name, checked } = e.target;
     setAgreements((prevAgreements) => ({ ...prevAgreements, [name]: checked }));
@@ -140,17 +209,6 @@ export function Register() {
     );
     setAllAgreed(checked);
   };
-  const navigate = useNavigate();
-  const { data, isLoading, refetch } = useQuery("register", () => {
-    if (userRegister) {
-      setRegistering(true);
-      return signUp(userRegister);
-    }
-  });
-
-  useEffect(() => {
-    refetch();
-  }, [userRegister]);
   //비밀번호 확인맨()
   useEffect(() => {
     if (password === passwordCheck) {
@@ -280,8 +338,10 @@ export function Register() {
       //API 호출
       signUp(user)
         .then((response) => {
+          console.log("응답 확인 :", response);
           if (response.resultCode === "SUCCESS") {
             alert("회원가입을 축하드립니다!");
+            console.log(response);
             navigate("/login");
           } else if (response.resultCode === "ERROR") {
             const errorMessage =

@@ -36,10 +36,10 @@ export function Lecture() {
         {!isLoading && data && (
           <LectureLoader
             lectures={data.data}
-            lecturesCheckList={data.data.map((l) => ({
-              id: l.id,
-              checked: false,
-            }))}
+            // lecturesCheckList={data.data.map((l) => ({
+            //   id: l.id,
+            //   checked: false,
+            // }))}
           />
         )}
       </QueryClientProvider>

@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getQuestById } from "./api";
 import styled from "styled-components";
+import { LectureContext } from "./Lecture";
 
 const Container = styled.div`
   max-width: 600px;
@@ -57,6 +58,11 @@ export function SingleQuest() {
   console.log("현재 파라미터 id:", id);
   const navigate = useNavigate();
   const [quest, setQuest] = useState(null);
+  const { loginState } = useContext(LectureContext);
+  //댓글기능
+  const [comment, setComment] = useState(null);
+
+  //댓글 핸들러
 
   useEffect(() => {
     getQuestById(id)

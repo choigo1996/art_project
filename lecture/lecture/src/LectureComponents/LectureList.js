@@ -9,6 +9,7 @@ const Ul = styled.ul`
   margin: 0;
   border-bottom: 1px solid #ccc;
   display: flex;
+  flex-wrap: wrap;
   display: grid-template-columns(4fr);
   align-items: center;
   span {
@@ -18,6 +19,11 @@ const Ul = styled.ul`
   }
 
   p {
+    flex: 3;
+    margin: 0;
+    padding: 8px;
+  }
+  a {
     flex: 3;
     margin: 0;
     padding: 8px;
