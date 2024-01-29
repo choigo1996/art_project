@@ -1,8 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getQuestById } from "./api";
+import { deleteQuest, getQuestById } from "./api";
 import styled from "styled-components";
 import { LectureContext } from "./Lecture";
+import { Comment } from "./Comment";
+import { CreateComment } from "./CreateComment";
 
 const Container = styled.div`
   max-width: 600px;
@@ -43,6 +45,7 @@ const BackButton = styled.button`
   padding: 12px 20px;
   border: none;
   border-radius: 5px;
+  width: 70%;
   cursor: pointer;
   font-size: 1rem;
   margin-top: 20px;
@@ -54,8 +57,8 @@ const BackButton = styled.button`
 `;
 
 export function SingleQuest() {
-  const { id } = useParams();
-  console.log("현재 파라미터 id:", id);
+  const { questionid } = useParams();
+  console.log("questionId 파라미터 id:", questionid);
   const navigate = useNavigate();
   const [quest, setQuest] = useState(null);
   const { loginState } = useContext(LectureContext);
@@ -63,9 +66,8 @@ export function SingleQuest() {
   const [comment, setComment] = useState(null);
 
   //댓글 핸들러
-
   useEffect(() => {
-    getQuestById(id)
+    getQuestById(questionid)
       .then((response) => {
         console.log("응답 확인:", response);
         if (response) {
@@ -75,24 +77,30 @@ export function SingleQuest() {
         }
       })
       .catch((error) => console.error("로딩 실패 :", error));
-  }, [id]);
-  const handleBack = () => {
-    navigate(`/products/${id}/question`);
-  };
+  }, [questionid]);
 
   if (!quest) {
     return <div>로딩중.......</div>;
   }
 
+  //목록으로 가기
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   return (
     <>
       <Container>
         <Title>{quest.title}</Title>
-        <Writer>작성자: {quest.writer}</Writer>
+        <Writer>작성자: {quest.author}</Writer>
         <Time>작성일: {quest.createAt}</Time>
         <Text>{quest.text}</Text>
-        <BackButton onClick={handleBack}>목록으로</BackButton>
+
+        <Comment />
+        <CreateComment />
       </Container>
+
+      <BackButton onClick={handleBack}>목록으로 돌아가기</BackButton>
     </>
   );
 }

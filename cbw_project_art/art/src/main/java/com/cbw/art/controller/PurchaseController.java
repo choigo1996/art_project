@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,6 +48,8 @@ public class PurchaseController {
 	}
 	//모든 회원이 구매한 모든 목록을 불러오기
 	@GetMapping()
+	@PreAuthorize("hasAnyRole('ADMIN')")
+
 	public ResponseEntity<List<Purchase>> getAllPurchase() {
 		return new ResponseEntity<List<Purchase>>(purchaseServiceImpl.getAllPurchase(), HttpStatus.OK);
 	}

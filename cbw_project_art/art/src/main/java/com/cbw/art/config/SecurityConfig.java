@@ -50,8 +50,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers("/api/authenticate").permitAll()
                         .requestMatchers("/api/signup").permitAll()
-                        .requestMatchers("/api/question").permitAll()
-                        .requestMatchers("/api/comment").permitAll()
                         .requestMatchers("/api/checkDuplicate/loginId/{loginId}").permitAll()
                         .requestMatchers("/api/checkDuplicate/email/{email}").permitAll()
                         .requestMatchers("/api/board/list").permitAll()
@@ -60,7 +58,6 @@ public class SecurityConfig {
                         .requestMatchers("/api/question/list/{id}").permitAll()
                         .requestMatchers("/api/review").permitAll()
                         .requestMatchers("/api/comment/list").permitAll()
-                        .requestMatchers("/api/comment/list/{id}").permitAll()
                         .requestMatchers("/api/lecture").permitAll()
                         .requestMatchers("/api/lecture/list").permitAll()
                         .requestMatchers("/api/intro/{id}").permitAll()

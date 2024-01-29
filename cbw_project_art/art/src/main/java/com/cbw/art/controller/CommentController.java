@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,6 +39,7 @@ public class CommentController {
 	
 	//댓글생성
 	@PostMapping
+	@PreAuthorize("hasAnyRole('USER','ADMIN','TEACHER')")
 	public ResponseEntity<BaseResponse<Void>> createComment(@RequestBody @Valid CommentDto commentDto,Authentication authentication){
 		return new ResponseEntity<> (
 				commentServiceImpl.createComment(authentication, commentDto),
@@ -45,6 +47,7 @@ public class CommentController {
 	}
 	//댓글목록
 	@GetMapping("/list")
+	@PreAuthorize("hasAnyRole('USER','ADMIN','TEACHER')")
 	public ResponseEntity<BaseResponse<List<Comment>>> getAllComment()
 	{
 		return new ResponseEntity<>(

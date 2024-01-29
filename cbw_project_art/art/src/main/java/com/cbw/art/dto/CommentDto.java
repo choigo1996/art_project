@@ -10,7 +10,7 @@ public class CommentDto {
 
 	@NotBlank
 	private String text;
-	private long question;
+	private Long questionId;
 
 
 	public CommentDto() {
@@ -18,11 +18,11 @@ public class CommentDto {
 	}
 
 
-	public CommentDto(long id, @NotBlank String text, long question) {
+	public CommentDto(long id, @NotBlank String text, Long questionId) {
 		super();
 		this.id = id;
 		this.text = text;
-		this.question = question;
+		this.questionId = questionId;
 	}
 
 
@@ -46,14 +46,15 @@ public class CommentDto {
 	}
 
 
-	public long getQuestion() {
-		return question;
+	public Long getQuestionId() {
+		return questionId;
 	}
 
 
-	public void setQuestion(long question) {
-		this.question = question;
+	public void setQuestionId(Long questionId) {
+		this.questionId = questionId;
 	}
+
 
 	
 }

@@ -26,6 +26,8 @@ import { SingleQuest } from "./SingleQuest";
 import { CreateQuest } from "./CreateQuest";
 import { ReviewWrapper } from "./ReviewWrapper";
 import { CreateReview } from "./CreateReview";
+import { CreateComment } from "./CreateComment";
+import { Comment } from "./Comment";
 
 const client = new QueryClient();
 export const LectureContext = createContext();
@@ -87,7 +89,10 @@ function LectureLoader({ lectures, lecturescheckList }) {
                   <Route path="question" element={<QuestionWrapper />}>
                     <Route index element={<Question />} />
                     <Route path="create" element={<CreateQuest />} />
-                    <Route path=":questionid" element={<SingleQuest />} />
+                    <Route path=":questionid" element={<SingleQuest />}>
+                      <Route path=":commenid" element={<Comment />} />
+                      <Route path="create" element={<CreateComment />} />
+                    </Route>
                   </Route>
                   <Route path="review" element={<ReviewWrapper />}>
                     <Route index element={<Review />} />

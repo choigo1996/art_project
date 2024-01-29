@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { createQuest, getAuthToken, login } from "./api";
+import { createQuest } from "./api";
 import { useContext, useEffect, useState } from "react";
 import { LectureContext } from "./Lecture";
 import styled from "styled-components";
@@ -52,7 +52,7 @@ export function CreateQuest() {
   //로그인 되어있는지 확인용
   const { loginState } = useContext(LectureContext);
   //Question목록으로 넘김
-  const { id: questionId } = useParams();
+  const { id: productId } = useParams();
   const navigate = useNavigate();
 
   const { data, isLoading, refetch } = useQuery("question", () => {
@@ -73,7 +73,7 @@ export function CreateQuest() {
     }
   }, [loginState, navigate]);
   const handleBack = () => {
-    navigate(`/products/${questionId}/question`);
+    navigate(`/products/${productId}/question`);
   };
 
   function onSubmit(e) {
@@ -89,15 +89,16 @@ export function CreateQuest() {
         lectureId: lectureId,
       };
 
-      const token = getAuthToken();
       console.log(questData);
       //API호출
-      createQuest(questData, token)
+      createQuest(questData)
         .then((response) => {
           console.log("응답확인 :", response);
-          if (response.resultCode === "SUCCESS") {
+          if (response.data.resultCode === "SUCCESS") {
             alert("글 작성이 완료되었습니다.");
-          } else if (response.resultCode === "ERROR") {
+            //작성이 완료되면 목록으로 이동
+            setQuestComplete(true);
+          } else if (response.data.resultCode === "ERROR") {
             const errorMassage =
               response.data.message || response.data["Invalid Writer"];
             console.log(response);
@@ -116,7 +117,7 @@ export function CreateQuest() {
       {questing ? (
         <h1>글 작성중입니다...</h1>
       ) : questComplete ? (
-        <h1>글 작성이 완료되었습니다.</h1>
+        navigate(`/products/${productId}/question`)
       ) : (
         <Container>
           <form onSubmit={onSubmit}>

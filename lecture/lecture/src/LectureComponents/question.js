@@ -57,6 +57,7 @@ const Button = styled.button``;
 export function Question() {
   const navigate = useNavigate();
   const { id: lectureId } = useParams();
+  console.log("lectureId 파라미터 :", lectureId);
   const [questions, setQuestions] = useState([]);
   const { loginState } = useContext(LectureContext);
   function onClick(id) {
