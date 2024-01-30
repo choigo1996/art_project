@@ -59,10 +59,12 @@ public class QuestionServiceImpl implements QuestionService{
 		question.setCreateAt(LocalDateTime.now());
 		question.setTitle(questionDto.getTitle());
 		question.setText(questionDto.getText());
+		
 		question.setUser(user.get());
 		question.setLecture(lecture.get());
 		questionRepository.save(question);
-		 return new BaseResponse<>(
+		
+		return new BaseResponse<>(
 	                ResultCode.SUCCESS.name(),
 	                null,
 	                "질문 생성 완료되었습니다");

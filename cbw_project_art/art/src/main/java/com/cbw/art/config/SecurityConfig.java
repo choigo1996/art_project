@@ -56,7 +56,6 @@ public class SecurityConfig {
                         .requestMatchers("/api/board/list/{id}").permitAll()
                         .requestMatchers("/api/question/list").permitAll()
                         .requestMatchers("/api/question/list/{id}").permitAll()
-                        .requestMatchers("/api/review").permitAll()
                         .requestMatchers("/api/comment/list").permitAll()
                         .requestMatchers("/api/lecture").permitAll()
                         .requestMatchers("/api/lecture/list").permitAll()

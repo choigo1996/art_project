@@ -180,14 +180,15 @@ export function getAllLeList(lectureId) {
   ).then((response) => response.json());
 }
 //후기 작성
-export function createReview(user) {
-  fetch(`http://localhost:8080/api/review`, {
-    method: "POST",
+export function createReview(reviewData) {
+  const token = localStorage.getItem("accessToken");
+  console.log("bearer Token :", token);
+  return axios.post(`http://localhost:8080/api/review`, reviewData, {
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(user),
-  }).then((response) => response.json());
+  });
 }
 //후기 목록
 export function getAllReview() {
@@ -235,15 +236,6 @@ export function getAllCategory() {
   }).then((response) => response.json());
 }
 
-//사용자 정보보기
-export function apiGetMyInfo() {
-  const token = sessionStorage.getItem("token");
-  return axios.get("http://localhost:8080/api/user", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-}
 //댓글 작성
 export function createComment(commentData) {
   const token = localStorage.getItem("accessToken");
@@ -280,4 +272,13 @@ export function deleteComment(id) {
   return fetch(`http://localhost:8080/api/comment/delete/${id}`, {
     method: "DELETE",
   }).then((response) => response.json());
+}
+//사용자 정보
+export function getMyInfo() {
+  const token = localStorage.getItem("accessToken");
+  return axios.get(`http://localhost:8080/api/user`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 }

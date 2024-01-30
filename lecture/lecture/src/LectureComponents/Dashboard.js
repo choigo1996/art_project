@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { LectureContext } from "./Lecture";
 import { useQuery } from "react-query";
-import { apiGetMyInfo, getPurchaseById } from "./api";
-import { LogOut } from "./LogOut";
+import { getMyInfo, getPurchaseById } from "./api";
+import { useNavigate } from "react-router-dom";
 
 const Header = styled.div``;
 const Container = styled.div``;
@@ -13,7 +13,8 @@ const Delete = styled.div``;
 const OnLogOut = styled.button``;
 const Info = styled.button``;
 export function Dashboard() {
-  const { loginState } = useContext(LectureContext);
+  const { loginState, setLoginState } = useContext(LectureContext);
+  const navigate = useNavigate();
   const { data, isLoading } = useQuery("getPurchaseById", () =>
     getPurchaseById(loginState?.id)
   );
@@ -28,19 +29,29 @@ export function Dashboard() {
     }
   }, [loginState?.token]);
 
+  const logOut = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("loginState");
+    setLoginState({ id: null });
+    navigate("/");
+  };
+
   async function onMyInfo() {
     try {
-      const response = await apiGetMyInfo();
+      const response = await getMyInfo();
       if (response.data.resultCode === "SUCCESS") {
-        console.log(response.data.data);
+        const userInfo = response.data.data;
+        alert(
+          `User Information\n-loginId:${userInfo.loginId}\n-Email: ${userInfo.email}\n-birthDate:${userInfo.birthDate}\n-name:${userInfo.name}`
+        );
+        console.log(userInfo);
       } else {
         alert(response.data.message);
       }
-    } catch (err) {
-      console.log(err.response.data);
+    } catch (error) {
+      console.log(error.response.data);
     }
   }
-
   return (
     <>
       <h1>마이페이지</h1>
@@ -49,7 +60,7 @@ export function Dashboard() {
         <Member>회원정보수정</Member>
         <MyLecture>내 강의목록</MyLecture>
         <Delete>회원탈퇴</Delete>
-        <OnLogOut onClick={LogOut}>로그아웃</OnLogOut>
+        <OnLogOut onClick={logOut}>로그아웃</OnLogOut>
         <Info onClick={onMyInfo}>내 정보보기</Info>
       </Container>
     </>

@@ -1,6 +1,0 @@
-package com.cbw.art.dto;
-
-public class LeCatagoryDto {
-	private long category;
-	private long lecture;
-}

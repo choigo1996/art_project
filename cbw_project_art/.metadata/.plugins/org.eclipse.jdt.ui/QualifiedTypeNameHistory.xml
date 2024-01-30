@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="com.cbw.art.dto.UserDto"/>
-    <fullyQualifiedTypeName name="org.springframework.security.config.web.server.SecurityWebFiltersOrder"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
     <fullyQualifiedTypeName name="org.springframework.http.client.OkHttp3ClientHttpRequestFactory"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
     <fullyQualifiedTypeName name="org.springframework.security.access.prepost.PreAuthorize"/>
@@ -43,7 +40,6 @@
     <fullyQualifiedTypeName name="com.cbw.art.dto.BaseResponse"/>
     <fullyQualifiedTypeName name="com.cbw.art.dto.NotificationDto"/>
     <fullyQualifiedTypeName name="org.springframework.security.core.Authentication"/>
-    <fullyQualifiedTypeName name="com.cbw.art.model.Lecture"/>
     <fullyQualifiedTypeName name="java.util.Set"/>
     <fullyQualifiedTypeName name="com.cbw.art.model.Category"/>
     <fullyQualifiedTypeName name="com.cbw.art.jwt.TokenProvider"/>
@@ -53,11 +49,15 @@
     <fullyQualifiedTypeName name="jakarta.persistence.JoinColumn"/>
     <fullyQualifiedTypeName name="com.cbw.art.repository.UserRepository"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
-    <fullyQualifiedTypeName name="com.cbw.art.model.User"/>
-    <fullyQualifiedTypeName name="java.util.Optional"/>
-    <fullyQualifiedTypeName name="com.cbw.art.exception.InvalidRequestException"/>
     <fullyQualifiedTypeName name="com.cbw.art.dto.CommentDto"/>
     <fullyQualifiedTypeName name="com.cbw.art.model.Comment"/>
-    <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
     <fullyQualifiedTypeName name="com.cbw.art.model.Question"/>
+    <fullyQualifiedTypeName name="jakarta.transaction.Transactional"/>
+    <fullyQualifiedTypeName name="com.cbw.art.model.Review"/>
+    <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
+    <fullyQualifiedTypeName name="java.util.Optional"/>
+    <fullyQualifiedTypeName name="com.cbw.art.model.Lecture"/>
+    <fullyQualifiedTypeName name="com.cbw.art.model.User"/>
+    <fullyQualifiedTypeName name="com.cbw.art.exception.InvalidRequestException"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
 </qualifiedTypeNameHistroy>

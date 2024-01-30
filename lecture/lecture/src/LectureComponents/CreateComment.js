@@ -11,13 +11,11 @@ const Button = styled.button``;
 export function CreateComment() {
   //내용,questId
   const [text, setText] = useState("");
-  const { id: questionId } = useParams();
+  const { questionid: questionId } = useParams();
   //댓글 저장
   const [userComment, setUserComment] = useState(null);
   const [commenting, setCommenting] = useState(false);
-  const [commentComplete, setCommetComplete] = useState(false);
   //로그인 확인
-  const { loginState } = useContext(LectureContext);
   const navigate = useNavigate();
 
   const { data, isLoading, refetch } = useQuery("comment", () => {
@@ -34,11 +32,13 @@ export function CreateComment() {
   function onSubmit(e) {
     e.preventDefault();
 
-    if (!text) {
-      window.alert("죄송하지만,댓글을 입력해주세요.");
-    } else if (!loginState) {
+    const authToken = localStorage.getItem("accessToken");
+    if (!authToken) {
       window.alert("로그인 후 이용바랍니다.");
       navigate("/login");
+    }
+    if (!text) {
+      window.alert("죄송하지만,댓글을 입력해주세요.");
     } else {
       const commentData = {
         text: text,
@@ -52,18 +52,17 @@ export function CreateComment() {
           console.log("응답 확인 : ", response);
           if (response.data.resultCode === "SUCCESS") {
             alert("댓글이 작성되었습니다.");
-            setCommetComplete(true);
+            window.location.reload();
           } else if (response.data.resultCode === "ERROR") {
-            const errorMassage =
+            const errorMessage =
               response.data.message || response.data["Invalid Writer"];
             console.log(response);
-            console.log(errorMassage);
-            window.alert(errorMassage);
+            console.log(errorMessage);
+            window.alert(errorMessage);
           }
         })
         .catch((error) => {
           console.error("호출 실패 :", error);
-          window.alert("에러발생");
         });
     }
   }
@@ -71,8 +70,6 @@ export function CreateComment() {
     <>
       {commenting ? (
         <h1>댓글 작성중...</h1>
-      ) : commentComplete ? (
-        <h1>작성완료</h1>
       ) : (
         <Container>
           <form onSubmit={onSubmit}>

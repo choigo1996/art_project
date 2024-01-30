@@ -61,9 +61,9 @@ public class UserServiceImpl implements UserService{
 	}
 	//자신의 정보를 볼 수 있는 것
 	@Transactional(readOnly = true)
-	public UserDto getUserWithAuthorities(String username) {
-		return UserDto.from(userRepository.findOneWithAuthoritiesByLoginId(username)
-				.orElseThrow(() -> new InvalidRequestException(username,"member not found")));
+	public UserDto getUserWithAuthorities(String loginId) {
+		return UserDto.from(userRepository.findOneWithAuthoritiesByLoginId(loginId)
+				.orElseThrow(() -> new InvalidRequestException(loginId,"member not found")));
 	}
 	//다른 사람의 정보를 볼 수 있음(관리자)
 	@Transactional(readOnly = true)

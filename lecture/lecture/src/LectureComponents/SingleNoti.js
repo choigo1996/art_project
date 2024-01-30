@@ -53,15 +53,15 @@ const BackButton = styled.button`
 `;
 
 export function SingleNoti() {
-  const { id } = useParams();
+  const { id: notiId } = useParams();
   const navigate = useNavigate();
   const [noti, setNoti] = useState(null);
 
   useEffect(() => {
-    getNotiById(id)
+    getNotiById(notiId)
       .then((response) => setNoti(response))
       .catch((error) => console.error("로딩 실패:", error));
-  }, [id]);
+  }, [notiId]);
 
   const handleBack = () => {
     navigate("/Notification");

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getAllReview } from "./api";
 import { LectureContext } from "./Lecture";
@@ -59,6 +59,7 @@ export function Review() {
   const { id: lectureId } = useParams();
   const [reviews, setReview] = useState([]);
   const { loginState } = useContext(LectureContext);
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchReview = async () => {
       try {
@@ -72,8 +73,20 @@ export function Review() {
   }, [lectureId]);
   function handleWriterButtonClick() {
     console.log(loginState);
-    if (loginState && loginState.id) {
-      navigator("create");
+    //이미 후기를 작성한 경우
+    const hasWrittenReview = sortedReview.some(
+      (review) => review.author === loginState.id
+    );
+    if (loginState && loginState.id && !hasWrittenReview) {
+      navigate("create");
+    } else {
+      if (hasWrittenReview) {
+        alert("이미 후기를 작성하셨습니다.");
+      } else {
+        alert("로그인후 이용바람");
+        console.log("로그인 페이지로 이동");
+        navigate("/login");
+      }
     }
   }
   const sortedReview =
@@ -94,7 +107,7 @@ export function Review() {
     <>
       <Container>
         <h2>수강후기</h2>
-        <Button>글쓰기</Button>
+        <Button onClick={handleWriterButtonClick}>글쓰기</Button>
         <Ul>
           <span>번호</span>
           <Title>후기</Title>

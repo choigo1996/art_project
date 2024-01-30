@@ -11,18 +11,18 @@ public class ReviewDto {
 	
 	private int rating;
 	
-	private long lecture;
+	private Long lectureId;
 	
 	public ReviewDto() {
 		super();
 	}
 
-	public ReviewDto(long id, @NotBlank String text, int rating, long lecture) {
+	public ReviewDto(long id, @NotBlank String text, int rating, Long lectureId) {
 		super();
 		this.id = id;
 		this.text = text;
 		this.rating = rating;
-		this.lecture = lecture;
+		this.lectureId = lectureId;
 	}
 
 	public long getId() {
@@ -49,14 +49,11 @@ public class ReviewDto {
 		this.rating = rating;
 	}
 
-	public long getLecture() {
-		return lecture;
+	public Long getLectureId() {
+		return lectureId;
 	}
 
-	public void setLecture(long lecture) {
-		this.lecture = lecture;
+	public void setLectureId(Long lectureId) {
+		this.lectureId = lectureId;
 	}
-
-	
-	
 }

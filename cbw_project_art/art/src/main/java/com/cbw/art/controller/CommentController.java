@@ -47,7 +47,6 @@ public class CommentController {
 	}
 	//댓글목록
 	@GetMapping("/list")
-	@PreAuthorize("hasAnyRole('USER','ADMIN','TEACHER')")
 	public ResponseEntity<BaseResponse<List<Comment>>> getAllComment()
 	{
 		return new ResponseEntity<>(

@@ -52,7 +52,6 @@ export function CreateQuest() {
   //로그인 되어있는지 확인용
   const { loginState } = useContext(LectureContext);
   //Question목록으로 넘김
-  const { id: productId } = useParams();
   const navigate = useNavigate();
 
   const { data, isLoading, refetch } = useQuery("question", () => {
@@ -73,7 +72,7 @@ export function CreateQuest() {
     }
   }, [loginState, navigate]);
   const handleBack = () => {
-    navigate(`/products/${productId}/question`);
+    navigate(`/products/${lectureId}/question`);
   };
 
   function onSubmit(e) {
@@ -117,7 +116,7 @@ export function CreateQuest() {
       {questing ? (
         <h1>글 작성중입니다...</h1>
       ) : questComplete ? (
-        navigate(`/products/${productId}/question`)
+        navigate(`/products/${lectureId}/question`)
       ) : (
         <Container>
           <form onSubmit={onSubmit}>
@@ -135,8 +134,7 @@ export function CreateQuest() {
               <span>내용</span>
               <textarea
                 name="text"
-                cols={20}
-                rows={10}
+                style={{ resize: "none", width: "100%", height: "100px" }}
                 value={text}
                 placeholder="내용을 입력하세요"
                 onChange={(e) => setText(e.target.value)}

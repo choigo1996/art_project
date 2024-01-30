@@ -90,8 +90,8 @@ function LectureLoader({ lectures, lecturescheckList }) {
                     <Route index element={<Question />} />
                     <Route path="create" element={<CreateQuest />} />
                     <Route path=":questionid" element={<SingleQuest />}>
-                      <Route path=":commenid" element={<Comment />} />
-                      <Route path="create" element={<CreateComment />} />
+                      <Route index element={<Comment />} />
+                      <Route index element={<CreateComment />} />
                     </Route>
                   </Route>
                   <Route path="review" element={<ReviewWrapper />}>
