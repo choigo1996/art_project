@@ -28,6 +28,7 @@ import { ReviewWrapper } from "./ReviewWrapper";
 import { CreateReview } from "./CreateReview";
 import { CreateComment } from "./CreateComment";
 import { Comment } from "./Comment";
+import { AdminDashBoard } from "./AdminDashBoard";
 
 const client = new QueryClient();
 export const LectureContext = createContext();
@@ -56,9 +57,7 @@ function LectureLoader({ lectures, lecturescheckList }) {
   const [loginState, setLoginState] = useState(null);
   const [passwordState, setPasswordState] = useState(null);
   useEffect(() => {
-    const storedLoginState = setLoginState(
-      JSON.parse(localStorage.getItem("loginState"))
-    );
+    const storedLoginState = JSON.parse(localStorage.getItem("loginState"));
     setLoginState(storedLoginState);
     console.log("Login State", storedLoginState);
   }, []);
@@ -101,10 +100,18 @@ function LectureLoader({ lectures, lecturescheckList }) {
                 </Route>
               </Route>
               <Route
-                path="dashboard"
+                path="/dashboard"
                 element={
-                  <ProtectedRoute>
+                  <ProtectedRoute requiredRole="ROLE_USER">
                     <Dashboard />
+                  </ProtectedRoute>
+                }
+              ></Route>
+              <Route
+                path="/admin"
+                element={
+                  <ProtectedRoute requiredRole="ROLE_ADMIN">
+                    <AdminDashBoard />
                   </ProtectedRoute>
                 }
               ></Route>

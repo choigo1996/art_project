@@ -52,7 +52,6 @@ export function CreateComment() {
           console.log("응답 확인 : ", response);
           if (response.data.resultCode === "SUCCESS") {
             alert("댓글이 작성되었습니다.");
-            window.location.reload();
           } else if (response.data.resultCode === "ERROR") {
             const errorMessage =
               response.data.message || response.data["Invalid Writer"];

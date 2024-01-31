@@ -55,12 +55,13 @@ export function NavBar() {
         <NavLinks>
           <StyledNavLink to="/notification">공지사항</StyledNavLink>
           <StyledNavLink to="/products">강의목록</StyledNavLink>
-          <StyledNavLink to="/dashboard">마이페이지</StyledNavLink>
-          {loginState?.id ? (
+
+          <StyledNavLink to="/dashboard">
+            {loginState?.loginId ? "마이페이지" : "로그인"}
+          </StyledNavLink>
+          {loginState?.loginId ? (
             <StyledNavLink to="/logOut">로그아웃</StyledNavLink>
-          ) : (
-            <StyledNavLink to="login">로그인</StyledNavLink>
-          )}
+          ) : null}
           <StyledNavLink to="/cart">장바구니</StyledNavLink>
         </NavLinks>
       </NavBarContainer>

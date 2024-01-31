@@ -276,9 +276,15 @@ export function deleteComment(id) {
 //사용자 정보
 export function getMyInfo() {
   const token = localStorage.getItem("accessToken");
-  return axios.get(`http://localhost:8080/api/user`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  return axios
+    .get(`http://localhost:8080/api/user`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => {
+      const userInfo = response.data;
+      userInfo.authorityDtoSet = userInfo.authorityDtoSet || [];
+      return userInfo;
+    });
 }

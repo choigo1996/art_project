@@ -15,19 +15,25 @@ const Info = styled.button``;
 export function Dashboard() {
   const { loginState, setLoginState } = useContext(LectureContext);
   const navigate = useNavigate();
-  const { data, isLoading } = useQuery("getPurchaseById", () =>
-    getPurchaseById(loginState?.id)
-  );
-  const [token, setToken] = useState(null);
-  useEffect(() => {
-    if (loginState?.token) {
-      setToken(loginState.token);
-      sessionStorage.setItem("token", loginState.token);
-    } else {
-      setToken(null);
-      sessionStorage.setItem("token", null);
+  // const { data, isLoading } = useQuery("getPurchaseById", () =>
+  //   getPurchaseById(loginState?.id)
+  // );
+
+  const fetchUserInfo = async () => {
+    try {
+      const response = await getMyInfo();
+      const userInfo = response.data;
+
+      setLoginState(userInfo);
+      console.log("loginState :", userInfo);
+    } catch (error) {
+      console.error("ERROR fetching user info: ", error);
     }
-  }, [loginState?.token]);
+  };
+
+  useEffect(() => {
+    fetchUserInfo();
+  }, [setLoginState]);
 
   const logOut = () => {
     localStorage.removeItem("accessToken");
@@ -36,26 +42,16 @@ export function Dashboard() {
     navigate("/");
   };
 
-  async function onMyInfo() {
-    try {
-      const response = await getMyInfo();
-      if (response.data.resultCode === "SUCCESS") {
-        const userInfo = response.data.data;
-        alert(
-          `User Information\n-loginId:${userInfo.loginId}\n-Email: ${userInfo.email}\n-birthDate:${userInfo.birthDate}\n-name:${userInfo.name}`
-        );
-        console.log(userInfo);
-      } else {
-        alert(response.data.message);
-      }
-    } catch (error) {
-      console.log(error.response.data);
-    }
+  function onMyInfo() {
+    alert(
+      `내 정보 \n-아이디 : ${loginState.loginId} \n-이메일 : ${loginState.email} \n-이름 : ${loginState.name} \n-생일 : ${loginState.birthDate}`
+    );
   }
+
   return (
     <>
       <h1>마이페이지</h1>
-      <Header>{loginState?.id}님 안녕하세요!</Header>
+      <Header>{loginState?.loginId}님 안녕하세요!</Header>
       <Container>
         <Member>회원정보수정</Member>
         <MyLecture>내 강의목록</MyLecture>

@@ -50,7 +50,6 @@ export function Login() {
   useEffect(() => {
     //로컬 스토리지에서 로그인 정보 가져오기
     const storedLoginState = localStorage.getItem("loginState");
-
     //로그인 정보가 있으면 자동으로 로그인 상태설정
     if (storedLoginState) {
       const parsedLoginState = JSON.parse(storedLoginState);
@@ -75,19 +74,15 @@ export function Login() {
         "loginState",
         JSON.stringify({ id: userLogin.loginId })
       );
+      console.log("userLogin", userLogin);
       setLoginState({ id: userLogin.loginId });
       setTimeout(() => {
         navigate("/dashboard");
         setLoggingIn(false);
       }, 1000);
     } else if (data && data.resultCode === "ERROR" && userLogin) {
-      console.log(data);
-      if (data.errorCode === "INVALID_CREDENTIALS") {
-        // 아이디와 비밀번호가 다를 때의 처리
-        alert("아이디 또는 비밀번호가 잘못되었습니다. 다시 입력해주세요.");
-      } else {
-        navigate("/login");
-      }
+      window.alert("에러발생");
+      return;
     }
   }, [data]);
 
@@ -97,7 +92,6 @@ export function Login() {
 
   function onSubmit(e) {
     e.preventDefault();
-    console.log(data);
     const user = {
       loginId: loginId,
       password: password,
