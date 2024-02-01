@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { LectureContext } from "./Lecture";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { LectureNav } from "./LectureNav";
 
@@ -33,11 +33,25 @@ const Buy = styled.button``;
 const Basket = styled.button``;
 
 export function SingleProduct() {
-  const { lectures } = useContext(LectureContext);
+  const { lectures, checkList, setCheckList } = useContext(LectureContext);
 
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const lecture = lectures.find((l) => l.id === +id);
+  console.log("확인용", checkList);
+  function handleCart() {
+    const readyInCart = checkList.some((item) => item.id === +id);
+    if (!readyInCart) {
+      //강의가 장바구니에 없으면 추가
+      setCheckList((prevCheckList) => [
+        ...prevCheckList,
+        { id: +id, checked: true },
+      ]);
+    }
+    console.log("강의가 장바구니에 추가 되었습니다.", checkList);
+    navigate("/cart");
+  }
 
   const { title: lectureTitle, teacher, image, price } = lecture;
   console.log(lecture);
@@ -58,7 +72,7 @@ export function SingleProduct() {
               ))}
           </CategoryList>
         </Content>
-        <Basket>장바구니</Basket>
+        <Basket onClick={handleCart}>장바구니</Basket>
         <Buy>수강신청</Buy>
         <LectureNav />
       </Container>

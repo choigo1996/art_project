@@ -10,8 +10,9 @@ const Ul = styled.ul`
   border-bottom: 1px solid #ccc;
   display: flex;
   flex-wrap: wrap;
-  display: grid-template-columns(4fr);
+  grid-template-columns: 4fr; /* 수정된 부분 */
   align-items: center;
+
   span {
     flex: 1;
     font-weight: bold;
@@ -23,15 +24,17 @@ const Ul = styled.ul`
     margin: 0;
     padding: 8px;
   }
+
   a {
     flex: 3;
     margin: 0;
     padding: 8px;
   }
 `;
+
 const Li = styled.li`
   display: flex;
-  display: grid-template-columns(4fr);
+  grid-template-columns: 4fr; /* 수정된 부분 */
   align-items: center;
   padding: 8px;
   width: 100%;

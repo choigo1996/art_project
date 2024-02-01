@@ -41,10 +41,10 @@ export function Lecture() {
         {!isLoading && data && (
           <LectureLoader
             lectures={data.data}
-            // lecturesCheckList={data.data.map((l) => ({
-            //   id: l.id,
-            //   checked: false,
-            // }))}
+            lecturesCheckList={data.data.map((l) => ({
+              id: l.id,
+              checked: false,
+            }))}
           />
         )}
       </QueryClientProvider>
@@ -52,8 +52,8 @@ export function Lecture() {
   );
 }
 
-function LectureLoader({ lectures, lecturescheckList }) {
-  const [CheckList, setCheckList] = useState(lecturescheckList);
+function LectureLoader({ lectures, lecturesCheckList }) {
+  const [checkList, setCheckList] = useState(lecturesCheckList);
   const [loginState, setLoginState] = useState(null);
   const [passwordState, setPasswordState] = useState(null);
   useEffect(() => {
@@ -66,7 +66,7 @@ function LectureLoader({ lectures, lecturescheckList }) {
     <>
       <LectureContext.Provider
         value={{
-          CheckList,
+          checkList,
           setCheckList,
           loginState,
           setLoginState,
@@ -102,19 +102,12 @@ function LectureLoader({ lectures, lecturescheckList }) {
               <Route
                 path="/dashboard"
                 element={
-                  <ProtectedRoute requiredRole="ROLE_USER">
+                  <ProtectedRoute>
                     <Dashboard />
                   </ProtectedRoute>
                 }
               ></Route>
-              <Route
-                path="/admin"
-                element={
-                  <ProtectedRoute requiredRole="ROLE_ADMIN">
-                    <AdminDashBoard />
-                  </ProtectedRoute>
-                }
-              ></Route>
+              <Route path="/admin" element={<AdminDashBoard />}></Route>
               <Route path="notification" element={<NotificationWrapper />}>
                 <Route index element={<Notification />} />
                 <Route path=":id" element={<SingleNoti />} />

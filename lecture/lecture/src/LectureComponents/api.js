@@ -33,6 +33,7 @@ export function login(user) {
   })
     .then((response) => response.json())
     .then((data) => {
+      console.log("로그인 데이터들:", data);
       if (data.data.token) {
         localStorage.setItem("accessToken", data.data.token);
         console.log("bearerToken :", data.data.token);

@@ -32,6 +32,9 @@ const Text = styled.p``;
 
 const CategoryContainer = styled.div`
   margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const CategoryItem = styled.div`
@@ -45,13 +48,17 @@ export function Products() {
   const navigate = useNavigate();
   const { lectures } = useContext(LectureContext);
   const [categoryList, setCategoryList] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("ALL");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await getAllCategory();
         setCategoryList(response);
+        // 초기값을 첫 번째 카테고리로 설정
+        if (response.length > 0) {
+          setSelectedCategory("");
+        }
       } catch (error) {
         console.error("카테고리 목록 조회 중 오류 발생", error);
       }
@@ -65,7 +72,7 @@ export function Products() {
   }
 
   const filteredLectures =
-    selectedCategory === "ALL"
+    selectedCategory === ""
       ? lectures
       : lectures.filter((lecture) =>
           lecture.categorys.some(
@@ -77,6 +84,13 @@ export function Products() {
     <>
       <Header>강의목록</Header>
       <CategoryContainer>
+        <CategoryItem
+          key="all"
+          selected={selectedCategory == ""}
+          onClick={() => setSelectedCategory("")}
+        >
+          ALL
+        </CategoryItem>
         {categoryList.map((category) => (
           <CategoryItem
             key={category}
@@ -100,14 +114,11 @@ export function Products() {
                 <Text>가격: {lecture.price}원</Text>
                 <div>
                   카테고리:
-                  {lecture.categorys.map(
-                    (category) =>
-                      category.categoryType !== "ALL" && (
-                        <CategoryItem key={category.categoryType}>
-                          {category.categoryType}
-                        </CategoryItem>
-                      )
-                  )}
+                  {lecture.categorys.map((category) => (
+                    <CategoryItem key={category.categoryType}>
+                      {category.categoryType}
+                    </CategoryItem>
+                  ))}
                 </div>
               </div>
             </Card>

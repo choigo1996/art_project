@@ -73,20 +73,22 @@ export function Review() {
   }, [lectureId]);
   function handleWriterButtonClick() {
     console.log(loginState);
-    //이미 후기를 작성한 경우
-    const hasWrittenReview = sortedReview.some(
-      (review) => review.author === loginState.id
-    );
-    if (loginState && loginState.id && !hasWrittenReview) {
-      navigate("create");
-    } else {
-      if (hasWrittenReview) {
-        alert("이미 후기를 작성하셨습니다.");
+    if (loginState && loginState.id) {
+      //이미 후기를 작성한 경우
+      const hasWrittenReview = sortedReview.some(
+        (review) => review.author === loginState.id
+      );
+
+      if (!hasWrittenReview) {
+        navigate("create");
       } else {
-        alert("로그인후 이용바람");
-        console.log("로그인 페이지로 이동");
-        navigate("/login");
+        alert("이미 후기를 작성하셨습니다.");
       }
+    } else {
+      //loginState가 유효하지 않거나 사용자가 로그인하지 않은 경우
+      alert("로그인 후 이용바람");
+      console.log("로그인 페이지로 이동");
+      navigate("/login");
     }
   }
   const sortedReview =

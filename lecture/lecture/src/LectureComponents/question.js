@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getAllQuest } from "./api";
+import { getAllQuest, getMyInfo } from "./api";
 import styled from "styled-components";
 import { LectureContext } from "./Lecture";
 
@@ -59,14 +59,23 @@ export function Question() {
   const { id: lectureId } = useParams();
   console.log("lectureId 파라미터 :", lectureId);
   const [questions, setQuestions] = useState([]);
-  const { loginState } = useContext(LectureContext);
+  const { loginState, setLoginState } = useContext(LectureContext);
   function onClick(id) {
     navigate(`${id}`);
   }
 
+  const fetchUserInfo = async () => {
+    try {
+      const response = await getMyInfo();
+      const userInfo = response.data;
+      setLoginState(userInfo);
+    } catch (error) {
+      console.error("ERROR", error);
+    }
+  };
   function handleWriteButtonClick() {
     console.log(loginState);
-    if (loginState && loginState.id) {
+    if (loginState && loginState.loginId) {
       navigate("create");
     } else {
       alert("로그인후에 이용해주세요.");

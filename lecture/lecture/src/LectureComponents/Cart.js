@@ -56,7 +56,7 @@ export function Cart() {
 
   function onClick(e) {
     const temp = checkList.map((item) => {
-      if (item.id === +e.target.id) {
+      if (item && item.id === +e.target.id) {
         return { ...item, checked: false };
       } else {
         return item;
