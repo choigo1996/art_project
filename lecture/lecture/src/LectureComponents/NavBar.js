@@ -56,7 +56,7 @@ export function NavBar() {
           <StyledNavLink to="/notification">공지사항</StyledNavLink>
           <StyledNavLink to="/products">강의목록</StyledNavLink>
 
-          <StyledNavLink to="/dashboard">
+          <StyledNavLink to={loginState?.loginId ? "/dashboard" : "/login"}>
             {loginState?.loginId ? "마이페이지" : "로그인"}
           </StyledNavLink>
           {loginState?.loginId ? (

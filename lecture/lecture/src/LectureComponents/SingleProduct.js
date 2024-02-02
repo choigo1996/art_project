@@ -65,11 +65,9 @@ export function SingleProduct() {
           <p>강사 : {teacher}</p>
           <CategoryList>
             카테고리 :
-            {lecture.categorys
-              .filter((category) => category.categoryType !== "ALL")
-              .map((category, i) => (
-                <li key={i}>{category.categoryType}</li>
-              ))}
+            {lecture.categorys.map((category, i) => (
+              <li key={i}>{category.categoryType}</li>
+            ))}
           </CategoryList>
         </Content>
         <Basket onClick={handleCart}>장바구니</Basket>
