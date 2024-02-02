@@ -1,8 +1,8 @@
 import { useContext, useState, useEffect } from "react";
 import { AlbumContext } from "./MusicShop";
 import { Purchase } from "./Purchase";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   position: relative;
@@ -35,7 +35,8 @@ const Delete = styled.button`
 `;
 
 export function Cart() {
-  const { List, setcheckList, albums, loginState } = useContext(AlbumContext);
+  const { checkList, setCheckList, albums, loginState } =
+    useContext(AlbumContext);
   const [totalPrice, setTotalPrice] = useState(0);
   const [newList, setNewList] = useState([]);
   const [purchasing, setPurchasing] = useState(false);
@@ -43,20 +44,21 @@ export function Cart() {
   const [purchaseFailed, setPurchaseFailed] = useState(false);
 
   const navigate = useNavigate();
-
   useEffect(() => {
-    setNewList(albums.filter((a, i) => List[i].ed));
-  }, [List, albums]);
+    setNewList(albums.filter((a, i) => checkList[i].checked));
+  }, [checkList, albums]);
+  console.log("checkList:", checkList);
+  console.log("albums:", albums);
 
   function onClick(e) {
-    const temp = List.map((item) => {
+    const temp = checkList.map((item) => {
       if (item.id === +e.target.id) {
-        return { ...item, ed: false };
+        return { ...item, checked: false };
       } else {
         return item;
       }
     });
-    setcheckList(temp);
+    setCheckList(temp);
   }
 
   function onClickBtn() {
@@ -84,10 +86,10 @@ export function Cart() {
 
   useEffect(() => {
     if (purchaseComplete) {
-      const temp = List.map((item) => {
-        return { ...item, ed: false };
+      const temp = checkList.map((item) => {
+        return { ...item, checked: false };
       });
-      setcheckList(temp);
+      setCheckList(temp);
       setPurchaseComplete(false);
       window.confirm("결제가 완료 되었습니다.");
     }

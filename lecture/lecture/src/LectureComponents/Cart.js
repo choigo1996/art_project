@@ -46,12 +46,8 @@ export function Cart() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // 예외 처리: checkList 또는 lectures가 undefined 또는 null인 경우
-    if (!checkList || !lectures) {
-      return;
-    }
-
     setNewList(lectures.filter((l, i) => checkList[i].checked));
+    console.log("checkList", checkList);
   }, [checkList, lectures]);
 
   function onClick(e) {
@@ -62,6 +58,7 @@ export function Cart() {
         return item;
       }
     });
+
     setCheckList(temp);
   }
 

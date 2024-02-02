@@ -1,12 +1,12 @@
 //앨범의 모든 정보를 가져온다.
 export function getAllAlbums() {
-  return fetch(`http://localhost:8080/api/products`, {
+  return fetch(`http://localhost:8080/products`, {
     method: "GET",
   }).then((response) => response.json());
 }
 //앨범 하나의 정보를 가져온다.
 export function getAlbumById(id) {
-  return fetch(`http://localhost:8080/api/products/${id}`, {
+  return fetch(`http://localhost:8080/products/${id}`, {
     method: "GET",
   }).then((response) => response.json());
 }
@@ -17,7 +17,7 @@ export function purchaseAllbums(albums, loginId) {
     loginId: loginId,
     quantity: 1, // 원하는 구매 수량을 여기에 설정
   }));
-  return fetch(`http://localhost:8080/api/products/purchaselist`, {
+  return fetch(`http://localhost:8080/products/purchaselist`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -29,13 +29,13 @@ export function purchaseAllbums(albums, loginId) {
 }
 //구매한 상품을 회원마다 관리
 export function getPurchaseById(loginId) {
-  return fetch(`http://localhost:8080/api/products/purchase/${loginId}`, {
+  return fetch(`http://localhost:8080/products/purchase/${loginId}`, {
     method: "GET",
   }).then((response) => response.json());
 }
 //회원가입
 export function signUp(user) {
-  return fetch(`http://localhost:8080/api/member/signup`, {
+  return fetch(`http://localhost:8081/api/member/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -45,7 +45,7 @@ export function signUp(user) {
 }
 //로그인
 export function login(user) {
-  return fetch(`http://localhost:8080/api/member/login`, {
+  return fetch(`http://localhost:8081/api/member/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -55,7 +55,7 @@ export function login(user) {
 }
 //ID찾기
 export function loginfind(user) {
-  return fetch(`http://localhost:8080/api/member/loginfind`, {
+  return fetch(`http://localhost:8081/api/member/loginfind`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -66,7 +66,7 @@ export function loginfind(user) {
 //비밀번호 찾기
 export function pwfind(user) {
   console.log("pwfind", user);
-  return fetch(`http://localhost:8080/api/member/pwfind`, {
+  return fetch(`http://localhost:8081/api/member/pwfind`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

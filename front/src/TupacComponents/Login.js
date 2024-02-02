@@ -38,6 +38,7 @@ const StyledNavLink = styled(NavLink)`
     color: white;
   }
 `;
+
 export function Login() {
   const [loginId, setLoginId] = useState("");
   const [password, setPassword] = useState("");
@@ -71,12 +72,7 @@ export function Login() {
       }, 1000);
     } else if (data && data.resultCode === "ERROR") {
       console.log(data);
-      if (data.errorCode === "INVALID_CREDENTIALS") {
-        // 아이디와 비밀번호가 다를 때의 처리
-        alert("아이디 또는 비밀번호가 잘못되었습니다. 다시 입력해주세요.");
-      } else {
-        navigate("/login");
-      }
+      navigate("/login");
     }
   }, [data]);
 

@@ -42,13 +42,13 @@ const visitlist = [
 export function Register() {
   //비밀번호,비밀번호 확인
   const [password, setPassword] = useState("");
-  const [passwordcheck, setPasswordcheck] = useState("");
+  const [passwordCheack, setPasswordCheack] = useState("");
   //오류메시지 상태저장
   const [passwordMessage, setPasswordMessage] = useState("");
-  const [passwordcheckMessage, setPasswordcheckMessage] = useState("");
+  const [passwordCheackMessage, setPasswordCheackMessage] = useState("");
   //유효성 검사
   const [isPassword, setIsPassword] = useState("");
-  const [isPasswordcheck, setIsPasswordcheck] = useState("");
+  const [isPasswordCheack, setIsPasswordCheack] = useState("");
 
   const [loginId, setLoginId] = useState("");
   const [username, setUsername] = useState("");
@@ -97,12 +97,12 @@ export function Register() {
   }, [userRegister]);
   //비밀번호 확인맨
   useEffect(() => {
-    if (password === passwordcheck) {
-      setPasswordcheckMessage("비밀번호가 일치합니다.");
-      setIsPasswordcheck(false);
+    if (password === passwordCheack) {
+      setPasswordCheackMessage("비밀번호가 일치합니다.");
+      setIsPasswordCheack(false);
     } else {
-      setPasswordcheckMessage("비밀번호가 일치하지않습니다");
-      setIsPasswordcheck();
+      setPasswordCheackMessage("비밀번호가 일치하지않습니다");
+      setIsPasswordCheack();
     }
   });
   function onSubmit(e) {
@@ -110,7 +110,7 @@ export function Register() {
     const user = {
       loginId: loginId,
       password: password,
-      passwordcheck: passwordcheck,
+      passwordCheack: passwordCheack,
       name: username,
       birthDate: birthDate,
       gender: gender,
@@ -118,11 +118,11 @@ export function Register() {
       email: email,
     };
     //패스워드 확인용
-    if (password === passwordcheck) {
-      setPasswordcheckMessage("비밀번호가 일치합니다.");
+    if (password === passwordCheack) {
+      setPasswordCheackMessage("비밀번호가 일치합니다.");
       setUserRegister(user);
     } else {
-      setPasswordcheckMessage("비밀번호가 일치하지않습니다");
+      setPasswordCheackMessage("비밀번호가 일치하지않습니다");
       window.alert("비밀번호를 일치하게 입력하세요");
     }
   }
@@ -185,15 +185,17 @@ export function Register() {
               <label>비밀번호 확인</label>
               <br />
               <input
-                id="passwordcheck"
+                id="passwordCheack"
                 type="password"
-                onChange={(e) => setPasswordcheck(e.target.value)}
+                onChange={(e) => setPasswordCheack(e.target.value)}
               />
-              {passwordcheck.length > 0 && (
+              {passwordCheack.length > 0 && (
                 <span
-                  className={`message ${isPasswordcheck ? "success" : "error"}`}
+                  className={`message ${
+                    isPasswordCheack ? "success" : "error"
+                  }`}
                 >
-                  {passwordcheckMessage}
+                  {passwordCheackMessage}
                 </span>
               )}
             </div>

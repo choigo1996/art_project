@@ -30,15 +30,15 @@ const Li = styled.li`
   align-items: center;
   padding: 8px;
   width: 100%;
-`;
-const Title = styled.p`
-  margin: 0;
   cursor: pointer;
-  font-weight: bold;
 
   &:hover {
     text-decoration: underline;
   }
+`;
+const Title = styled.p`
+  margin: 0;
+  font-weight: bold;
 `;
 const Container = styled.div`
   margin: 20px auto;
@@ -121,11 +121,9 @@ export function Question() {
         </Ul>
         {sortedQuestions.map((question) => (
           <Ul key={question.id}>
-            <Li>
+            <Li onClick={() => onClick(question.id)}>
               <span>{question.number}</span>
-              <Title onClick={() => onClick(question.id)}>
-                {question.title}
-              </Title>
+              <Title>{question.title}</Title>
               <Text>{question.author}</Text>
               <Text>{question.createAt}</Text>
             </Li>

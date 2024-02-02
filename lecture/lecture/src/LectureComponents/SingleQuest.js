@@ -7,7 +7,7 @@ import { Comment } from "./Comment";
 import { CreateComment } from "./CreateComment";
 
 const Container = styled.div`
-  max-width: 600px;
+  max-width: 80%;
   margin: 20px auto;
   padding: 20px;
   background-color: #f8f8f8;

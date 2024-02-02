@@ -35,7 +35,7 @@ export function Home() {
       <Container>
         <Header>Tupac Music Shop</Header>
         <Main>
-          <Right src="https://i.namu.wiki/i/4ASO6xc4g98mN_N0xIwF7BVcXcdrpKGaRYfnmNLiX7Y8tGJ1lJXaF4cCKSyHk0TIGam0XZ0WytTrl9MJWNjH8YzZDHB7LsnBr16WD2wtty-GxfeAsIlaXG469cMou0ttAGcVVhH3E9vc0jrc3s110A.webp"></Right>
+          <Right src="https://i.namu.wiki/i/CS5eyCcj8F8hmdimIF3ilmFU2DUb51-2rCmGU3NIzLowyC6LfiTpB0KSeWuWAPnC0UlAEvWO6UyyGT953Sh8WTehs-fi4R2UIwb7k8oqtULFwvW9VWtyNyLvGN8QpCXPILCsOpG3cIamnSb_Aog78Q.webp"></Right>
           <Left>
             <h1>투팍의 이력</h1>
             <Text>-본명 : 투팍 아마루 샤커(TUAPC Amaru Shakur)</Text>

@@ -39,17 +39,17 @@ export function SingleProduct() {
   const { id } = useParams();
 
   const lecture = lectures.find((l) => l.id === +id);
-  console.log("확인용", checkList);
-  function handleCart() {
-    const readyInCart = checkList.some((item) => item.id === +id);
-    if (!readyInCart) {
-      //강의가 장바구니에 없으면 추가
-      setCheckList((prevCheckList) => [
-        ...prevCheckList,
-        { id: +id, checked: true },
-      ]);
-    }
-    console.log("강의가 장바구니에 추가 되었습니다.", checkList);
+  function addCart(e) {
+    const temp = checkList.map((item) => {
+      if (item.id === +e.target.id) {
+        return { ...item, checked: e.target.checked };
+      } else {
+        console.log("추가 되지 않았습니다.");
+        return item;
+      }
+    });
+    console.log("temp :", temp);
+    setCheckList(temp);
     navigate("/cart");
   }
 
@@ -70,7 +70,7 @@ export function SingleProduct() {
             ))}
           </CategoryList>
         </Content>
-        <Basket onClick={handleCart}>장바구니</Basket>
+        <Basket onClick={addCart}>장바구니</Basket>
         <Buy>수강신청</Buy>
         <LectureNav />
       </Container>

@@ -30,7 +30,7 @@ const Text = styled.p``;
 
 export function Products() {
   const navigate = useNavigate();
-  const { checkList, setcheckList, albums } = useContext(AlbumContext);
+  const { checkList, setCheckList, albums } = useContext(AlbumContext);
 
   function onClick(id) {
     navigate(`${id}`);
@@ -44,7 +44,8 @@ export function Products() {
         return item;
       }
     });
-    setcheckList(temp);
+    setCheckList(temp);
+    console.log("temp:", temp);
   }
 
   return (

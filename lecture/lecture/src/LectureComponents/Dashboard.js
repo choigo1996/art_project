@@ -11,7 +11,6 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-const Member = styled.div``;
 const MyLecture = styled.div``;
 const Delete = styled.div``;
 const OnLogOut = styled.button``;
