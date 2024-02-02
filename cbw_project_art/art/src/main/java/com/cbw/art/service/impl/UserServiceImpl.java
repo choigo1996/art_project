@@ -2,14 +2,20 @@ package com.cbw.art.service.impl;
 
 
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cbw.art.dto.AuthorityDto;
+import com.cbw.art.dto.BaseResponse;
 import com.cbw.art.dto.UserDto;
 import com.cbw.art.enumstatus.AuthorityType;
+import com.cbw.art.enumstatus.ResultCode;
 import com.cbw.art.exception.InvalidRequestException;
 import com.cbw.art.model.Authority;
 import com.cbw.art.model.User;
@@ -82,24 +88,31 @@ public class UserServiceImpl implements UserService{
 	public boolean isEmailTaken(String email) {
 		return userRepository.existsByEmail(email);
 	}
-
+	//권한부여
 	@Override
-	@Transactional
-	public void updateUserRole(long userId, AuthorityType authorityType) {
-	    User user = userRepository.findById(userId)
-	            .orElseThrow(() -> new InvalidRequestException("User not found", "해당 아이디를 찾을 수 없습니다."));
-
-	    // 기존 권한 목록을 모두 제거
-	    user.getAuthorities().clear();
-
-	    // 새로운 권한을 생성하고 부여
-	    Authority authority = new Authority(authorityType);
-	    user.getAuthorities().add(authority);
-
-	    // 업데이트된 권한 목록을 설정
-	    userRepository.save(user);
+	public BaseResponse<Void> updataAuthority(AuthorityDto authorityDto) {
+		//유저 ID로 유저를 찾음
+		Optional<User> optionalUser = userRepository.findById(authorityDto.getUserId());
+		if(optionalUser.isEmpty()) {
+			throw new InvalidRequestException("Invalid User","존재하지않는 유저입니다.");
+		}
+		//새로운 권한을 생성
+		Authority newAuthority = new Authority();
+		newAuthority.setAuthorityType(AuthorityType.valueOf(authorityDto.getAuthorityName()));
+		
+		//기존의 권한에 다른 권한을 추가
+		User user = optionalUser.get();
+		Set<Authority> newAuthorities = new HashSet<>();
+		newAuthorities.add(newAuthority);
+		
+		//유저 권한을 업데이트
+	    user.setAuthorities(newAuthorities);
+		userRepository.save(user);
+		
+		return new BaseResponse<>(
+				ResultCode.SUCCESS.name(),
+				null,
+				"권한이 업데이트 되었습니다.");
 	}
-	
 
-	
 }

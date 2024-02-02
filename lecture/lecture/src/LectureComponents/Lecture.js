@@ -29,7 +29,7 @@ import { CreateReview } from "./CreateReview";
 import { CreateComment } from "./CreateComment";
 import { Comment } from "./Comment";
 import { AdminDashBoard } from "./AdminDashBoard";
-
+import { UserLecture } from "./UserLecture";
 const client = new QueryClient();
 export const LectureContext = createContext();
 
@@ -107,6 +107,7 @@ function LectureLoader({ lectures, lecturesCheckList }) {
                   </ProtectedRoute>
                 }
               ></Route>
+              <Route path="/userlecture" element={<UserLecture />}></Route>
               <Route path="/admin" element={<AdminDashBoard />}></Route>
               <Route path="notification" element={<NotificationWrapper />}>
                 <Route index element={<Notification />} />

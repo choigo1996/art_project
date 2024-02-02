@@ -15,46 +15,41 @@ public class Purchase {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	@Column(name= "lecture_id")
 	@ManyToOne
 	private Lecture lecture;
-	
-	@Column(name = "login_id")
-	private String loginId;
 
+	@Column(name = "user_id")
+	@ManyToOne
+	private User user;
+	
 	public Purchase() {
 		super();
 	}
-
-	public Purchase(long id, Lecture lecture, String loginId) {
+	
+	public Purchase(long id, Lecture lecture, User user) {
 		super();
 		this.id = id;
 		this.lecture = lecture;
-		this.loginId = loginId;
+		this.user = user;
 	}
-
+	
 	public long getId() {
 		return id;
 	}
-
 	public void setId(long id) {
 		this.id = id;
 	}
-
 	public Lecture getLecture() {
 		return lecture;
 	}
-
 	public void setLecture(Lecture lecture) {
 		this.lecture = lecture;
 	}
-
-	public String getLoginId() {
-		return loginId;
+	public User getUser() {
+		return user;
 	}
-
-	public void setLoginId(String loginId) {
-		this.loginId = loginId;
+	public void setUser(User user) {
+		this.user = user;
 	}
-	
-	
 }

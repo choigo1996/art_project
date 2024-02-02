@@ -1,0 +1,14 @@
+package com.cbw.art.service;
+
+import java.util.List;
+
+import com.cbw.art.model.Purchase;
+
+public interface PurchaseService {
+	//카트에 담긴 것을 구매
+	Purchase savePurchase(Purchase purchase);
+	//구매 후 저장
+	List<Purchase> getAllPurchase();
+	//각각의 회원이 구매한 강의의 정보
+	List<Purchase> getPurchaseById(String loginId);
+}

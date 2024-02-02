@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cbw.art.dto.AuthorityDto;
 import com.cbw.art.dto.BaseResponse;
 import com.cbw.art.dto.UserDto;
 import com.cbw.art.enumstatus.AuthorityType;
@@ -89,7 +90,7 @@ public class UserController {
 		//아이디 중복 확인 로직
 		boolean isDuplicate = userServiceImpl.isEmailTaken(email);
 		
-		if(isDuplicate) {
+		if(isDuplicate) { 
 			response.put("message", "중복된 이메일입니다.");
 		}else {
 			response.put("message", "사용가능한 이메일입니다");
@@ -99,11 +100,12 @@ public class UserController {
 	}
 
 	//권한부여
-	@PostMapping("/{userId}/update-role")
+	@PostMapping("/update/authority")
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	public ResponseEntity<String> updateRole(@PathVariable long Id,@RequestParam AuthorityType authorityType) {
-		userServiceImpl.updateUserRole(Id, authorityType);
-		return new ResponseEntity<>("User role updated successfully",HttpStatus.OK);
+	public ResponseEntity<BaseResponse<Void>> updateAuthority(@RequestBody @Valid AuthorityDto authorityDto){
+		return new ResponseEntity<>(
+				userServiceImpl.updataAuthority(authorityDto),
+				HttpStatus.CREATED);
 	}
 
 }

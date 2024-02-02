@@ -33,7 +33,8 @@ const Buy = styled.button``;
 const Basket = styled.button``;
 
 export function SingleProduct() {
-  const { lectures, checkList, setCheckList } = useContext(LectureContext);
+  const { loginState, lectures, checkList, setCheckList } =
+    useContext(LectureContext);
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -41,10 +42,9 @@ export function SingleProduct() {
   const lecture = lectures.find((l) => l.id === +id);
   function addCart(e) {
     const temp = checkList.map((item) => {
-      if (item.id === +e.target.id) {
-        return { ...item, checked: e.target.checked };
+      if (item.id === lecture.id) {
+        return { ...item, checked: true };
       } else {
-        console.log("추가 되지 않았습니다.");
         return item;
       }
     });
@@ -53,6 +53,16 @@ export function SingleProduct() {
     navigate("/cart");
   }
 
+  function application() {
+    console.log(loginState);
+    if (loginState && loginState.id) {
+      window.alert("수강신청이 완료되었습니다.");
+    } else {
+      alert("로그인이 필요합니다.");
+      console.log("로그인 페이지로 이동");
+      navigate("/login");
+    }
+  }
   const { title: lectureTitle, teacher, image, price } = lecture;
   console.log(lecture);
   return (
@@ -71,7 +81,7 @@ export function SingleProduct() {
           </CategoryList>
         </Content>
         <Basket onClick={addCart}>장바구니</Basket>
-        <Buy>수강신청</Buy>
+        <Buy onClick={application}>수강신청</Buy>
         <LectureNav />
       </Container>
     </>

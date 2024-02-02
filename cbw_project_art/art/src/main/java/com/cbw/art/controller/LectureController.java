@@ -14,14 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cbw.art.dto.BaseResponse;
 import com.cbw.art.dto.CategoryDto;
 import com.cbw.art.dto.LectureDto;
 import com.cbw.art.enumstatus.CategoryType;
-import com.cbw.art.model.Category;
 import com.cbw.art.model.Lecture;
 import com.cbw.art.service.impl.LectureServiceImpl;
 

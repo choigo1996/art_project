@@ -58,13 +58,12 @@ export function Cart() {
         return item;
       }
     });
-
     setCheckList(temp);
   }
 
   function onClickBtn() {
     console.log(loginState);
-    if (loginState && loginState.id) {
+    if (loginState && loginState.loginId) {
       setPurchasing(true);
     } else {
       alert("로그인이 필요합니다.");

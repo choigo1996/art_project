@@ -7,24 +7,24 @@ import jakarta.validation.constraints.NotBlank;
 
 public class CategoryDto {
 	
-	private List<String> categoryType;
+	private String categoryType;
 	private Long lectureId;
 	
 	public CategoryDto() {
 		super();
 	}
 
-	public CategoryDto(@NotBlank List<String> categoryType, Long lectureId) {
+	public CategoryDto(String categoryType, Long lectureId) {
 		super();
 		this.categoryType = categoryType;
 		this.lectureId = lectureId;
 	}
 
-	public List<String> getCategoryType() {
+	public String getCategoryType() {
 		return categoryType;
 	}
 
-	public void setCategoryType(List<String> categoryType) {
+	public void setCategoryType(String categoryType) {
 		this.categoryType = categoryType;
 	}
 
@@ -36,6 +36,7 @@ public class CategoryDto {
 		this.lectureId = lectureId;
 	}
 
+	
 	
 	
 }

@@ -23,7 +23,6 @@ import com.cbw.art.repository.CategoryRepository;
 import com.cbw.art.repository.LectureRepository;
 import com.cbw.art.repository.ReviewRepository;
 import com.cbw.art.service.LectureService;
-import com.fasterxml.jackson.annotation.JacksonInject.Value;
 
 @Service
 @Transactional
@@ -45,7 +44,7 @@ public class LectureServiceImpl implements LectureService{
 	//강의 생성
 	@Override
 	public BaseResponse<Void> createLecture(LectureDto lectureDto) {
-	    Category category = categoryRepository.findByCategoryType(CategoryType.ALL)
+	    Category category = categoryRepository.findByCategoryType(CategoryType.WEBTOON)
 	            .orElseThrow(() -> new InvalidRequestException("Default category not found", "전체항목에 없음."));
 	    Lecture lecture = new Lecture();
 	    lecture.setTitle(lectureDto.getTitle());
@@ -98,25 +97,24 @@ public class LectureServiceImpl implements LectureService{
 				.orElseThrow(() -> new InvalidRequestException(String.valueOf(id), "해당 ID의 강의는 존재하지 않습니다."));
 	}
 	
-	//카테고리 추가(Enum에 있는 CategoryType중에 있는 것을 자유롭게 추가)
+	//카테고리 추가
 	@Override
 	public BaseResponse<Void> addCategory(CategoryDto categoryDto) {
 		//강의 ID로 강의를 찾음
 		Lecture lecture = lectureRepository.findById(categoryDto.getLectureId())
 				.orElseThrow(() -> new InvalidRequestException("Invalid Lecture", "존재하지 않는 강의입니다."));
-				
-	    // 모든 카테고리를 가져와서 CategoryDto를 생성하여 리스트에 추가
-		List<Category> categories = categoryRepository.findAll();
-		List<CategoryDto> categoryDtos = new ArrayList<>();
-		
-		for(Category category : categories) {
-			CategoryDto categoryDto1 = new CategoryDto();
-			categoryDto1.setCategoryType(Collections.singletonList(category.getCategoryType().name()));
-			categoryDtos.add(categoryDto1);
-			List<String> categoryTypes = categoryDto.getCategoryType();
-		}
-		
-		
+		// 새로운 카테고리 생성
+		Category newCategory = new Category();
+		newCategory.setCategoryType(CategoryType.valueOf(categoryDto.getCategoryType()));
+
+		// 기존의 카테고리 리스트에 새로운 카테고리 추가
+		Set<Category> newCategories = new HashSet<>();
+		newCategories.add(newCategory);
+
+		// 강의에 업데이트된 카테고리 리스트를 설정
+		lecture.setCategorys(newCategories);
+
+		// 강의 저장
 		lectureRepository.save(lecture);
 		return new BaseResponse<>(
 				ResultCode.SUCCESS.name(),

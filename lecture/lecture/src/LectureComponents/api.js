@@ -47,7 +47,7 @@ export function purchaseAllLecture(lectures, loginId) {
     lecture: lecture,
     loginId: loginId,
   }));
-  return fetch(`http://localhost:8080/api/products/purchase/list`, {
+  return fetch(`http://localhost:8080/api/purchase/list`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -59,7 +59,7 @@ export function purchaseAllLecture(lectures, loginId) {
 }
 //각 회원마다 구매한 강의 목록 관리
 export function getPurchaseById(loginId) {
-  return fetch(`http://localhost:8080/api/products/purchase/${loginId}`, {
+  return fetch(`http://localhost:8080/api/purchase/${loginId}`, {
     method: "GET",
   }).then((response) => response.json());
 }

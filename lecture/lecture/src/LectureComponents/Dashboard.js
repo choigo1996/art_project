@@ -11,6 +11,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+const Member = styled.div``;
 const MyLecture = styled.div``;
 const Delete = styled.div``;
 const OnLogOut = styled.button``;
@@ -77,6 +78,9 @@ export function Dashboard() {
     );
   }
 
+  function myLecture() {
+    navigate("/userlecture");
+  }
   return (
     <>
       <h1>마이페이지</h1>
@@ -92,7 +96,7 @@ export function Dashboard() {
         </ModeButton>
       )}
       <Container>
-        <MyLecture>내 강의목록</MyLecture>
+        <MyLecture onClick={myLecture}>내 강의목록</MyLecture>
         <Delete>회원탈퇴</Delete>
         <OnLogOut onClick={logOut}>로그아웃</OnLogOut>
         <Info onClick={onMyInfo}>내 정보보기</Info>

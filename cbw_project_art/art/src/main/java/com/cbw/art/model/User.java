@@ -12,7 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -52,16 +51,15 @@ public class User {
         inverseJoinColumns = @JoinColumn(name = "authority_type")
     )
 	private Set<Authority> authorities = new HashSet<>();
-	
-	@ManyToOne
-	private Purchase purchase;
+
 	
 	public User() {
 		super();
 	}
 
+
 	public User(Long id, String loginId, String password, String name, LocalDate birthDate, @Email String email,
-			boolean activated, Set<Authority> authorities, Purchase purchase) {
+			boolean activated, Set<Authority> authorities) {
 		super();
 		this.id = id;
 		this.loginId = loginId;
@@ -71,79 +69,86 @@ public class User {
 		this.email = email;
 		this.activated = activated;
 		this.authorities = authorities;
-		this.purchase = purchase;
 	}
+
 
 	public Long getId() {
 		return id;
 	}
 
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 
 	public String getLoginId() {
 		return loginId;
 	}
 
+
 	public void setLoginId(String loginId) {
 		this.loginId = loginId;
 	}
+
 
 	public String getPassword() {
 		return password;
 	}
 
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 
 	public String getName() {
 		return name;
 	}
 
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 
 	public LocalDate getBirthDate() {
 		return birthDate;
 	}
 
+
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
+
 
 	public String getEmail() {
 		return email;
 	}
 
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 
 	public boolean isActivated() {
 		return activated;
 	}
 
+
 	public void setActivated(boolean activated) {
 		this.activated = activated;
 	}
+
 
 	public Set<Authority> getAuthorities() {
 		return authorities;
 	}
 
+
 	public void setAuthorities(Set<Authority> authorities) {
 		this.authorities = authorities;
-	}
-
-	public Purchase getPurchase() {
-		return purchase;
-	}
-
-	public void setPurchase(Purchase purchase) {
-		this.purchase = purchase;
 	}
 
 	

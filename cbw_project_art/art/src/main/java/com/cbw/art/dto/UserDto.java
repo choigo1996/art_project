@@ -113,7 +113,7 @@ public class UserDto {
 		if(user == null) return null;
 		
 		Set<AuthorityDto> authorityDtoSet = user.getAuthorities().stream()
-				.map(Authority -> new AuthorityDto(Authority.getAuthorityType().name()))
+				.map(Authority -> new AuthorityDto(Authority.getAuthorityType().name(), null))
 				.collect(Collectors.toSet());
 		return new UserDto(user.getLoginId(), null, user.getName(), user.getBirthDate().toString(), user.getEmail(), authorityDtoSet);
 	}
