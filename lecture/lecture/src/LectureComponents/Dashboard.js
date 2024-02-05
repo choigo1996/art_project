@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { LectureContext } from "./Lecture";
-import { useQuery } from "react-query";
-import { getMyInfo, getPurchaseById } from "./api";
+import { getMyInfo } from "./api";
 import { useNavigate } from "react-router-dom";
 
 const Header = styled.div``;
@@ -31,11 +30,8 @@ const ModeButton = styled.button`
 export function Dashboard() {
   const { loginState, setLoginState } = useContext(LectureContext);
   const navigate = useNavigate();
-  // const { data, isLoading } = useQuery("getPurchaseById", () =>
-  //   getPurchaseById(loginState?.id)
-  // );
 
-  console.log("AuthorityDtoSet:", loginState?.authorityDtoSet[0].authorityName);
+  console.log("user:", loginState);
 
   const admin = loginState?.authorityDtoSet[0].authorityName === "ROLE_ADMIN";
 

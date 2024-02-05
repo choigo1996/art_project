@@ -1,5 +1,16 @@
 import axios from "axios";
 
+//강의를 만듬
+export function createLecture(lecture) {
+  const token = localStorage.getItem("accessToken");
+  console.log("Bearer Token :", token);
+  return axios.post(`http://localhost:8080/api/lecture`, lecture, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
 //강의의 모든 정보를 가져온다.
 export function getAllLectuer() {
   return fetch(`http://localhost:8080/api/lecture/list`, {
@@ -42,24 +53,28 @@ export function login(user) {
     });
 }
 //구매한 상품이 대시보드에 표시
-export function purchaseAllLecture(lectures, loginId) {
-  const purchases = lectures.map((lecture) => ({
+export function purchaseAllLecture(lectures) {
+  const token = localStorage.getItem("accessToken");
+  const lectureId = lectures.map((lecture) => ({
     lecture: lecture,
-    loginId: loginId,
   }));
-  return fetch(`http://localhost:8080/api/purchase/list`, {
-    method: "POST",
+  console.log("lectureID :", lectureId);
+  return axios.post(`http://localhost:8080/api/purchase/list`, lectureId, {
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(purchases),
-  })
-    .then((response) => response.json())
-    .catch(() => "ERROR");
+  });
 }
 //각 회원마다 구매한 강의 목록 관리
-export function getPurchaseById(loginId) {
-  return fetch(`http://localhost:8080/api/purchase/${loginId}`, {
+export function getPurchaseById(userId) {
+  return fetch(`http://localhost:8080/api/purchase/${userId}`, {
+    method: "GET",
+  }).then((response) => response.json());
+}
+//모든 회원이 구매한 강의 목록을 불러온다
+export function getAllPurchase() {
+  return fetch(`http://localhost:8080/api/list/user`, {
     method: "GET",
   }).then((response) => response.json());
 }
@@ -171,6 +186,19 @@ export function deleteQuest(id) {
     method: "DELETE",
   }).then((response) => response.json());
 }
+
+//강의목록 만들기
+export function createLelist(lelistData) {
+  const token = localStorage.getItem("accessToken");
+  console.log("Bearer :", token);
+  return axios.post(`http://localhost:8080/api/lelist`, lelistData, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
 //강의목록 불러오기
 export function getAllLeList(lectureId) {
   return fetch(

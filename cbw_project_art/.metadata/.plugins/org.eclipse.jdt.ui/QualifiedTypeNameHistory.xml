@@ -20,7 +20,6 @@
     <fullyQualifiedTypeName name="com.cbw.art.jwt.TokenProvider"/>
     <fullyQualifiedTypeName name="org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder"/>
     <fullyQualifiedTypeName name="org.springframework.security.authentication.UsernamePasswordAuthenticationToken"/>
-    <fullyQualifiedTypeName name="jakarta.persistence.JoinColumn"/>
     <fullyQualifiedTypeName name="com.cbw.art.dto.CommentDto"/>
     <fullyQualifiedTypeName name="com.cbw.art.model.Comment"/>
     <fullyQualifiedTypeName name="com.cbw.art.model.Question"/>
@@ -60,4 +59,5 @@
     <fullyQualifiedTypeName name="com.cbw.art.dto.BaseResponse"/>
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="com.cbw.art.model.Purchase"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.JoinColumn"/>
 </qualifiedTypeNameHistroy>

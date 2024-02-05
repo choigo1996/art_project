@@ -6,6 +6,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\admin\Desktop\cbw_project_art\art"/>
 			<item value="C:\Users\admin\Desktop\tupac-main\tupac-main\cbw_project"/>
 			<item value="C:\Users\admin\Desktop\투팍맨\cbw_project_원본"/>
 			<item value="C:\Users\admin\Downloads\tupac-main\tupac-main\cbw_project"/>

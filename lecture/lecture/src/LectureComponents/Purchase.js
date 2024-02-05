@@ -1,5 +1,4 @@
-import { useContext, useEffect } from "react";
-import { LectureContext } from "./Lecture";
+import { useEffect } from "react";
 import { useQuery } from "react-query";
 import { purchaseAllLecture } from "./api";
 
@@ -9,15 +8,10 @@ export function Purchase({
   setPurchaseComplete,
   setPurchaseFailed,
 }) {
-  const { loginState } = useContext(LectureContext);
-  const { data } = useQuery(
-    "purchase",
-    () => purchaseAllLecture(items, loginState.id),
-    {
-      retry: 0,
-      staleTime: 1000,
-    }
-  );
+  const { data } = useQuery("purchase", () => purchaseAllLecture(items), {
+    retry: 0,
+    staleTime: 1000,
+  });
 
   useEffect(() => {
     if (data && data !== "ERROR") {

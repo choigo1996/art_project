@@ -30,6 +30,7 @@ import { CreateComment } from "./CreateComment";
 import { Comment } from "./Comment";
 import { AdminDashBoard } from "./AdminDashBoard";
 import { UserLecture } from "./UserLecture";
+import { CreateNoti } from "./CreateNoti";
 const client = new QueryClient();
 export const LectureContext = createContext();
 
@@ -108,7 +109,9 @@ function LectureLoader({ lectures, lecturesCheckList }) {
                 }
               ></Route>
               <Route path="/userlecture" element={<UserLecture />}></Route>
-              <Route path="/admin" element={<AdminDashBoard />}></Route>
+              <Route path="/admin" element={<AdminDashBoard />}>
+                <Route path="noticreate" element={<CreateNoti />} />
+              </Route>
               <Route path="notification" element={<NotificationWrapper />}>
                 <Route index element={<Notification />} />
                 <Route path=":id" element={<SingleNoti />} />

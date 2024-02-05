@@ -6,9 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cbw.art.dto.BaseResponse;
-import com.cbw.art.dto.PurchseDto;
+import com.cbw.art.dto.PurchaseDto;
 import com.cbw.art.enumstatus.ResultCode;
 import com.cbw.art.exception.InvalidRequestException;
 import com.cbw.art.model.Lecture;
@@ -36,7 +37,7 @@ public class PurchaseServiceImpl implements PurchaseService{
 	
 	//카트에 담긴 것을 구매
 	@Override
-	public BaseResponse<Void> savePurchase(Authentication authentication, PurchseDto purchseDto) {
+	public BaseResponse<Void> savePurchase(Authentication authentication, PurchaseDto purchaseDto) {
 		//사용자 정보가 null이거나 인증되지 않은 경우 예외처리
 		if(authentication == null || !authentication.isAuthenticated()) {
 			throw new InvalidRequestException("Invalid Authentication", "인증되지 않은 사용자입니다.");
@@ -48,10 +49,11 @@ public class PurchaseServiceImpl implements PurchaseService{
 			throw new InvalidRequestException("Invalid login", "구매할 자격이없다");
 		}
 		//강의 정보 가져오기
-		Optional<Lecture> lecture = lectureRepository.findById(purchseDto.getLectureId());
+		Optional<Lecture> lecture = lectureRepository.findById(purchaseDto.getLectureId());
 		if(lecture == null) {
 			throw new InvalidRequestException("Invalid lecture", "존재하지 않는 강의입니다.");
 		}
+      
 		Purchase purchase = new Purchase();
 		purchase.setLecture(lecture.get());
 		purchase.setUser(user.get());
@@ -73,7 +75,7 @@ public class PurchaseServiceImpl implements PurchaseService{
 				purchases,
 				ResultCode.SUCCESS.getMsg());
 	}
-
+	//특정 강의 ID에 해당하는 모든 사용자의 정보 조회
 	@Override
 	public BaseResponse<List<Purchase>> getPurchaseByLectureId(long lectureId) {
 		List<Purchase> lecture = purchaseRepository.findByLectureId(lectureId);
@@ -85,21 +87,18 @@ public class PurchaseServiceImpl implements PurchaseService{
 				lecture,
 				ResultCode.SUCCESS.getMsg());
 	}
-
+	//특정 사용자가 구매한 모든 강의의 정보 조회
 	@Override
-	public List<Purchase> getPurchaseByUserId(long userId) {
+	public BaseResponse<List<Purchase>> getPurchaseByUserId(long userId) {
 		List<Purchase> user = purchaseRepository.findByUserId(userId);
 		if(user.isEmpty()) {
-			throw new InvalidRequestException("Not Found", "해당 아이디는 구매한 강의가 없습니다.");
+			throw new InvalidRequestException("Not Found", "유저의 아이디가 존재하지 않습니다.");
 		}
-		return user;
+		return new BaseResponse<>(
+				ResultCode.SUCCESS.name(),
+				user,
+				ResultCode.SUCCESS.getMsg());
 	}
-
-
-
-
-
-
 
 	
 }

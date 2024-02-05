@@ -1,6 +1,0 @@
-package com.cbw.art.dto;
-
-public class PurchseDto {
-	private Long lectureId;
-	private Long userId;
-}
