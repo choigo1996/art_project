@@ -55,8 +55,10 @@ export function login(user) {
 //구매한 상품이 대시보드에 표시
 export function purchaseAllLecture(lectures) {
   const token = localStorage.getItem("accessToken");
+  const userId = localStorage.getItem("loginState");
   const lectureId = lectures.map((lecture) => ({
-    lecture: lecture,
+    lectureId: lecture.id,
+    userId: userId.id,
   }));
   console.log("lectureID :", lectureId);
   return axios.post(`http://localhost:8080/api/purchase/list`, lectureId, {
