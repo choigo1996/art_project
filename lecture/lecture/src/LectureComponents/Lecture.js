@@ -28,6 +28,7 @@ import { ReviewWrapper } from "./ReviewWrapper";
 import { CreateReview } from "./CreateReview";
 import { CreateComment } from "./CreateComment";
 import { Comment } from "./Comment";
+import { AdminWrapper } from "./AdminWrapper";
 import { AdminDashBoard } from "./AdminDashBoard";
 import { UserLecture } from "./UserLecture";
 import { CreateNoti } from "./CreateNoti";
@@ -35,6 +36,7 @@ import { CreateLecture } from "./CreateLecture";
 import { CreateLeList } from "./CreateLeList";
 import { AddCategory } from "./AddCategory";
 import { UpdateAuthority } from "./UpdateAuthority";
+import { CreateIntro } from "./CreateIntro";
 const client = new QueryClient();
 export const LectureContext = createContext();
 
@@ -62,7 +64,7 @@ function LectureLoader({ lectures, lecturesCheckList }) {
   const [loginState, setLoginState] = useState(null);
   const [passwordState, setPasswordState] = useState(null);
   useEffect(() => {
-    const storedLoginState = JSON.parse(localStorage.getItem("loginState"));
+    const storedLoginState = JSON.parse(sessionStorage.getItem("loginState"));
     setLoginState(storedLoginState);
     console.log("Login State", storedLoginState);
   }, []);
@@ -114,12 +116,14 @@ function LectureLoader({ lectures, lecturesCheckList }) {
               ></Route>
               <Route path="/userlecture" element={<UserLecture />}></Route>
 
-              <Route path="/admin" element={<AdminDashBoard />}>
+              <Route path="admin" element={<AdminWrapper />}>
+                <Route index element={<AdminDashBoard />} />
                 <Route path="updateAuth" element={<UpdateAuthority />} />
-                <Route path="addcategory" element={<AddCategory />} />
+                <Route path="addcate" element={<AddCategory />} />
                 <Route path="noticreate" element={<CreateNoti />} />
                 <Route path="lecreate" element={<CreateLecture />} />
                 <Route path="lelist" element={<CreateLeList />} />
+                <Route path="intro" element={<CreateIntro />} />
               </Route>
 
               <Route path="notification" element={<NotificationWrapper />}>

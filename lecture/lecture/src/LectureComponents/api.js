@@ -2,7 +2,7 @@ import axios from "axios";
 
 //강의를 만듬
 export function createLecture(lecture) {
-  const token = localStorage.getItem("accessToken");
+  const token = sessionStorage.getItem("accessToken");
   console.log("Bearer Token :", token);
   return axios.post(`http://localhost:8080/api/lecture`, lecture, {
     headers: {
@@ -46,7 +46,7 @@ export function login(user) {
     .then((data) => {
       console.log("로그인 데이터들:", data);
       if (data.data.token) {
-        localStorage.setItem("accessToken", data.data.token);
+        sessionStorage.setItem("accessToken", data.data.token);
         console.log("bearerToken :", data.data.token);
       }
       return data;
@@ -54,8 +54,8 @@ export function login(user) {
 }
 //바로구매
 export function buyPurchase(lecture) {
-  const token = localStorage.getItem("accessToken");
-  const userId = localStorage.getItem("loginState");
+  const token = sessionStorage.getItem("accessToken");
+  const userId = sessionStorage.getItem("loginState");
   const lectureId = {
     lectureId: lecture.id,
     userId: userId.id,
@@ -70,8 +70,8 @@ export function buyPurchase(lecture) {
 }
 //카트에 있는 상품 구매
 export function purchaseAllLecture(lectures) {
-  const token = localStorage.getItem("accessToken");
-  const userId = localStorage.getItem("loginState");
+  const token = sessionStorage.getItem("accessToken");
+  const userId = sessionStorage.getItem("loginState");
   const lectureId = lectures.map((lecture) => ({
     lectureId: lecture.id,
     userId: userId.id,
@@ -98,12 +98,12 @@ export function getAllPurchase() {
 }
 //공지사항 생성(ADMIN)
 export function createNoti(admin) {
-  const token = localStorage.getItem("accesesToken");
+  const token = sessionStorage.getItem("accessToken");
   console.log("bearer Token:", token);
   return axios.post(`http://localhost:8080/api/board`, admin, {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bear ${token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 }
@@ -156,7 +156,7 @@ export function checkDuplicateEmail(email) {
 
 //QnA게시글 작성
 export function createQuest(questData) {
-  const token = localStorage.getItem("accessToken");
+  const token = sessionStorage.getItem("accessToken");
   console.log("bearer Token :", token);
   return axios.post(`http://localhost:8080/api/question`, questData, {
     headers: {
@@ -207,7 +207,7 @@ export function deleteQuest(id) {
 
 //강의목록 만들기
 export function createLelist(lelistData) {
-  const token = localStorage.getItem("accessToken");
+  const token = sessionStorage.getItem("accessToken");
   console.log("Bearer :", token);
   return axios.post(`http://localhost:8080/api/lelist`, lelistData, {
     headers: {
@@ -228,7 +228,7 @@ export function getAllLeList(lectureId) {
 }
 //후기 작성
 export function createReview(reviewData) {
-  const token = localStorage.getItem("accessToken");
+  const token = sessionStorage.getItem("accessToken");
   console.log("bearer Token :", token);
   return axios.post(`http://localhost:8080/api/review`, reviewData, {
     headers: {
@@ -262,17 +262,18 @@ export function deleteReview(id) {
 }
 //소개글 작성(ADMIN만 사용가능)
 export function createIntro(admin) {
-  return fetch(`http://localhost:8080/api/intro`, {
-    method: "POST",
+  const token = sessionStorage.getItem("accessToken");
+  console.log("BeareToken:", token);
+  return axios.post(`http://localhost:8080/api/intro`, admin, {
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(admin),
-  }).then((response) => response.json());
+  });
 }
 //소개글 가져와
-export function getIntro(id) {
-  return fetch(`http://localhost:8080/api/intro/${id}`, {
+export function getIntroByLectureId(lectureId) {
+  return fetch(`http://localhost:8080/api/intro/${lectureId}`, {
     method: "GET",
   }).then((response) => response.json());
 }
@@ -285,7 +286,7 @@ export function getAllCategory() {
 
 //댓글 작성
 export function createComment(commentData) {
-  const token = localStorage.getItem("accessToken");
+  const token = sessionStorage.getItem("accessToken");
   console.log("Bearer Token :", token);
   return axios.post(`http://localhost:8080/api/comment`, commentData, {
     headers: {
@@ -322,7 +323,7 @@ export function deleteComment(id) {
 }
 //사용자 정보
 export function getMyInfo() {
-  const token = localStorage.getItem("accessToken");
+  const token = sessionStorage.getItem("accessToken");
   return axios
     .get(`http://localhost:8080/api/user`, {
       headers: {
@@ -337,7 +338,7 @@ export function getMyInfo() {
 }
 //카테고리 변경
 export function addCategory(category) {
-  const token = localStorage.getItem("accessToken");
+  const token = sessionStorage.getItem("accessToken");
   return axios.post(
     `http://localhost:8080/api/lecture/category/add`,
     category,
@@ -351,11 +352,17 @@ export function addCategory(category) {
 }
 //권한 부여
 export function updateAutority(authority) {
-  const token = localStorage.getItem("accessToken");
+  const token = sessionStorage.getItem("accessToken");
   return axios.post(`http://localhost:8080/api/update/authority`, authority, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
+}
+//권한 목록 불러오기
+export function getAllAuthority() {
+  return fetch(`http://localhost:8080/api/authority`, {
+    method: "GET",
+  }).then((response) => response.json());
 }

@@ -32,7 +32,7 @@ export function CreateComment() {
   function onSubmit(e) {
     e.preventDefault();
 
-    const authToken = localStorage.getItem("accessToken");
+    const authToken = sessionStorage.getItem("accessToken");
     if (!authToken) {
       window.alert("로그인 후 이용바랍니다.");
       navigate("/login");

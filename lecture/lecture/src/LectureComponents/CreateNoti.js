@@ -47,7 +47,7 @@ export function CreateNoti() {
   //작성글 저장
   const [adminNoti, setAdminNoti] = useState(null);
   const [noting, setNoting] = useState(false);
-  const [notiComplete, stNotiComplete] = useState(false);
+  const [notiComplete, setNotiComplete] = useState(false);
   //admin으로 로그인 되어있는지 확인용
   const { loginState } = useContext(LectureContext);
   //Notification목록으로 이동
@@ -94,9 +94,10 @@ export function CreateNoti() {
       createNoti(admin)
         .then((response) => {
           console.log("응답 확인 : ", response);
-          if (response.resultCode === "SUCCESS") {
+          if (response.data.resultCode === "SUCCESS") {
             alert("글 작성이 완료되었습니다.");
-          } else if (response.resultCode === "ERROR") {
+            setNotiComplete(true);
+          } else if (response.data.resultCode === "ERROR") {
             const errorMassage =
               response.data.massage || response.data["Invalid writer"];
             console.log(response);

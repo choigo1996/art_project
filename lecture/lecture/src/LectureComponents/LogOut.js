@@ -7,8 +7,8 @@ export function LogOut() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("loginState");
+    sessionStorage.removeItem("accessToken");
+    sessionStorage.removeItem("loginState");
     setLoginState({ id: null });
     navigate("/");
   }, []);

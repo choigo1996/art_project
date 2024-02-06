@@ -5,8 +5,40 @@ import { useQuery } from "react-query";
 import { createLecture } from "./api";
 import styled from "styled-components";
 
-const Container = styled.div``;
-const Header = styled.div``;
+const Container = styled.div`
+  width: 80%;
+  background-color: #eee;
+  box-shadow: 2px 2px 5px gray;
+  padding: 30px;
+  border-radius: 20px;
+  margin-top: 25px;
+`;
+const Header = styled.div`
+  font-size: 1.5rem;
+  text-align: center;
+`;
+const Button = styled.button`
+  width: 100%;
+  height: 25px;
+  margin-top: 20px;
+  background-color: lightblue;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+  border: 1px solid blue;
+`;
+const BackButton = styled.button`
+  width: 100%;
+  height: 25px;
+  margin-top: 20px;
+  background-color: lightblue;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+  border: 1px solid blue;
+`;
 export function CreateLecture() {
   //제목,선생님,가격,이미지
   const [title, setTitle] = useState("");
@@ -66,10 +98,10 @@ export function CreateLecture() {
     createLecture(lecture)
       .then((response) => {
         console.log("응답확인 :", response);
-        if (response.resultCode === "SUCCESS") {
+        if (response.data.resultCode === "SUCCESS") {
           alert("글 작성 완료");
           setLectureComplete(true);
-        } else if (response.resultCode === "ERROR") {
+        } else if (response.data.resultCode === "ERROR") {
           const errorMessage =
             response.data.message || response.data["Invalid Writer"];
           console.log(response);
@@ -82,50 +114,54 @@ export function CreateLecture() {
         window.alert("에러발생");
       });
   }
-  return;
-  <>
-    {lecturing ? (
-      <h1>강의 생성중...</h1>
-    ) : lectureComplete ? (
-      navigate("/product")
-    ) : (
-      <Container>
-        <form onSubmit={onSubmit}>
-          <Header>강의 생성</Header>
-          <div>
-            <span>제목</span>
-            <input
-              id="title"
-              value={title}
-              placeholder="제목을 입력하세요"
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <span>선생님</span>
-            <input
-              id="teacher"
-              value={teacher}
-              placeholder="선생님 입력하세요"
-              onChange={(e) => setTeacher(e.target.value)}
-            />
-            <span>가격</span>
-            <input
-              id="price"
-              value={price}
-              placeholder="가격을 입력하세요"
-              onChange={(e) => setPrice(e.target.value)}
-            />
-
-            <span>이미지</span>
-            <img src={image} alt="이미지" />
-            <input
-              id="image"
-              value={image}
-              placeholder="이미지 URL을 입력하세요."
-              onChange={(e) => setImage(e.target.value)}
-            />
-          </div>
-        </form>
-      </Container>
-    )}
-  </>;
+  return (
+    <>
+      {lecturing ? (
+        <h1>강의 생성중...</h1>
+      ) : lectureComplete ? (
+        navigate("/products")
+      ) : (
+        <Container>
+          <form onSubmit={onSubmit}>
+            <Header>강의 생성</Header>
+            <div>
+              <span>제목</span>
+              <input
+                id="title"
+                value={title}
+                placeholder="제목을 입력하세요"
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <br />
+              <span>선생님</span>
+              <input
+                id="teacher"
+                value={teacher}
+                placeholder="선생님 입력하세요"
+                onChange={(e) => setTeacher(e.target.value)}
+              />
+              <br />
+              <span>가격</span>
+              <input
+                id="price"
+                value={price}
+                placeholder="가격을 입력하세요"
+                onChange={(e) => setPrice(e.target.value)}
+              />
+              <br />
+              <img src={image} alt="이미지" />
+              <input
+                id="image"
+                value={image}
+                placeholder="이미지 URL을 입력하세요."
+                onChange={(e) => setImage(e.target.value)}
+              />
+            </div>
+            <Button>강의 등록</Button>
+            <BackButton onClick={handleBack}>취소</BackButton>
+          </form>
+        </Container>
+      )}
+    </>
+  );
 }

@@ -11,7 +11,7 @@ const Container = styled.div`
   align-items: center;
 `;
 const Member = styled.div``;
-const MyLecture = styled.div``;
+const MyLecture = styled.button``;
 const Delete = styled.div``;
 const OnLogOut = styled.button``;
 const Info = styled.button``;
@@ -62,8 +62,8 @@ export function Dashboard() {
   }, [setLoginState]);
 
   const logOut = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("loginState");
+    sessionStorage.removeItem("accessToken");
+    sessionStorage.removeItem("loginState");
     setLoginState({ id: null });
     navigate("/");
   };

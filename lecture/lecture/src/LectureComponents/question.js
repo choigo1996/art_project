@@ -64,15 +64,6 @@ export function Question() {
     navigate(`${id}`);
   }
 
-  const fetchUserInfo = async () => {
-    try {
-      const response = await getMyInfo();
-      const userInfo = response.data;
-      setLoginState(userInfo);
-    } catch (error) {
-      console.error("ERROR", error);
-    }
-  };
   function handleWriteButtonClick() {
     console.log(loginState);
     if (loginState && loginState.loginId) {

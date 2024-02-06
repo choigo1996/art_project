@@ -11,15 +11,14 @@ export function UserLecture() {
   const { data, isLoading } = useQuery("getPurchaseById", () =>
     getPurchaseById(loginState?.id)
   );
+  console.log("loginstate :", loginState.login);
   const navigate = useNavigate();
-
   function onClick(id) {
     navigate(`/products/${id}`);
   }
   return (
     <>
-      <h3>내 강의 목록</h3>
-      <h3>{loginState.id}의 강의 목록</h3>
+      <h3>{loginState.login}의 강의 목록</h3>
       {!isLoading
         ? data.map((u, i) => (
             <p key={i}>

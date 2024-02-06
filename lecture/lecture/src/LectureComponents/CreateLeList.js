@@ -46,7 +46,7 @@ export function CreateLeList() {
   const [video, setVideo] = useState("");
   const [teacher, setTeacher] = useState("");
   const [duration, setDuration] = useState("");
-  const { id: lectureId } = useParams();
+  const [lecture, setLecture] = useState(0);
   //작성글 저장
   const [adminLeList, setAdminLeList] = useState(null);
   const [lelisting, setLeListing] = useState(false);
@@ -80,7 +80,7 @@ export function CreateLeList() {
   }, [admin, navigate]);
 
   const handleBack = () => {
-    navigate(`/products/${lectureId}/lecturelist`);
+    navigate("/admin");
   };
 
   function onSubmit(e) {
@@ -91,7 +91,7 @@ export function CreateLeList() {
       video: video,
       teacher: teacher,
       duration: duration,
-      lectureId: lectureId,
+      lecture: lecture,
     };
 
     if (!lelist) {
@@ -103,7 +103,7 @@ export function CreateLeList() {
     createLelist(lelist)
       .then((response) => {
         console.log("응답 확인 : ", response);
-        if (response.resultCode === "SUCCESS") {
+        if (response.data.resultCode === "SUCCESS") {
           alert("글 작성이 완료되었습니다.");
           //작성이 완료되면 목록으로 이동
           setLelistComplete(true);
@@ -125,11 +125,30 @@ export function CreateLeList() {
       {lelisting ? (
         <h1>글 작성중입니다...</h1>
       ) : lelistComplete ? (
-        navigate(`/products/${lectureId}/lecturelist`)
+        navigate(`/products/${lecture}/lecturelist`)
       ) : (
         <Container>
           <form onSubmit={onSubmit}>
-            <Header>질문 사항 작성</Header>
+            <Header>강의 목록 작성</Header>
+            <div>
+              <span>강의 ID</span>
+              <input
+                type="text"
+                id="lecture"
+                value={lecture}
+                placeholder="강의 아이디를 입력하세요"
+                onChange={(e) => {
+                  const inputValue = parseInt(e.target.value);
+                  //숫자인지 확인
+                  if (!isNaN(inputValue)) {
+                    const clampedValue = Math.min(Math.max(inputValue));
+                    setLecture(clampedValue);
+                  } else {
+                    setLecture(0);
+                  }
+                }}
+              />
+            </div>
             <div>
               <span>제목</span>
               <input

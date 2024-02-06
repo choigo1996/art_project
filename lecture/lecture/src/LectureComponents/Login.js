@@ -49,7 +49,7 @@ export function Login() {
 
   useEffect(() => {
     //로컬 스토리지에서 로그인 정보 가져오기
-    const storedLoginState = localStorage.getItem("loginState");
+    const storedLoginState = sessionStorage.getItem("loginState");
     //로그인 정보가 있으면 자동으로 로그인 상태설정
     if (storedLoginState) {
       const parsedLoginState = JSON.parse(storedLoginState);
@@ -70,7 +70,7 @@ export function Login() {
   useEffect(() => {
     if (data && data.resultCode === "SUCCESS" && userLogin) {
       console.log(data);
-      localStorage.setItem(
+      sessionStorage.setItem(
         "loginState",
         JSON.stringify({ id: userLogin.loginId })
       );
