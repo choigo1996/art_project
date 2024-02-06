@@ -52,7 +52,23 @@ export function login(user) {
       return data;
     });
 }
-//구매한 상품이 대시보드에 표시
+//바로구매
+export function buyPurchase(lecture) {
+  const token = localStorage.getItem("accessToken");
+  const userId = localStorage.getItem("loginState");
+  const lectureId = {
+    lectureId: lecture.id,
+    userId: userId.id,
+  };
+  console.log("purchase :", lectureId);
+  return axios.post(`http://localhost:8080/api/purchase`, lectureId, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+//카트에 있는 상품 구매
 export function purchaseAllLecture(lectures) {
   const token = localStorage.getItem("accessToken");
   const userId = localStorage.getItem("loginState");
@@ -318,4 +334,28 @@ export function getMyInfo() {
       userInfo.authorityDtoSet = userInfo.authorityDtoSet || [];
       return userInfo;
     });
+}
+//카테고리 변경
+export function addCategory(category) {
+  const token = localStorage.getItem("accessToken");
+  return axios.post(
+    `http://localhost:8080/api/lecture/category/add`,
+    category,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+}
+//권한 부여
+export function updateAutority(authority) {
+  const token = localStorage.getItem("accessToken");
+  return axios.post(`http://localhost:8080/api/update/authority`, authority, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
 }

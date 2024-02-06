@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { createLelist } from "./api";
 import styled from "styled-components";
+import { LectureContext } from "./Lecture";
 
 const Container = styled.div`
   width: 500px;

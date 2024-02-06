@@ -3,6 +3,7 @@ import { LectureContext } from "./Lecture";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { LectureNav } from "./LectureNav";
+import { buyPurchase } from "./api";
 
 const Container = styled.div`
   width: 100%;
@@ -56,9 +57,22 @@ export function SingleProduct() {
   function application() {
     console.log(loginState);
     if (loginState && loginState.id) {
-      window.alert("수강신청이 완료되었습니다.");
+      //사용자 확인 메시지 표시
+      const confirmPurchase = window.confirm("정말 구매하시겠습니까?");
+      if (confirmPurchase) {
+        buyPurchase(lecture)
+          .then((response) => {
+            //구매완료
+            window.alert("바로구매가 완료되었습니다.");
+          })
+          .catch((error) => {
+            console.error("바로구매 도중 오류:", error);
+          });
+      } else {
+        window.alert("구매를 취소했습니다.");
+      }
     } else {
-      alert("로그인이 필요합니다.");
+      window.alert("로그인이 필요합니다.");
       console.log("로그인 페이지로 이동");
       navigate("/login");
     }

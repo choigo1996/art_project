@@ -72,7 +72,7 @@ export function CreateNoti() {
     }
   }, [admin, navigate]);
   const handleBack = () => {
-    navigate("/notification");
+    navigate("/admin");
   };
   useEffect(() => {
     refetch();
