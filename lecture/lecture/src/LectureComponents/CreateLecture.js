@@ -133,12 +133,21 @@ export function CreateLecture() {
                 onChange={(e) => setTitle(e.target.value)}
               />
               <br />
-              <span>선생님</span>
+              <span>선생님ID</span>
               <input
                 id="teacher"
                 value={teacher}
-                placeholder="선생님 입력하세요"
-                onChange={(e) => setTeacher(e.target.value)}
+                placeholder="선생님ID 입력하세요"
+                onChange={(e) => {
+                  const inputValue = parseInt(e.target.value);
+                  //숫자인지 확인
+                  if (!isNaN(inputValue)) {
+                    const clampedValue = Math.min(Math.max(inputValue));
+                    setTeacher(clampedValue);
+                  } else {
+                    setTeacher(0);
+                  }
+                }}
               />
               <br />
               <span>가격</span>
