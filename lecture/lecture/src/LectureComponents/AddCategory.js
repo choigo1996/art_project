@@ -1,100 +1,97 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { addCategory, getAllCategory } from "./api";
+import { LectureContext } from "./Lecture";
+import { useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
 
 export function AddCategory() {
-  const [categoryData, setCategoryData] = useState({
-    lectureId: 0,
-    categoryType: "",
-  });
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [error, setError] = useState("");
-  const [categories, setCategories] = useState([]);
+  //카테고리,강의ID
+  const [categoryType, setCategoryType] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState([]);
+  const [lectureId, setLectureId] = useState(0);
+  //강의 카테고리 변경
+  const [categoryChange, setCategoryChange] = useState(null);
+  const [categoring, setCategoring] = useState(false);
+  const [categoryComplete, setCategoryComplete] = useState(false);
+  //admin으로 로그인 되어있는지 확인용
+  const { loginState } = useContext(LectureContext);
+  //lecture목록으로 이동
+  const navigate = useNavigate();
 
-  //카테고리 목록 불러오기
+  const admin =
+    loginState?.authorityDtoSet &&
+    loginState.authorityDtoSet.length > 0 &&
+    loginState.authorityDtoSet[0].authorityName === "ROLE_ADMIN";
+
+  const { data, isLoading, refetch } = useQuery("addCategory", () => {
+    if (categoryChange) {
+      setCategoring(true);
+      return addCategory(categoryChange);
+    }
+  });
+
+  //관리자만 접근가능
+  useEffect(() => {
+    if (!admin) {
+      alert("관리자만 접근가능");
+      navigate("/home");
+    }
+  }, [admin, navigate]);
+  //취소시,admin대시보드로
+  const handleBack = () => {
+    navigate("/admin");
+  };
+  useEffect(() => {
+    refetch();
+  }, [categoryChange]);
+
+  //카테고리 가져오기 함수
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await getAllCategory();
-        setCategories(response);
+        setSelectedCategory(response);
+        if (response.length > 0) {
+          setCategoryType("");
+        }
       } catch (error) {
-        console.error("카테고리 목록 조회 중 오류발생", error);
-        window.alert("카테고리 목록을 불러오는 중 오류가 발생했습니다.");
+        console.error("카테고리 목록 조회 중 오류 발생", error);
       }
     };
     fetchCategories();
   }, []);
 
-  const handleAddCategory = async () => {
-    try {
-      //강의 ID가 0인 경우 에러처리
-      if (categoryData.lectureId === 0) {
-        setError("강의 ID를 입력하세요.");
-        return;
-      }
+  function onSubmit(e) {
+    e.preventDefault();
 
-      const response = await addCategory(categoryData);
-      console.log("응답 확인:", response.data);
-      window.alert("카테고리가 변경되었습니다.");
-      setError(""); //에러 메시지 초기화
-    } catch (error) {
-      console.error("응답 실패 :", error);
-      setError("에러 발생");
+    const addCate = {
+      lectureId: lectureId,
+      categoryType: categoryType,
+    };
+
+    if (!addCate) {
+      window.alert("빈공간이 존재합니다!");
     }
-  };
 
-  const handleToggleDropdown = () => {
-    setIsDropdownOpen((prevIsOpen) => !prevIsOpen);
-  };
-
-  const handleCategorySelection = (selectedCategory) => {
-    setCategoryData((prevData) => ({
-      ...prevData,
-      categoryType: selectedCategory,
-    }));
-    setIsDropdownOpen(false);
-  };
-
-  return (
-    <>
-      <div>
-        <label>강의 ID :</label>
-        <input
-          type="text"
-          id="lectureId"
-          value={categoryData.lectureId}
-          placeholder="강의의 아이디를 넣어주세요."
-          onChange={(e) => {
-            const inputValue = parseInt(e.target.value);
-            setCategoryData((prevData) => ({
-              ...prevData,
-              lectureId: inputValue,
-            }));
-          }}
-        />
-        {error && <div style={{ color: "red" }}>{error}</div>}
-      </div>
-      <div>
-        <label>카테고리 :</label>
-        <select
-          value={categoryData.categoryType}
-          onChange={(e) =>
-            setCategoryData((prevData) => ({
-              ...prevData,
-              categoryType: e.target.value,
-            }))
-          }
-        >
-          <option value="" disabled>
-            카테고리를 선택하세요.
-          </option>
-          {categories.map((category) => (
-            <option key={category.id} value={category.categoryType}>
-              {category.categoryType}
-            </option>
-          ))}
-        </select>
-      </div>
-      <buton onClick={handleAddCategory}>카테고리 변경</buton>
-    </>
-  );
+    console.log(addCate);
+    //API호출
+    addCategory(addCate)
+      .then((response) => {
+        console.log("응답확인 :", response);
+        if (response.resultCode === "SUCCESS") {
+          alert("글 작성이 완료되었습니다.");
+          setCategoryComplete(true);
+        } else if (response.resultCode === "ERROR") {
+          const errorMassage =
+            response.data.massage || response.data["Invalid writer"];
+          console.log(response);
+          console.log(errorMassage);
+          window.alert(errorMassage);
+        }
+      })
+      .catch((error) => {
+        console.error("호출 실패 :", error);
+        window.alert("에러발생");
+      });
+  }
 }

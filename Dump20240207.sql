@@ -102,9 +102,11 @@ CREATE TABLE `lecture` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `image` varchar(1500) NOT NULL,
   `price` int NOT NULL,
-  `teacher` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `user_id` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK6jhhcg8ie5o0ggxsfkbtajrsy` (`user_id`),
+  CONSTRAINT `FK6jhhcg8ie5o0ggxsfkbtajrsy` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -114,7 +116,7 @@ CREATE TABLE `lecture` (
 
 LOCK TABLES `lecture` WRITE;
 /*!40000 ALTER TABLE `lecture` DISABLE KEYS */;
-INSERT INTO `lecture` VALUES (1,'https://lh3.googleusercontent.com/pw/ABLVV85phkNAXSLRbR9ac1vBEanXDn7g5eiKREjtE32-ijPEXjl-2Y8Klk2ENWiKSdCeMYAIPPZ3O6t71T4tQ9WtAvEuA0bX6W2ot7YVij-jFGPzRpxOVpB-aYJ4hlyA5JCS_6Cynl7kPXocSZftXH258TFHH6Hc66NNzOg1mPBy2h0BHgJ2E6GrnlOAqNe7DbDgC5_gnUCFxUam1gUNpjONKn2ms2ATJl74YeIMIVg9aMD6vGZePBLtLbRw3VSQurKRDPtFJtebftvwLyaA6T5ch4ENUCU8EzzWxZ5joqTGJi29lf2chKhvlNVjYUSWpH733jNymj_7M9hjx06_CgqdChBV9q3Z7xndo2S4AgZWZaPAve3Bah2Fw378n_FqI8AA3FfWsGvrdSwT_avHyEB5jAt5vuuJ4bDh3vAJad3otN3m48TDruHNXP9ULDSvb3kzvrWeguGDstQFpMRC_aG0H2YOySoc5q9YybUQvnbN4gyGYbnwLBHUIvXCAZTZP6_566ugH0hKADW2QsdXynwlvRp-3AeLKzekY-uV9BZw1_Zw2PZ5saz-Dkdrwgv1PiL9-mdblAoLdVetgPSQmO-uI1qk-EhOlgnPddjhjuOKoHRo1dN60d2UtyR2t77WwPXWpx8fRJGSV4UReTdspUKnVD2sqT3LI4WWXVWKCw_cKYyngC386NS-PjCWmsm7_4nWkskpXa7J6XlOXadogSiEYYto0kXcn4XLA9G4xVPb7wnXy89T7nQzAxN5D-bbymCp2uQC21yVV_nYXBFZwvvb1qweRCNhftS8B8_nSxe7Av8ijQvkzQhzI_SMfBavv4NSwXHJgjwdy1MSmam-XtNQzkEQa9bwKlft5tuYSh0fYB3vQFMAYjRX6j1tU4L50kxF9usnEA=w730-h754-s-no-gm?authuser=0',15500,'오쿠다 히데오','소설의 정석'),(2,'https://lh3.googleusercontent.com/pw/ABLVV85phkNAXSLRbR9ac1vBEanXDn7g5eiKREjtE32-ijPEXjl-2Y8Klk2ENWiKSdCeMYAIPPZ3O6t71T4tQ9WtAvEuA0bX6W2ot7YVij-jFGPzRpxOVpB-aYJ4hlyA5JCS_6Cynl7kPXocSZftXH258TFHH6Hc66NNzOg1mPBy2h0BHgJ2E6GrnlOAqNe7DbDgC5_gnUCFxUam1gUNpjONKn2ms2ATJl74YeIMIVg9aMD6vGZePBLtLbRw3VSQurKRDPtFJtebftvwLyaA6T5ch4ENUCU8EzzWxZ5joqTGJi29lf2chKhvlNVjYUSWpH733jNymj_7M9hjx06_CgqdChBV9q3Z7xndo2S4AgZWZaPAve3Bah2Fw378n_FqI8AA3FfWsGvrdSwT_avHyEB5jAt5vuuJ4bDh3vAJad3otN3m48TDruHNXP9ULDSvb3kzvrWeguGDstQFpMRC_aG0H2YOySoc5q9YybUQvnbN4gyGYbnwLBHUIvXCAZTZP6_566ugH0hKADW2QsdXynwlvRp-3AeLKzekY-uV9BZw1_Zw2PZ5saz-Dkdrwgv1PiL9-mdblAoLdVetgPSQmO-uI1qk-EhOlgnPddjhjuOKoHRo1dN60d2UtyR2t77WwPXWpx8fRJGSV4UReTdspUKnVD2sqT3LI4WWXVWKCw_cKYyngC386NS-PjCWmsm7_4nWkskpXa7J6XlOXadogSiEYYto0kXcn4XLA9G4xVPb7wnXy89T7nQzAxN5D-bbymCp2uQC21yVV_nYXBFZwvvb1qweRCNhftS8B8_nSxe7Av8ijQvkzQhzI_SMfBavv4NSwXHJgjwdy1MSmam-XtNQzkEQa9bwKlft5tuYSh0fYB3vQFMAYjRX6j1tU4L50kxF9usnEA=w730-h754-s-no-gm?authuser=0',15500,'이택기','웹툰의 정석');
+INSERT INTO `lecture` VALUES (1,'https://lh3.googleusercontent.com/pw/ABLVV85phkNAXSLRbR9ac1vBEanXDn7g5eiKREjtE32-ijPEXjl-2Y8Klk2ENWiKSdCeMYAIPPZ3O6t71T4tQ9WtAvEuA0bX6W2ot7YVij-jFGPzRpxOVpB-aYJ4hlyA5JCS_6Cynl7kPXocSZftXH258TFHH6Hc66NNzOg1mPBy2h0BHgJ2E6GrnlOAqNe7DbDgC5_gnUCFxUam1gUNpjONKn2ms2ATJl74YeIMIVg9aMD6vGZePBLtLbRw3VSQurKRDPtFJtebftvwLyaA6T5ch4ENUCU8EzzWxZ5joqTGJi29lf2chKhvlNVjYUSWpH733jNymj_7M9hjx06_CgqdChBV9q3Z7xndo2S4AgZWZaPAve3Bah2Fw378n_FqI8AA3FfWsGvrdSwT_avHyEB5jAt5vuuJ4bDh3vAJad3otN3m48TDruHNXP9ULDSvb3kzvrWeguGDstQFpMRC_aG0H2YOySoc5q9YybUQvnbN4gyGYbnwLBHUIvXCAZTZP6_566ugH0hKADW2QsdXynwlvRp-3AeLKzekY-uV9BZw1_Zw2PZ5saz-Dkdrwgv1PiL9-mdblAoLdVetgPSQmO-uI1qk-EhOlgnPddjhjuOKoHRo1dN60d2UtyR2t77WwPXWpx8fRJGSV4UReTdspUKnVD2sqT3LI4WWXVWKCw_cKYyngC386NS-PjCWmsm7_4nWkskpXa7J6XlOXadogSiEYYto0kXcn4XLA9G4xVPb7wnXy89T7nQzAxN5D-bbymCp2uQC21yVV_nYXBFZwvvb1qweRCNhftS8B8_nSxe7Av8ijQvkzQhzI_SMfBavv4NSwXHJgjwdy1MSmam-XtNQzkEQa9bwKlft5tuYSh0fYB3vQFMAYjRX6j1tU4L50kxF9usnEA=w730-h754-s-no-gm?authuser=0',15500,'웹툰의 정석',2),(2,'https://lh3.googleusercontent.com/pw/ABLVV87K5dLrXVICH-N-1mPucfX3f7cCpqQwUJdrwrfJBstajdACso3j3gTgcWDooF2aaUSJG6rr7ibdxKMcnCXFn_FaBxirUZ9Oq9A4glssjfiHxOwiYd02_QzXOA7KS71lu1rZxIW0L7iZ-7T5694QqXrPe3CatM37kKSUI8Wk75SE4IDGy8JtGdxnRUEp9_xll5H6TpAymo01OHjFWTpkeqJPu3npuKbtsbkKdiRXNXM-EPCI0quuiOBLqkDU7Or5PlNXiQ0CrjzsR181f4H919RsVrFqD4y93BxV18OHROChTsmnX0l--Ws_9W2GNq3d6S5zxxPKbW5_17iQ3V7ClpGC17NTu46QhZc5kK-xW9NlSdT5fAcpTWMAt0NtUqtDHsSxvQYryL-wwfOuraowJWFXcyJN76AQ0KoGL7WC6wVuEnmKqsx8moMpnKRqUp6ZzBgouxt7EQn7o_C5L5VmFlWSpEtFn0_BETu5U4QZFng026RGw2K5oAD8IvO1VVaP7Eyp4jafrviB_oYJsmUed0gLGuyejnTeucXdPa1EfV33wECS1XeCKsl1Mv6lLaXuN8xY73j7g_51vxhIB0OJsQF6CbvMFOpEAJB34rz2lQWpJVf3o8XGnPk8ibVJCH2UqNePoDriQ5JBIK4ryke6fjicChbyIbCwWhnu9-lnORkOEBGh9OseWPkRbzxAEF2Kc2SmLS-D9jkfMazwzVjZBc_Kk-Hn6_R0e1wiv7slWgQZ55-NEZdwNYb3Xox7b9VRjT8176eGtCyZ83447K931uGgBzAWHtQNyeyhqjPwm2gJsy9wEFRBDLHhefMhWQpaxfD4z52Nyvld8kNysnor-6DsbgaUU1AcPezKmKbmGJBWz8SrOj8haOFN2rWJxKCmjZm-riuoCDqVxZYmBWb3UGoPk6U=w730-h754-s-no-gm?authuser=0',150000,'소설의 정석',2);
 /*!40000 ALTER TABLE `lecture` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -336,7 +338,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_ob8kqyqqgmefl0aco34akdtpe` (`email`),
   UNIQUE KEY `UK_6ntlp6n5ltjg6hhxl66jj5u0l` (`login_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -345,7 +347,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,_binary '','1996-12-26','admin@naver.com','admin','admin','$2a$10$J8CSA679gDnCT/92N4iYYeU3aMuWFp7uFdv4q5hCnuIqCiBMOx0he'),(2,_binary '','1999-11-11','rere1996@naver.com','rere1996','이택기','$2a$10$wdTDe/BXWnce3FfqdYDie.jme5/aRfMwcRK0Q/4rBC9agz36ynpaC');
+INSERT INTO `user` VALUES (1,_binary '','1996-12-26','admin@naver.com','admin','admin','$2a$10$J8CSA679gDnCT/92N4iYYeU3aMuWFp7uFdv4q5hCnuIqCiBMOx0he'),(2,_binary '','1999-11-11','rere1996@naver.com','rere1996','이택기','$2a$10$wdTDe/BXWnce3FfqdYDie.jme5/aRfMwcRK0Q/4rBC9agz36ynpaC'),(3,_binary '','1999-11-11','rere1992@naver.com','rere1992','구로사와 아키라','$2a$10$hgAo1EQcYn2J.CWaC4ge9.Sp9nODXKUOXuyQfPlne48o9bVjd4qYS');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -372,7 +374,7 @@ CREATE TABLE `user_authority` (
 
 LOCK TABLES `user_authority` WRITE;
 /*!40000 ALTER TABLE `user_authority` DISABLE KEYS */;
-INSERT INTO `user_authority` VALUES (2,'ROLE_USER'),(1,'ROLE_ADMIN');
+INSERT INTO `user_authority` VALUES (3,'ROLE_USER'),(1,'ROLE_ADMIN'),(2,'ROLE_TEACHER');
 /*!40000 ALTER TABLE `user_authority` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -385,4 +387,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-05 17:02:38
+-- Dump completed on 2024-02-07 11:34:13
