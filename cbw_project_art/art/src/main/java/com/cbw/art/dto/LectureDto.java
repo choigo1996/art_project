@@ -6,7 +6,7 @@ public class LectureDto {
 	
 	private String title;
 	
-	private String teacher;
+	private Long teacher;
 	
 	private int price;
 	
@@ -16,7 +16,7 @@ public class LectureDto {
 		super();
 	}
 
-	public LectureDto(long id, String title, String teacher, int price, String image) {
+	public LectureDto(long id, String title, Long teacher, int price, String image) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -41,11 +41,11 @@ public class LectureDto {
 		this.title = title;
 	}
 
-	public String getTeacher() {
+	public Long getTeacher() {
 		return teacher;
 	}
 
-	public void setTeacher(String teacher) {
+	public void setTeacher(Long teacher) {
 		this.teacher = teacher;
 	}
 
@@ -64,5 +64,6 @@ public class LectureDto {
 	public void setImage(String image) {
 		this.image = image;
 	}
-		
+
+	
 }

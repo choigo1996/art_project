@@ -62,6 +62,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/lelist/lecturelist").permitAll()
                         .requestMatchers("/api/lecture/list/{id}").permitAll()
                         .requestMatchers("/api/review/list").permitAll()
+                        .requestMatchers("/api/authority").permitAll()
                         .requestMatchers("/api/lecture/category").permitAll()
                         .anyRequest().authenticated()
                 )

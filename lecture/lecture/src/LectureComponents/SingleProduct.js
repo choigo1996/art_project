@@ -86,7 +86,7 @@ export function SingleProduct() {
         <Img src={image} />
         <Content>
           <p>가격 : {price}원</p>
-          <p>강사 : {teacher}</p>
+          <p>강사 : {lecture.user.name}</p>
           <CategoryList>
             카테고리 :
             {lecture.categorys.map((category, i) => (

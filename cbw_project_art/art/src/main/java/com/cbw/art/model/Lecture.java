@@ -12,6 +12,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,8 +27,9 @@ public class Lecture {
 	@Column(nullable = false)
 	private String title;
 	
-	@Column(nullable = false)
-	private String teacher;
+	@JoinColumn(nullable = false)
+	@ManyToOne
+	private User user;
 	
 	@Column(nullable = false)
 	private int price;
@@ -40,16 +43,17 @@ public class Lecture {
 			joinColumns = @JoinColumn(name = "lecture_id"),
 			inverseJoinColumns = @JoinColumn(name = "category_type"))
 	private Set<Category> categorys = new HashSet<>();
+
 	
 	public Lecture() {
 		super();
 	}
 
-	public Lecture(long id, String title, String teacher, int price, String image, Set<Category> categorys) {
+	public Lecture(long id, String title, User user, int price, String image, Set<Category> categorys) {
 		super();
 		this.id = id;
 		this.title = title;
-		this.teacher = teacher;
+		this.user = user;
 		this.price = price;
 		this.image = image;
 		this.categorys = categorys;
@@ -71,12 +75,12 @@ public class Lecture {
 		this.title = title;
 	}
 
-	public String getTeacher() {
-		return teacher;
+	public User getUser() {
+		return user;
 	}
 
-	public void setTeacher(String teacher) {
-		this.teacher = teacher;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public int getPrice() {
@@ -102,6 +106,7 @@ public class Lecture {
 	public void setCategorys(Set<Category> categorys) {
 		this.categorys = categorys;
 	}
+	
 
 	
 }

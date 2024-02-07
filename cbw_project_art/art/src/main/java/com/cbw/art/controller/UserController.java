@@ -98,7 +98,13 @@ public class UserController {
 		System.out.println(isDuplicate);
 		return ResponseEntity.ok(response);
 	}
-
+	//권한목록 불러오기
+	@GetMapping("/authority")
+	public ResponseEntity<AuthorityType[]> getAllAuthority(){
+		AuthorityType[] authorityTypes = AuthorityType.values();
+		return ResponseEntity.ok(authorityTypes);
+		
+	}
 	//권한부여
 	@PostMapping("/update/authority")
 	@PreAuthorize("hasAnyRole('ADMIN')")

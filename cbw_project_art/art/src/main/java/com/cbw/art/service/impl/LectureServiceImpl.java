@@ -7,20 +7,24 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cbw.art.dto.BaseResponse;
 import com.cbw.art.dto.CategoryDto;
 import com.cbw.art.dto.LectureDto;
+import com.cbw.art.enumstatus.AuthorityType;
 import com.cbw.art.enumstatus.CategoryType;
 import com.cbw.art.enumstatus.ResultCode;
 import com.cbw.art.exception.InvalidRequestException;
 import com.cbw.art.model.Category;
 import com.cbw.art.model.Lecture;
+import com.cbw.art.model.User;
 import com.cbw.art.repository.CategoryRepository;
 import com.cbw.art.repository.LectureRepository;
 import com.cbw.art.repository.ReviewRepository;
+import com.cbw.art.repository.UserRepository;
 import com.cbw.art.service.LectureService;
 
 @Service
@@ -30,34 +34,46 @@ public class LectureServiceImpl implements LectureService{
 	private final LectureRepository lectureRepository;
 	private final ReviewRepository reviewRepository;
 	private final CategoryRepository categoryRepository;
-
+	private final UserRepository userRepository;
+	
 	@Autowired
 	public LectureServiceImpl(LectureRepository lectureRepository, ReviewRepository reviewRepository,
-			CategoryRepository categoryRepository) {
+			CategoryRepository categoryRepository, UserRepository userRepository) {
 		super();
 		this.lectureRepository = lectureRepository;
 		this.reviewRepository = reviewRepository;
 		this.categoryRepository = categoryRepository;
-	}	
+		this.userRepository = userRepository;
+	}
 	
 	//강의 생성
 	@Override
 	public BaseResponse<Void> createLecture(LectureDto lectureDto) {
-	    Category category = categoryRepository.findByCategoryType(CategoryType.WEBTOON)
-	            .orElseThrow(() -> new InvalidRequestException("Default category not found", "전체항목에 없음."));
-	    Lecture lecture = new Lecture();
-	    lecture.setTitle(lectureDto.getTitle());
-	    lecture.setTeacher(lectureDto.getTeacher());
-	    lecture.setPrice(lectureDto.getPrice());
-	    lecture.setImage(lectureDto.getImage());
+		
+		
+		// 선생님 정보 가져오기
+		User teacher = userRepository.findById(lectureDto.getTeacher())
+		        .filter(user -> user.getAuthorities().stream()
+		                .anyMatch(auth -> auth.getAuthorityType().equals(AuthorityType.ROLE_TEACHER)))
+		        .orElseThrow(() -> new InvalidRequestException("Teacher not found", "선생님이 존재하지 않거나 선생님 역할을 가지고 있지 않습니다."));
+		//카테고리 가져오기
+		Category category = categoryRepository.findByCategoryType(CategoryType.WEBTOON)
+				.orElseThrow(() -> new InvalidRequestException("Default category not found", "전체항목에 없음"));
+		//강의 생성
+		Lecture lecture = new Lecture();
+		lecture.setTitle(lectureDto.getTitle());
+		lecture.setUser(teacher);
+		lecture.setPrice(lectureDto.getPrice());
+		lecture.setImage(lectureDto.getImage());
 		lecture.setCategorys(Collections.singleton(category));
-
-	    lectureRepository.save(lecture);
-	    return new BaseResponse<>(
-	            ResultCode.SUCCESS.name(),
-	            null,
-	            "강의생성 완료!");
-	}
+			
+		lectureRepository.save(lecture);
+			
+		return new BaseResponse<>(
+		           ResultCode.SUCCESS.name(),
+		           null,
+		           "강의생성 완료!");
+		}
 
 	//강의 목록
 	@Override

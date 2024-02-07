@@ -51,15 +51,27 @@ public class PurchaseController {
 	}
 	//모든 회원이 구매한 목록을 저장
 	@PostMapping("/list")
-	public ResponseEntity<BaseResponse<List<PurchaseDto>>> savePurchaseList(
-	        @RequestBody List<PurchaseDto> purchaseList,
+	public ResponseEntity<List<PurchaseDto>> savePurchaseList(
+	        @RequestBody @Valid List<PurchaseDto> purchaseList,
 	        Authentication authentication) {
-	    List<Void> savedPurchaseList = purchaseList.stream()
-	            .map(purchaseDto -> purchaseServiceImpl.savePurchase(authentication, purchaseDto).getData())
-	            .collect(Collectors.toList());
-
-	    return new ResponseEntity<>(new BaseResponse<>(savedPurchaseList), HttpStatus.OK);
+	    List<PurchaseDto> savedPurchaseList = new ArrayList<PurchaseDto>();
+	    for (PurchaseDto purchaseDto : purchaseList) {
+	        // 중복 체크
+	        if (!savedPurchaseList.contains(purchaseDto)) {
+	            BaseResponse<Void> savePurchaseResponse = purchaseServiceImpl.savePurchase(authentication, purchaseDto);
+	            if ("SUCCESS".equals(savePurchaseResponse.getResultCode())) {
+	                savedPurchaseList.add(purchaseDto);
+	            } else {
+	                System.out.println("실패! 임마!");
+	            }
+	        }
+	    }
+	    return new ResponseEntity<>(
+	    		savedPurchaseList,
+	    		HttpStatus.OK);
 	}
+
+
 	//모든 회원의 구매정보 불러오기
 	@GetMapping("/list/user")
 	@PreAuthorize("hasAnyRole('ADMIN')")
@@ -78,9 +90,8 @@ public class PurchaseController {
 				HttpStatus.OK);
 	}
 	
-	//특정 사용자가 구매한 모든 강의의 정보 조회
+	//각 회원이 구매한 모든 강의의 정보 조회
 	@GetMapping("user/{userId}")
-	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ResponseEntity<BaseResponse<List<Purchase>>> getPurchaseByUserId(@PathVariable long userId){
 		return new ResponseEntity<>(
 				purchaseServiceImpl.getPurchaseByUserId(userId),

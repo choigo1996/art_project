@@ -1,5 +1,7 @@
 package com.cbw.art.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cbw.art.dto.BaseResponse;
 import com.cbw.art.dto.IntroDto;
-import com.cbw.art.enumstatus.ResultCode;
-import com.cbw.art.exception.InvalidRequestException;
+
 import com.cbw.art.model.Intro;
 import com.cbw.art.service.impl.IntroServiceImpl;
 
@@ -44,12 +45,10 @@ public class IntroController {
 				HttpStatus.CREATED);
 	}
 	//소개글 가져와
-	@GetMapping("/{id}")
-	public ResponseEntity<Intro> getIntro (@PathVariable long id) {
-		return new ResponseEntity<Intro>(
-				introServiceImpl.getIntro(id),HttpStatus.OK);
+	@GetMapping("{lectureId}")
+	public ResponseEntity<BaseResponse<List<Intro>>> getIntroByLectureId(@PathVariable long lectureId){
+		return new ResponseEntity<>(
+				introServiceImpl.getIntroByLectureId(lectureId),
+				HttpStatus.OK);
 	}
-
-
-	
 }

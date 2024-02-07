@@ -1,5 +1,6 @@
 package com.cbw.art.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,11 +53,18 @@ public class IntroServiceImpl implements IntroService{
 				null,
 				"강의 소개글이 생성 되었습니다.");
 	}
-
+	
+	//해당 강의의 소개글 가져오기
 	@Override
-	public Intro getIntro(long id) {
-		return introRepository.findById(id)
-				.orElseThrow(() -> new InvalidRequestException(String.valueOf(id), "해당 아이디의 강의소개글은 존재하지않습니다."));
+	public BaseResponse<List<Intro>> getIntroByLectureId(long lectureId) {
+		List<Intro> lecture = introRepository.findByLectureId(lectureId);
+		if(lecture.isEmpty()) {
+			throw new InvalidRequestException("Not Found", "강의의 아이디가 존재하지 않음");
+		}
+		return new BaseResponse<>(
+				ResultCode.SUCCESS.name(),
+				lecture,
+				ResultCode.SUCCESS.getMsg());
 	}
 
 }

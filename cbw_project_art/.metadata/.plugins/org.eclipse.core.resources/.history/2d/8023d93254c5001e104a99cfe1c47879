@@ -1,0 +1,86 @@
+package com.cbw.art.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cbw.art.dto.BaseResponse;
+import com.cbw.art.dto.CategoryDto;
+import com.cbw.art.dto.LectureDto;
+import com.cbw.art.enumstatus.CategoryType;
+import com.cbw.art.model.Lecture;
+import com.cbw.art.service.impl.LectureServiceImpl;
+
+import jakarta.validation.Valid;
+
+@RestController
+@RequestMapping("/api/lecture")
+@CrossOrigin(origins="http://localhost:3000",
+methods= {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE})
+public class LectureController {
+	
+	private final LectureServiceImpl lectureServiceImpl;
+
+	@Autowired
+	public LectureController(LectureServiceImpl lectureServiceImpl) {
+		super();
+		this.lectureServiceImpl = lectureServiceImpl;
+	}
+	//강의 생성
+	@PostMapping
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	public ResponseEntity<BaseResponse<Void>> createLecture(@RequestBody @Valid LectureDto lectureDto,Authentication authentication){
+		return new ResponseEntity<>(
+				lectureServiceImpl.createLecture(lectureDto,authentication),
+				HttpStatus.CREATED);
+	}
+	//강의 목록 가져오기
+	@GetMapping("/list")
+	public ResponseEntity<BaseResponse<List<Lecture>>> getAllLecture(){
+		return new ResponseEntity<>(
+				lectureServiceImpl.getAllLecture(),
+				HttpStatus.OK);
+	}
+	//강의 하나만 가져옴(상세정보)
+	@GetMapping("/list/{id}")
+	public ResponseEntity<Lecture> getLectureById (@PathVariable long id) {
+		return new ResponseEntity<Lecture>(
+				lectureServiceImpl.getLectureById(id),
+				HttpStatus.OK);
+	}
+	//강의 삭제
+	@DeleteMapping("/delete/{id}")
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	public ResponseEntity<BaseResponse<Long>> deleteLecture (@PathVariable long id) {
+		return new ResponseEntity<>(
+				lectureServiceImpl.deleteLecture(id),
+				HttpStatus.OK);
+	}
+	//카테고리 목록 불러오기
+	@GetMapping("/category")
+	public ResponseEntity<CategoryType[]> getAllCategory() {
+		CategoryType[] categories = CategoryType.values();
+		return ResponseEntity.ok(categories);
+	}
+	//카테고리 추가
+	@PostMapping("/category/add")
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	public ResponseEntity<BaseResponse<Void>> addCategory (@RequestBody @Valid CategoryDto categoryDto){
+		return new ResponseEntity<>(
+				lectureServiceImpl.addCategory(categoryDto),
+				HttpStatus.CREATED);
+	}
+}
