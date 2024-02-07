@@ -2,7 +2,6 @@ package com.cbw.art.service;
 
 import java.util.List;
 
-import org.springframework.security.core.Authentication;
 
 import com.cbw.art.dto.BaseResponse;
 import com.cbw.art.dto.CategoryDto;
@@ -20,4 +19,6 @@ public interface LectureService {
 	Lecture getLectureById(long id);
 	//카테고리 추가
 	public BaseResponse<Void> addCategory(CategoryDto categoryDto);
+	//선생님별로 가지고 있는 강의를 표시
+	public BaseResponse<Void> teacherBylecture(String teacherId);
 }

@@ -41,7 +41,7 @@ export function CreateIntro() {
   useEffect(() => {
     if (!admin) {
       alert("관리자만 접근가능합니다.");
-      navigate("/home");
+      navigate("/");
     }
   }, [admin, navigate]);
 

@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -92,7 +93,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public BaseResponse<Void> updataAuthority(AuthorityDto authorityDto) {
 		//유저 ID로 유저를 찾음
-		Optional<User> optionalUser = userRepository.findById(authorityDto.getUserId());
+		Optional<User> optionalUser = userRepository.findByLoginId(authorityDto.getUserId());
 		if(optionalUser.isEmpty()) {
 			throw new InvalidRequestException("Invalid User","존재하지않는 유저입니다.");
 		}
@@ -114,5 +115,9 @@ public class UserServiceImpl implements UserService{
 				null,
 				"권한이 업데이트 되었습니다.");
 	}
+
+
+
+
 
 }

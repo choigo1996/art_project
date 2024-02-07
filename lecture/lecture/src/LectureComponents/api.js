@@ -90,12 +90,20 @@ export function getPurchaseById(userId) {
     method: "GET",
   }).then((response) => response.json());
 }
+
 //모든 회원이 구매한 강의 목록을 불러온다
 export function getAllPurchase() {
-  return fetch(`http://localhost:8080/api/list/user`, {
-    method: "GET",
-  }).then((response) => response.json());
+  const token = sessionStorage.getItem("accessToken");
+  console.log("bearer Token :", token);
+  return axios.get(`http://localhost:8080/api/purchase/list/user`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
 }
+//특정 강의 ID에 해당하는 모든 사용자의 정보 조회
+
 //공지사항 생성(ADMIN)
 export function createNoti(admin) {
   const token = sessionStorage.getItem("accessToken");

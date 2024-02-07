@@ -14,6 +14,13 @@ export function AdminDashBoard() {
   const { loginState, setLoginState } = useContext(LectureContext);
   const navigate = useNavigate();
 
+  const admin = loginState.authorityDtoSet[0].authorityName === "ROLE_ADMIN";
+  useEffect(() => {
+    if (!admin) {
+      alert("관리자만 접근가능합니다.");
+      navigate("/");
+    }
+  }, [admin, navigate]);
   function createNoti() {
     navigate("noticreate");
   }
@@ -38,6 +45,9 @@ export function AdminDashBoard() {
     navigate("intro");
   }
 
+  function handleBack() {
+    navigate("/dashboard");
+  }
   return (
     <>
       <h1>관리자님 환영합니다.</h1>
@@ -48,6 +58,7 @@ export function AdminDashBoard() {
         <Lelist onClick={createLelist}>강의 목록 작성</Lelist>
         <Authority onClick={updateAuth}>권한 변경</Authority>
         <Category onClick={addCategory}>카테고리 변경</Category>
+        <button onClick={handleBack}>마이페이지로 돌아가기</button>
       </Container>
     </>
   );

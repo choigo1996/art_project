@@ -9,9 +9,7 @@ public class LectureListDto {
 	
 	@NotBlank
 	private String video;
-	
-	private String teacher;
-	
+		
 	private String duration;
 	
 	private long lecture;
@@ -20,12 +18,10 @@ public class LectureListDto {
 		super();
 	}
 
-	public LectureListDto(@NotBlank String title, @NotBlank String video, String teacher, String duration,
-			long lecture) {
+	public LectureListDto(@NotBlank String title, @NotBlank String video, String duration, long lecture) {
 		super();
 		this.title = title;
 		this.video = video;
-		this.teacher = teacher;
 		this.duration = duration;
 		this.lecture = lecture;
 	}
@@ -46,14 +42,6 @@ public class LectureListDto {
 		this.video = video;
 	}
 
-	public String getTeacher() {
-		return teacher;
-	}
-
-	public void setTeacher(String teacher) {
-		this.teacher = teacher;
-	}
-
 	public String getDuration() {
 		return duration;
 	}
@@ -70,5 +58,6 @@ public class LectureListDto {
 		this.lecture = lecture;
 	}
 
-		
+	
+	
 }

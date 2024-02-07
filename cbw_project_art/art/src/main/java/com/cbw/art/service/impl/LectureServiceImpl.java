@@ -52,7 +52,7 @@ public class LectureServiceImpl implements LectureService{
 		
 		
 		// 선생님 정보 가져오기
-		User teacher = userRepository.findById(lectureDto.getTeacher())
+		User teacher = userRepository.findByLoginId(lectureDto.getTeacherId())
 		        .filter(user -> user.getAuthorities().stream()
 		                .anyMatch(auth -> auth.getAuthorityType().equals(AuthorityType.ROLE_TEACHER)))
 		        .orElseThrow(() -> new InvalidRequestException("Teacher not found", "선생님이 존재하지 않거나 선생님 역할을 가지고 있지 않습니다."));

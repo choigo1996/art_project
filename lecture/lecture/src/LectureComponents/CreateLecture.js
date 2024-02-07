@@ -42,7 +42,7 @@ const BackButton = styled.button`
 export function CreateLecture() {
   //제목,선생님,가격,이미지
   const [title, setTitle] = useState("");
-  const [teacher, setTeacher] = useState("");
+  const [teacherId, setTeacherId] = useState("");
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
   //강의 저장
@@ -69,7 +69,7 @@ export function CreateLecture() {
   useEffect(() => {
     if (!admin) {
       alert("관리자만 접근가능");
-      navigate("/home");
+      navigate("/");
     }
   }, [admin, navigate]);
 
@@ -85,7 +85,7 @@ export function CreateLecture() {
 
     const lecture = {
       title: title,
-      teacher: teacher,
+      teacherId: teacherId,
       price: price,
       image: image,
     };
@@ -126,6 +126,7 @@ export function CreateLecture() {
             <Header>강의 생성</Header>
             <div>
               <span>제목</span>
+              <br />
               <input
                 id="title"
                 value={title}
@@ -135,27 +136,29 @@ export function CreateLecture() {
               <br />
               <span>선생님ID</span>
               <input
-                id="teacher"
-                value={teacher}
+                id="teacherId"
+                value={teacherId}
                 placeholder="선생님ID 입력하세요"
+                onChange={(e) => setTeacherId(e.target.value)}
+              />
+              <br />
+              <span>가격</span>
+              <br />
+              <input
+                type="text"
+                id="price"
+                value={price}
+                placeholder="가격을 입력하세요"
                 onChange={(e) => {
                   const inputValue = parseInt(e.target.value);
                   //숫자인지 확인
                   if (!isNaN(inputValue)) {
                     const clampedValue = Math.min(Math.max(inputValue));
-                    setTeacher(clampedValue);
+                    setPrice(clampedValue);
                   } else {
-                    setTeacher(0);
+                    setPrice(0);
                   }
                 }}
-              />
-              <br />
-              <span>가격</span>
-              <input
-                id="price"
-                value={price}
-                placeholder="가격을 입력하세요"
-                onChange={(e) => setPrice(e.target.value)}
               />
               <br />
               <img src={image} alt="이미지" />

@@ -19,20 +19,6 @@ export function UserLecture() {
   return (
     <>
       <h3>{loginState.login}의 강의 목록</h3>
-      {!isLoading
-        ? data.map((u, i) => (
-            <p key={i}>
-              <Img
-                src={u.lecture.image}
-                onClick={() => onClick(u.lecture.id)}
-              />
-              <br />
-              제목 : {u.lecture.title}
-              <br />
-              강사 : {u.lecture.teacher}
-            </p>
-          ))
-        : null}
     </>
   );
 }

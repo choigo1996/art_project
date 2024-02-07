@@ -68,7 +68,7 @@ export function CreateNoti() {
   useEffect(() => {
     if (!admin) {
       alert("관리자만 접근가능합니다.");
-      navigate("/home");
+      navigate("/");
     }
   }, [admin, navigate]);
   const handleBack = () => {
@@ -120,7 +120,7 @@ export function CreateNoti() {
       ) : (
         <Container>
           <form onSubmit={onSubmit}>
-            <Header>질문 사항 작성</Header>
+            <Header>공지 사항 작성</Header>
             <div>
               <span>제목</span>
               <input

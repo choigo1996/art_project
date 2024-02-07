@@ -1,9 +1,9 @@
 package com.cbw.art.service;
 
+
 import com.cbw.art.dto.AuthorityDto;
 import com.cbw.art.dto.BaseResponse;
 import com.cbw.art.dto.UserDto;
-import com.cbw.art.enumstatus.AuthorityType;
 
 public interface UserService {
 	//회원가입

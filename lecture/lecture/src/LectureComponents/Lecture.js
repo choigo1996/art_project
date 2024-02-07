@@ -37,6 +37,9 @@ import { CreateLeList } from "./CreateLeList";
 import { AddCategory } from "./AddCategory";
 import { UpdateAuthority } from "./UpdateAuthority";
 import { CreateIntro } from "./CreateIntro";
+import { TeacherWrapper } from "./TeacherWrapper";
+import { TeacherDashBoard } from "./TeacherDashBoard";
+
 const client = new QueryClient();
 export const LectureContext = createContext();
 
@@ -106,6 +109,7 @@ function LectureLoader({ lectures, lecturesCheckList }) {
                   </Route>
                 </Route>
               </Route>
+
               <Route
                 path="/dashboard"
                 element={
@@ -124,6 +128,11 @@ function LectureLoader({ lectures, lecturesCheckList }) {
                 <Route path="lecreate" element={<CreateLecture />} />
                 <Route path="lelist" element={<CreateLeList />} />
                 <Route path="intro" element={<CreateIntro />} />
+              </Route>
+
+              <Route path="teacher" element={<TeacherWrapper />}>
+                <Route index element={<TeacherDashBoard />} />
+                <Route path="lelist" element={<CreateLeList />} />
               </Route>
 
               <Route path="notification" element={<NotificationWrapper />}>

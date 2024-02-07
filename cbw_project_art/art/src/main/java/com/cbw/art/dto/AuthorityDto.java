@@ -3,13 +3,13 @@ package com.cbw.art.dto;
 public class AuthorityDto {
 	
 	private String authorityName;
-	private Long userId;
+	private String userId;
 	
 	public AuthorityDto() {
 		super();
 	}
 
-	public AuthorityDto(String authorityName, Long userId) {
+	public AuthorityDto(String authorityName, String userId) {
 		super();
 		this.authorityName = authorityName;
 		this.userId = userId;
@@ -23,13 +23,13 @@ public class AuthorityDto {
 		this.authorityName = authorityName;
 	}
 
-	public Long getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Long userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	
+
 	
 }

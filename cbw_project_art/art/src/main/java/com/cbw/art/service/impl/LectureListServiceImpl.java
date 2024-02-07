@@ -1,17 +1,23 @@
 package com.cbw.art.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.cbw.art.dto.BaseResponse;
 import com.cbw.art.dto.LectureListDto;
+import com.cbw.art.enumstatus.AuthorityType;
 import com.cbw.art.enumstatus.ResultCode;
 import com.cbw.art.exception.InvalidRequestException;
 import com.cbw.art.model.Lecture;
 import com.cbw.art.model.LectureList;
+import com.cbw.art.model.User;
 import com.cbw.art.repository.LectureListRepository;
 import com.cbw.art.repository.LectureRepository;
+import com.cbw.art.repository.UserRepository;
 import com.cbw.art.service.LectureListService;
 
 @Service
@@ -19,26 +25,44 @@ public class LectureListServiceImpl implements LectureListService{
 	
 	private final LectureListRepository lectureListRepository;
 	private final LectureRepository lectureRepository;
+	private final UserRepository userRepository;
 	
-	public LectureListServiceImpl(LectureListRepository lectureListRepository, LectureRepository lectureRepository) {
+	@Autowired
+	public LectureListServiceImpl(LectureListRepository lectureListRepository, LectureRepository lectureRepository,
+			UserRepository userRepository) {
 		super();
 		this.lectureListRepository = lectureListRepository;
 		this.lectureRepository = lectureRepository;
+		this.userRepository = userRepository;
 	}
 
 	@Override
-	public BaseResponse<Void> createLeList(LectureListDto lectureListDto) {
-		if (lectureListDto.getTeacher() == null || lectureListDto.getTeacher().isEmpty()) {
-			throw new InvalidRequestException("Invalid Teacher", "강의를 등록할 선생님이 없습니다.");
+	public BaseResponse<Void> createLeList(Authentication authentication,LectureListDto lectureListDto) {
+		//사용자 정보가 null이거나 인증되지 않은 경우 예외처리
+		if(authentication == null||!authentication.isAuthenticated()) {
+			throw new InvalidRequestException("Invalid Authentication", "인증되지않은 사용자입니다.");
 		}
-		Lecture lecture = lectureRepository.findById(lectureListDto.getLecture())
-				.orElseThrow(() -> new InvalidRequestException("Invalid LectureList", "존재하지않는 강의목록입니다."));
+		//사용자 정보 가져오기
+		String loginId = authentication.getName();
+		Optional<User> currentUserOptional = userRepository.findOneWithAuthoritiesByLoginId(loginId);
+	    User currentUser = currentUserOptional.orElseThrow(() -> new InvalidRequestException("Invalid User", "사용자 정보를 찾을 수 없습니다."));
+
+		//강의 정보 가져오기
+		Optional<Lecture> lectureOptional = lectureRepository.findById(lectureListDto.getLecture());
+	    Lecture lecture = lectureOptional.orElseThrow(() -> new InvalidRequestException("Invalid Lecture", "강의 정보를 찾을 수 없습니다."));
+
+		//강의를 작성한 사용자 정보 가져오기
+	    User lectureAuthor = lecture.getUser();
+		//현재 사용자가 강의의 작성자이거나 ROLE_ADMIN 권한을 가지고 있는지 확인
+		boolean isAdmin = authentication.getAuthorities().stream()
+				.anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
+		if(!currentUser.equals(lectureAuthor) && !isAdmin) {
+			throw new InvalidRequestException("Invalid Permission", "작성 권한이 없습니다.");
+		}
 		LectureList lectureList = new LectureList();
-		lectureList.setTeacher(lectureListDto.getTeacher());
 		lectureList.setTitle(lectureListDto.getTitle());
-		lectureList.setDuration(lectureListDto.getDuration());
 		lectureList.setVideo(lectureListDto.getVideo());
-		
+		lectureList.setDuration(lectureListDto.getDuration());
 		lectureList.setLecture(lecture);
 		
 		lectureListRepository.save(lectureList);

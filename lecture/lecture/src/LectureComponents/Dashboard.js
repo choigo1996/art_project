@@ -10,9 +10,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-const Member = styled.div``;
 const MyLecture = styled.button``;
-const Delete = styled.div``;
 const OnLogOut = styled.button``;
 const Info = styled.button``;
 const ModeButton = styled.button`
@@ -43,6 +41,7 @@ export function Dashboard() {
     alert("관리자 모드를 실행합니다.");
   }
   function handleTeacherModeClick() {
+    navigate("/teacher");
     alert("선생님 모드를 실행합니다.");
   }
   const fetchUserInfo = async () => {
@@ -75,7 +74,13 @@ export function Dashboard() {
   }
 
   function myLecture() {
-    navigate("/userlecture");
+    if (admin) {
+      navigate("/adminlecture");
+    } else if (teacher) {
+      navigate("/teacherlecture");
+    } else {
+      navigate("/userlecture");
+    }
   }
   return (
     <>
@@ -87,13 +92,12 @@ export function Dashboard() {
         </ModeButton>
       )}
       {teacher && (
-        <ModeButton onClick={{ handleTeacherModeClick }}>
+        <ModeButton onClick={handleTeacherModeClick}>
           선생님 모드로 전환
         </ModeButton>
       )}
       <Container>
         <MyLecture onClick={myLecture}>내 강의목록</MyLecture>
-        <Delete>회원탈퇴</Delete>
         <OnLogOut onClick={logOut}>로그아웃</OnLogOut>
         <Info onClick={onMyInfo}>내 정보보기</Info>
       </Container>

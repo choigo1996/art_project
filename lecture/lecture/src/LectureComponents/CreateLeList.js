@@ -41,10 +41,9 @@ const Header = styled.div`
 `;
 
 export function CreateLeList() {
-  //제목,비디오,선생,영상길이,lectureId
+  //제목,비디오,영상길이,lectureId
   const [title, setTitle] = useState("");
   const [video, setVideo] = useState("");
-  const [teacher, setTeacher] = useState("");
   const [duration, setDuration] = useState("");
   const [lecture, setLecture] = useState(0);
   //작성글 저장
@@ -56,10 +55,10 @@ export function CreateLeList() {
   //lectureLelist로 목록으로 이동
   const navigate = useNavigate();
 
-  const admin =
-    loginState?.authorityDtoSet &&
-    loginState.authorityDtoSet.length > 0 &&
-    loginState.authorityDtoSet[0].authorityName === "ROLE_ADMIN";
+  const admin = loginState.authorityDtoSet[0].authorityName === "ROLE_ADMIN";
+
+  const teacher =
+    loginState.authorityDtoSet[0].authorityName === "ROLE_TEACHER";
 
   const { data, isLoading, refetch } = useQuery("lelist", () => {
     if (adminLeList) {
@@ -73,9 +72,9 @@ export function CreateLeList() {
   }, [adminLeList]);
 
   useEffect(() => {
-    if (!admin) {
-      alert("관리자만 접근가능합니다.");
-      navigate("/home");
+    if (!admin && !teacher) {
+      alert("관리자와 선생님만 접근가능합니다.");
+      navigate("/");
     }
   }, [admin, navigate]);
 
@@ -89,7 +88,6 @@ export function CreateLeList() {
     const lelist = {
       title: title,
       video: video,
-      teacher: teacher,
       duration: duration,
       lecture: lecture,
     };
@@ -165,15 +163,6 @@ export function CreateLeList() {
                 value={video}
                 placeholder="비디오 링크를 넣어"
                 onChange={(e) => setVideo(e.target.value)}
-              />
-            </div>
-            <div>
-              <span>선생님</span>
-              <input
-                id="teacher"
-                value={teacher}
-                placeholder="선생님 이름"
-                onChange={(e) => setTeacher(e.target.value)}
               />
             </div>
             <div>

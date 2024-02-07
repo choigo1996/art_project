@@ -43,7 +43,7 @@ public class PurchaseController {
 
 	//카트에 담긴 것을 구매
 	@PostMapping
-	@PreAuthorize("hasAnyRole('USER','ADMIN','TEACHER')")
+	@PreAuthorize("hasAnyRole('USER')")
 	public ResponseEntity<BaseResponse<Void>> savePurchase(@RequestBody @Valid PurchaseDto purchaseDto,Authentication authentication){
 		return new ResponseEntity<>(
 				purchaseServiceImpl.savePurchase(authentication, purchaseDto),
