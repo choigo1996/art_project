@@ -61,9 +61,6 @@ export function SingleQuest() {
   console.log("questionId 파라미터 id:", questionid);
   const navigate = useNavigate();
   const [quest, setQuest] = useState(null);
-  const { loginState } = useContext(LectureContext);
-  //댓글기능
-  const [comment, setComment] = useState(null);
 
   //댓글 핸들러
   useEffect(() => {

@@ -120,7 +120,7 @@ export function Cart() {
                 <Img src={lecture.image} />
                 <div>
                   <Text>타이틀 : {lecture.title}</Text>
-                  <Text>강사 : {lecture.teacher}</Text>
+                  <Text>강사 : {lecture.teacher.name}</Text>
                   <Text>가격 : {lecture.price}</Text>
                 </div>
                 <Delete id={lecture.id} onClick={onClick}>

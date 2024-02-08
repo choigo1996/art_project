@@ -79,7 +79,7 @@ export function Products() {
             (category) => category.categoryType === selectedCategory
           )
         );
-
+  console.log(filteredLectures);
   return (
     <>
       <Header>강의목록</Header>
@@ -110,7 +110,7 @@ export function Products() {
               <div onClick={() => onClick(lecture.id)}>
                 <Img src={lecture.image} />
                 <Text>강의명: {lecture.title}</Text>
-                <Text>강사: {lecture.user.name}</Text>
+                <Text>강사: {lecture.teacher.name}</Text>
                 <Text>가격: {lecture.price}원</Text>
                 <div>
                   카테고리:

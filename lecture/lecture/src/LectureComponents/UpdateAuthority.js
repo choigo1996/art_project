@@ -39,7 +39,6 @@ export function UpdateAuthority() {
       return updateAutority(authorityChange);
     }
   });
-
   //관리자만 접근가능
   useEffect(() => {
     if (!admin) {

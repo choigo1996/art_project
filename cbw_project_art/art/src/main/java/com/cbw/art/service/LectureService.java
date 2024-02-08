@@ -7,6 +7,7 @@ import com.cbw.art.dto.BaseResponse;
 import com.cbw.art.dto.CategoryDto;
 import com.cbw.art.dto.LectureDto;
 import com.cbw.art.model.Lecture;
+import com.cbw.art.model.User;
 
 public interface LectureService {
 	//강의 생성
@@ -19,6 +20,6 @@ public interface LectureService {
 	Lecture getLectureById(long id);
 	//카테고리 추가
 	public BaseResponse<Void> addCategory(CategoryDto categoryDto);
-	//선생님별로 가지고 있는 강의를 표시
-	public BaseResponse<Void> teacherBylecture(String teacherId);
+	//선생님별 강의 목록
+	public BaseResponse<List<Lecture>> getLecturesByTeacher(Long teacherId);
 }

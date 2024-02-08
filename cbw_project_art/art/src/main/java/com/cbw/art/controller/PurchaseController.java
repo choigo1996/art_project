@@ -83,7 +83,6 @@ public class PurchaseController {
 	
 	//특정 강의 ID에 해당하는 모든 사용자의 정보 조회
 	@GetMapping("lecture/{lectureId}")
-	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ResponseEntity<BaseResponse<List<Purchase>>> getPurchaseByLectureId(@PathVariable long lectureId){
 		return new ResponseEntity<>(
 				purchaseServiceImpl.getPurchaseByLectureId(lectureId),

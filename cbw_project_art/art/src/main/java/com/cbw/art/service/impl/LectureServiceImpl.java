@@ -62,7 +62,7 @@ public class LectureServiceImpl implements LectureService{
 		//강의 생성
 		Lecture lecture = new Lecture();
 		lecture.setTitle(lectureDto.getTitle());
-		lecture.setUser(teacher);
+		lecture.setTeacher(teacher);
 		lecture.setPrice(lectureDto.getPrice());
 		lecture.setImage(lectureDto.getImage());
 		lecture.setCategorys(Collections.singleton(category));
@@ -135,5 +135,19 @@ public class LectureServiceImpl implements LectureService{
 				ResultCode.SUCCESS.name(),
 				null,
 				"카테고리 추가완료!");
+	}
+	//선생님별로 강의 볼 수 있음!!
+	@Override
+	public BaseResponse<List<Lecture>> getLecturesByTeacher(Long teacherId) {
+		User teacher = userRepository.findById(teacherId)
+				.orElseThrow(() -> new InvalidRequestException("Teacher not found", "선생님이 존재하지않습니다."));
+		List<Lecture> lectures = lectureRepository.findByTeacher(teacher);
+		if(lectures.isEmpty()) {
+			throw new InvalidRequestException("Not Lecture Found", "이 선생님은 강의를 가지지 않았습니다.");
+		}
+		return new BaseResponse<>(
+				ResultCode.SUCCESS.name(),
+				lectures,
+				"선생님별로 강의 가져오기!");
 	}
 }

@@ -27,9 +27,9 @@ public class Lecture {
 	@Column(nullable = false)
 	private String title;
 	
-	@JoinColumn(nullable = false)
+	@JoinColumn(name="teacher_id",nullable = false)
 	@ManyToOne
-	private User user;
+	private User teacher;
 	
 	@Column(nullable = false)
 	private int price;
@@ -49,64 +49,77 @@ public class Lecture {
 		super();
 	}
 
-	public Lecture(long id, String title, User user, int price, String image, Set<Category> categorys) {
+
+	public Lecture(long id, String title, User teacher, int price, String image, Set<Category> categorys) {
 		super();
 		this.id = id;
 		this.title = title;
-		this.user = user;
+		this.teacher = teacher;
 		this.price = price;
 		this.image = image;
 		this.categorys = categorys;
 	}
+
 
 	public long getId() {
 		return id;
 	}
 
+
 	public void setId(long id) {
 		this.id = id;
 	}
+
 
 	public String getTitle() {
 		return title;
 	}
 
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
-	public User getUser() {
-		return user;
+
+	public User getTeacher() {
+		return teacher;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+
+	public void setTeacher(User teacher) {
+		this.teacher = teacher;
 	}
+
 
 	public int getPrice() {
 		return price;
 	}
 
+
 	public void setPrice(int price) {
 		this.price = price;
 	}
+
 
 	public String getImage() {
 		return image;
 	}
 
+
 	public void setImage(String image) {
 		this.image = image;
 	}
+
 
 	public Set<Category> getCategorys() {
 		return categorys;
 	}
 
+
 	public void setCategorys(Set<Category> categorys) {
 		this.categorys = categorys;
 	}
-	
+
 
 	
 }

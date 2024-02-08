@@ -39,6 +39,7 @@ import { UpdateAuthority } from "./UpdateAuthority";
 import { CreateIntro } from "./CreateIntro";
 import { TeacherWrapper } from "./TeacherWrapper";
 import { TeacherDashBoard } from "./TeacherDashBoard";
+import { TeacherLecture } from "./TeacherLecture";
 
 const client = new QueryClient();
 export const LectureContext = createContext();
@@ -119,7 +120,10 @@ function LectureLoader({ lectures, lecturesCheckList }) {
                 }
               ></Route>
               <Route path="/userlecture" element={<UserLecture />}></Route>
-
+              <Route
+                path="/teacherlecture"
+                element={<TeacherLecture />}
+              ></Route>
               <Route path="admin" element={<AdminWrapper />}>
                 <Route index element={<AdminDashBoard />} />
                 <Route path="updateAuth" element={<UpdateAuthority />} />

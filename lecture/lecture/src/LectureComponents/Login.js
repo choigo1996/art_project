@@ -69,7 +69,7 @@ export function Login() {
   );
   useEffect(() => {
     if (data && data.resultCode === "SUCCESS" && userLogin) {
-      console.log(data);
+      console.log("성공!", data.resultCode);
       sessionStorage.setItem(
         "loginState",
         JSON.stringify({ id: userLogin.loginId })
@@ -80,9 +80,10 @@ export function Login() {
         navigate("/dashboard");
         setLoggingIn(false);
       }, 1000);
+      alert("환영합니다.");
     } else if (data && data.resultCode === "ERROR" && userLogin) {
-      window.alert("에러발생");
-      return;
+      alert("아이디 또는 비밀번호를 확인하세요.");
+      setLoggingIn(false);
     }
   }, [data]);
 

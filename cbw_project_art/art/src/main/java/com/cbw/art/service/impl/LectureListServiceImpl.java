@@ -52,7 +52,7 @@ public class LectureListServiceImpl implements LectureListService{
 	    Lecture lecture = lectureOptional.orElseThrow(() -> new InvalidRequestException("Invalid Lecture", "강의 정보를 찾을 수 없습니다."));
 
 		//강의를 작성한 사용자 정보 가져오기
-	    User lectureAuthor = lecture.getUser();
+	    User lectureAuthor = lecture.getTeacher();
 		//현재 사용자가 강의의 작성자이거나 ROLE_ADMIN 권한을 가지고 있는지 확인
 		boolean isAdmin = authentication.getAuthorities().stream()
 				.anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));

@@ -83,4 +83,13 @@ public class LectureController {
 				lectureServiceImpl.addCategory(categoryDto),
 				HttpStatus.CREATED);
 	}
+	//선생님별로 강의 불러오기
+	@GetMapping("/teacher/{teacherId}")
+	@PreAuthorize("hasAnyRole('ADMIN','TEACHER')")
+	public ResponseEntity<BaseResponse<List<Lecture>>> getLectureByTeacher(@PathVariable Long teacherId){
+		return new ResponseEntity<>(
+				lectureServiceImpl.getLecturesByTeacher(teacherId),
+				HttpStatus.OK);
+		
+	}
 }

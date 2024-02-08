@@ -86,7 +86,16 @@ export function purchaseAllLecture(lectures) {
 }
 //각 회원마다 구매한 강의 목록 관리
 export function getPurchaseById(userId) {
-  return fetch(`http://localhost:8080/api/purchase/${userId}`, {
+  const token = sessionStorage.getItem("accessToken");
+  return axios.get(`http://localhost:8080/api/purchase/user/${userId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+//강의 하나에 해당하는 모든 사용자
+export function getPurchaseByLectureId(lectureId) {
+  return fetch(`http://localhost:8080/api/purchase/lecture/${lectureId}`, {
     method: "GET",
   }).then((response) => response.json());
 }
@@ -102,7 +111,6 @@ export function getAllPurchase() {
     },
   });
 }
-//특정 강의 ID에 해당하는 모든 사용자의 정보 조회
 
 //공지사항 생성(ADMIN)
 export function createNoti(admin) {
@@ -373,4 +381,13 @@ export function getAllAuthority() {
   return fetch(`http://localhost:8080/api/authority`, {
     method: "GET",
   }).then((response) => response.json());
+}
+//선생님별로 강의를 가져옴
+export function getLectureByTeacher(teacherId) {
+  const token = sessionStorage.getItem("accessToken");
+  return axios.get(`http://localhost:8080/api/lecture/teacher/${teacherId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 }
