@@ -51,7 +51,7 @@ export function NavBar() {
   return (
     <>
       <NavBarContainer>
-        <Logo onClick={() => home()}>Logo</Logo>
+        <Logo onClick={() => home()}>Art</Logo>
         <NavLinks>
           <StyledNavLink to="/notification">공지사항</StyledNavLink>
           <StyledNavLink to="/products">강의목록</StyledNavLink>

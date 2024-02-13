@@ -1,19 +1,23 @@
 import styled from "styled-components";
 
-const Container = styled.div``;
-const Header = styled.div``;
-const Body = styled.div``;
-const Image = styled.img``;
+const Container = styled.div`
+  background-color: #87ceeb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
+const Body = styled.div`
+  font-size: 2.5rem;
+  text-align: center;
+`;
 
 export function Home() {
   return (
     <>
       <Container>
-        <Header>강의배너</Header>
-        <Body>
-          <h1>인기강의</h1>
-          <Image src="" />
-        </Body>
+        <Body>Art</Body>
       </Container>
     </>
   );

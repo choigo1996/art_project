@@ -60,6 +60,9 @@ export function Review() {
   const [reviews, setReview] = useState([]);
   const { loginState } = useContext(LectureContext);
   const navigate = useNavigate();
+  const adminId = loginState?.authorityDtoSet[0].authorityName === "ROLE_ADMIN";
+  const teacherId =
+    loginState?.authorityDtoSet[0].authorityName === "ROLE_TEACHER";
   useEffect(() => {
     const fetchReview = async () => {
       try {
@@ -109,7 +112,9 @@ export function Review() {
     <>
       <Container>
         <h2>수강후기</h2>
-        <Button onClick={handleWriterButtonClick}>글쓰기</Button>
+        {!adminId && !teacherId && (
+          <Button onClick={handleWriterButtonClick}>글쓰기</Button>
+        )}
         <Ul>
           <span>번호</span>
           <Title>후기</Title>

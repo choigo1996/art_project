@@ -34,6 +34,7 @@ const Time = styled.p`
   font-size: 0.8rem;
   color: #888;
   margin-top: 10px;
+  white-space: pre-line; // 줄바꿈 처리를 위해 추가된 CSS 속성
 `;
 
 const BackButton = styled.button`

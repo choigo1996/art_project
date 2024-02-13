@@ -78,7 +78,6 @@ export function AdminLecture() {
                     <Img src={lecture.image} />
                     <Text>{lecture.title}</Text>
                     <Text>{lecture.teacher.name}</Text>
-                    <Text>{lecture.price}</Text>
                   </div>
                 </Card>
               ))

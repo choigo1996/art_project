@@ -35,6 +35,9 @@ export function Dashboard() {
 
   const teacher =
     loginState?.authorityDtoSet[0].authorityName === "ROLE_TEACHER";
+  const user = loginState?.authorityDtoSet[0].authorityName === "ROLE_USER";
+
+  const authority = admin ? "관리자" : teacher ? "선생님" : "일반 사용자";
 
   function handleAdminModeClick() {
     navigate("/admin");
@@ -69,7 +72,7 @@ export function Dashboard() {
 
   function onMyInfo() {
     alert(
-      `내 정보 \n-아이디 : ${loginState.loginId} \n-이메일 : ${loginState.email} \n-이름 : ${loginState.name} \n-생일 : ${loginState.birthDate}`
+      `내 정보 \n-아이디 : ${loginState.loginId} \n-이메일 : ${loginState.email} \n-이름 : ${loginState.name} \n-생일 : ${loginState.birthDate} \n-권한 : ${authority}`
     );
   }
 
