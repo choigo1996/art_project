@@ -40,6 +40,7 @@ import { CreateIntro } from "./CreateIntro";
 import { TeacherWrapper } from "./TeacherWrapper";
 import { TeacherDashBoard } from "./TeacherDashBoard";
 import { TeacherLecture } from "./TeacherLecture";
+import { AdminLecture } from "./AdminLecture";
 
 const client = new QueryClient();
 export const LectureContext = createContext();
@@ -124,6 +125,7 @@ function LectureLoader({ lectures, lecturesCheckList }) {
                 path="/teacherlecture"
                 element={<TeacherLecture />}
               ></Route>
+              <Route path="adminlecture" element={<AdminLecture />}></Route>
               <Route path="admin" element={<AdminWrapper />}>
                 <Route index element={<AdminDashBoard />} />
                 <Route path="updateAuth" element={<UpdateAuthority />} />
