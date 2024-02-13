@@ -17,7 +17,10 @@ export function Home() {
   return (
     <>
       <Container>
-        <Body>Art</Body>
+        <Body>
+          <div>Art</div>
+          <div>문학과 예술을 만들다.</div>
+        </Body>
       </Container>
     </>
   );
