@@ -1,5 +1,7 @@
 package com.cbw.art.service.impl;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,34 +37,96 @@ public class PurchaseServiceImpl implements PurchaseService{
 		this.lectureRepository = lectureRepository;
 	}
 	
-	//카트에 담긴 것을 구매
+	//구매저장
 	@Override
-	public BaseResponse<Void> savePurchase(Authentication authentication, PurchaseDto purchaseDto) {
-		//사용자 정보가 null이거나 인증되지 않은 경우 예외처리
-		if(authentication == null || !authentication.isAuthenticated()) {
-			throw new InvalidRequestException("Invalid Authentication", "인증되지 않은 사용자입니다.");
-		}
-		//사용자 정보 가져오기 
-		String loginId = authentication.getName();
-		Optional<User> user = userRepository.findOneWithAuthoritiesByLoginId(loginId);
-		if(!user.isPresent()) {
-			throw new InvalidRequestException("Invalid login", "구매할 자격이없다");
-		}
-		//강의 정보 가져오기
-		Optional<Lecture> lecture = lectureRepository.findById(purchaseDto.getLectureId());
-		if(lecture == null) {
-			throw new InvalidRequestException("Invalid lecture", "존재하지 않는 강의입니다.");
-		}
-      
-		Purchase purchase = new Purchase();
-		purchase.setLecture(lecture.get());
-		purchase.setUser(user.get());
-		purchaseRepository.save(purchase);
-		return new BaseResponse<>(
-				ResultCode.SUCCESS.name(),
-				null,
-				"구매 되었습니다.");
+	public BaseResponse<PurchaseDto> savePurchase(Authentication authentication, PurchaseDto purchaseDto) {
+	    // 사용자 정보가 null이거나 인증되지 않은 경우 예외처리
+	    if (authentication == null || !authentication.isAuthenticated()) {
+	        throw new InvalidRequestException("Invalid Authentication", "인증되지 않은 사용자입니다.");
+	    }
+
+	    // 사용자 정보 가져오기
+	    String loginId = authentication.getName();
+	    Optional<User> userOptional = userRepository.findOneWithAuthoritiesByLoginId(loginId);
+	    if (!userOptional.isPresent()) {
+	        throw new InvalidRequestException("Invalid login", "구매할 자격이 없는 사용자입니다.");
+	    }
+	    User user = userOptional.get();
+
+	    // 강의 정보 가져오기
+	    Optional<Lecture> lectureOptional = lectureRepository.findById(purchaseDto.getLectureId());
+	    if (!lectureOptional.isPresent()) {
+	        throw new InvalidRequestException("Invalid lecture", "존재하지 않는 강의입니다.");
+	    }
+	    Lecture lecture = lectureOptional.get();
+
+	    // 중복 구매 여부 확인
+	    if (purchaseRepository.existsByUserIdAndLectureId(user.getId(), lecture.getId())) {
+	        throw new InvalidRequestException("Duplicate Purchase", "해당 강의를 이미 구매하셨습니다.");
+	    }
+
+	    // 구매 정보 생성 및 저장
+	    Purchase purchase = new Purchase();
+	    purchase.setLecture(lecture);
+	    purchase.setUser(user);
+	    Purchase savedPurchase = purchaseRepository.save(purchase);
+
+	    // 구매 정보를 PurchaseDto로 변환하여 반환
+	    PurchaseDto savedPurchaseDto = new PurchaseDto();
+	    savedPurchaseDto.setUserId(savedPurchase.getUser().getId());
+	    savedPurchaseDto.setLectureId(savedPurchase.getLecture().getId());
+
+	    return new BaseResponse<>(
+	            ResultCode.SUCCESS.name(),
+	            savedPurchaseDto,
+	            "구매 되었습니다.");
 	}
+
+	
+	//카트에 담긴 물품을 구매
+	@Override
+	public BaseResponse<List<PurchaseDto>> savePurchaseList(Authentication authentication,
+	        List<PurchaseDto> purchaseList) {
+	    List<PurchaseDto> purchases = new ArrayList<>();
+	    
+	    // 인증된 사용자 정보 가져오기
+	    String loginId = authentication.getName();
+	    Optional<User> userOptional = userRepository.findOneWithAuthoritiesByLoginId(loginId);
+	    if (!userOptional.isPresent()) {
+	        throw new InvalidRequestException("Invalid login", "구매할 자격이 없습니다.");
+	    }
+	    User user = userOptional.get();
+	    
+	    for (PurchaseDto purchaseDto : purchaseList) {
+	        // 강의 정보 가져오기
+	        Optional<Lecture> lectureOptional = lectureRepository.findById(purchaseDto.getLectureId());
+	        if (!lectureOptional.isPresent()) {
+	            throw new InvalidRequestException("Invalid lecture", "존재하지 않는 강의입니다.");
+	        }
+	        Lecture lecture = lectureOptional.get();
+	        
+	        // 중복 구매 여부 확인
+	        if (purchaseRepository.existsByUserIdAndLectureId(user.getId(), lecture.getId())) {
+	            throw new InvalidRequestException("Duplicate Purchase", "해당 강의를 이미 구매하셨습니다.");
+	        }
+	        
+	        // 구매 정보 생성 및 저장
+	        Purchase purchase = new Purchase();
+	        purchase.setLecture(lecture);
+	        purchase.setUser(user);
+	        Purchase savedPurchase = purchaseRepository.save(purchase);
+	        
+	        // 구매한 물품 정보 추가
+	        purchases.add(purchaseDto);
+	    }
+	    
+	    return new BaseResponse<>(
+	            ResultCode.SUCCESS.name(),
+	            purchases,
+	            ResultCode.SUCCESS.getMsg());
+	}
+
+	
 	//모든 회원의 구매정보 불러오기
 	@Override
 	public BaseResponse<List<Purchase>> getAllPurchase() {

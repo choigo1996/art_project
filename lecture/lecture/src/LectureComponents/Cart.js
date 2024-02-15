@@ -62,7 +62,6 @@ export function Cart() {
   }
 
   function onClickBtn() {
-    console.log(loginState);
     if (loginState && loginState.loginId) {
       setPurchasing(true);
     } else {
@@ -71,7 +70,6 @@ export function Cart() {
       navigate("/login");
     }
   }
-
   useEffect(() => {
     console.log("Login State : ", loginState);
   }, [loginState]);
@@ -93,6 +91,7 @@ export function Cart() {
       setCheckList(temp);
       setPurchaseComplete(false);
       window.confirm("결제가 완료 되었습니다.");
+      navigate("/userlecture");
     }
   }, [purchaseComplete]);
 

@@ -79,7 +79,7 @@ export function CreateLeList() {
   }, [admin, navigate]);
 
   const handleBack = () => {
-    navigate("/admin");
+    navigate("/dashboard");
   };
 
   function onSubmit(e) {

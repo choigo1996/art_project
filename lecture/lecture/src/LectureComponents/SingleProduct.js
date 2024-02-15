@@ -40,9 +40,11 @@ export function SingleProduct() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [isPurchased, setIsPurchased] = useState(false);
+
   const adminId = loginState?.authorityDtoSet[0].authorityName === "ROLE_ADMIN";
   const teacherId =
     loginState?.authorityDtoSet[0].authorityName === "ROLE_TEACHER";
+
   const lecture = lectures.find((l) => l.id === +id);
 
   useEffect(() => {
@@ -103,6 +105,7 @@ export function SingleProduct() {
           .catch((error) => {
             console.error("바로구매 도중 오류:", error);
           });
+        navigate("/userlecture");
       } else {
         window.alert("구매를 취소했습니다.");
       }
