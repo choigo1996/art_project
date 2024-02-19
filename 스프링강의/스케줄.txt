@@ -1,0 +1,21 @@
+Spring 10/23(월) ~ 11/03(금) : 2주
+
+프로젝트 1차 : 11/06(월) ~ 12/01(금) 4주
+- 기본 CRUD가 포함된 프로젝트
+- Create, Read, Update, Delete / Login
+- MySQL 데이터베이스 사용
+- 프론트 React
+- 백엔드 Spring, Spring Boot
+
+
+유니티 : 11/20(월) ~ 12/01(금) : 2주같은 1주
+
+
+프로젝트 2차 : 12/04(월) ~ 2/02(금) 9주
+- LMS (Learning Management System)
+- + 메타버스(양념)
+- 리액트, 스프링, MySQL
+
+
+
+

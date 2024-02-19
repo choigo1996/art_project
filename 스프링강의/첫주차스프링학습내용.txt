@@ -1,0 +1,21 @@
+<Springboot>
+1. CRUD 구현 (JDBC은 아직 안함, JPA로 구현)
+
+2. 스프링/스프링부트의 기본 구조 학습
+Client <=>Controller, Service, Repository <=> DB
+              Model, (View)
+
+3. 스프링/스프링부트의 핵심원리... 맛만 봄!!
+: Dependency Injection 의존성 주입(DI)
+: Inverse of Control 제어의 역전(IoC)
+: Auto Configuration 자동 설정
+
+4. 데이터베이스 설치 (MySQL, Workbench)
+
+5. Rest API 만들고 컨트롤하기
+: Client의 리액트 => Backend의 스프링
+: postman
+
+
+
+

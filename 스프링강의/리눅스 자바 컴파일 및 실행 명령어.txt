@@ -1,0 +1,17 @@
+1. 자바 파일 생성
+# nano 생성파일명.java
+
+2. 코드 작성
+class 생성클래스명
+{
+	public static void main(String[] args) 
+	{
+		System.out.println("Hello World!");
+	}
+}
+
+3. 자바 컴파일 및 확인
+# javac 파일명.java
+
+4.실행
+# java 클래스명

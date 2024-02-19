@@ -1,0 +1,16 @@
+Servlet
+= Server + Let 
+
+<웹서버가 하는 일>
+1. 서버 TCP/IP 연결 대기, 소켓 연결
+2. HTTP 요청 메시지를 받아서 읽기
+3. Get, Post, Put, Delete, Connect, Patch 방식 확인
+4. Content-Type 확인
+5. HTTP 메시지의 Body 내용 확인
+6. 비즈니스 로직 실행 - 데이터베이스 연결
+7. HTTP 응답 메시지 작성
+8. TCP/IP를 통해 응답을 전달, 소켓 종료
+
+
+
+

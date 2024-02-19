@@ -1,0 +1,83 @@
+<프론트엔드 관련 기술들 - 로드맵>
+필수 : HTML(구조), CSS(디자인), Javascript(로직)
+선택 : React(프레임워크), 
+        Styled-Component(CSS 프레임워크),                 
+        Framer-motion(애니메이션 라이브러리), 
+
+
+<백엔드 관련 기술들 - 로드맵>
+- 언어 / 프레임워크
+1. 자바 / 스프링, 스프링부트
+2. 파이썬 / 장고
+3. 노드js / 익스프레스, Nest.js ........
+4. php / 라라벨
+
+
+<스프링/스프링부트의 구조>
+MVC (프로그래밍의 디자인 패턴)
+Model(모델) - data와 비즈니스 logic을 담당하는 모듈
+View(뷰) - 클라이언트에서 볼 수 있는 view 형태를
+만드는 모듈 (HTML, JSP)
+Cotroller(컨트롤러) - 클라이언트로부터 HTTP 요청을
+처리하는 모듈
+
+HTTP = Hyper Text Transfer Protocol
+: 편지봉투
+
+JSP = Java Server Page, 
+- 자바로 서버에서 만든 동적인 페이지
+- HTML로 변환되어 클라이언트에 보내짐
+
+** CSR = Client-Side Rendering
+: View의 역할을 100% 클라이언트가 맡는 것
+: React, Vue, Angular, Svelte 등 SPA 프레임워크들
+** SSR = Server-Side Rendering
+: View의 역할을 서버에서 담당하는 것
+: 과거의 방식
+** CSR + SSR 혼용방식
+: CSR과 SSR의 장점을 섞어서 함께 사용하는 것
+: Next.js, Nuxt.js, Gatsby, SvelteKit, Angular Universal
+
+<Database>
+1. 관계형 DB (RDBMS - Relational DataBase Management System)
+: MySQL, 오라클, MsSQL, Postgre, 마리아....
+2. 비관계형 DB
+: **문서형DB, 그래프DB, Key-Value DB
+: 문서형DB = No-SQL 데이터베이스
+: "Mongo DB"
+
+데이터베이스 ORM (Object-Relational Mapping)
+: 자바/스프링의 ORM = JPA
+JPA (Java Persistence API)
+: 자바의 객체와 관계형 DB의 테이블을 매핑하는 역할
+
+JDBC (Java Databse Connectivity)
+: 자바와 데이터베이스간의 SQL연결을 돕는 역할
+
+[의존성 주입]
+ 느슨한 결합(Loose Coupling) vs 강한 결합 (Tight Coupling)
+ : 강한 결합이란 특정 클래스의 이름을 짓접 사용한으로 인해 
+   그 클래스 이외의 클래스를 사용하지 못함.(코드수정 없이는)
+ : 느슨한 결합은 강한결합과 달리 다름 클래스를 쉽게 받아서 사용
+   가능하도록 코드를 작성하는 것을 말 함.
+ ==> Interface를 사용해서 느슨한 결합을 만들 수 있음!!!!
+
+[구현체의 자동 생성]
+스프링은 인터페이스의 구조체를 자동으로 생성해줄 수 있다.
+구현체란??
+Interface의 추상메소드를 실제로 구현한 클래스를 구현체라고 함
+예) GamingConsole 인터페이스를 상속한 MarioGame 이 
+구현체임!!!
+
+
+
+
+
+
+
+
+
+
+
+
+

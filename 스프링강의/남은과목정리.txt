@@ -1,0 +1,21 @@
+<남은 스프링 공부 주제>
+1. 회원가입
+2. 유효성 검증 : 가입데이터의 validation check
+3. 각 예외상황에 맞는 Exception Handling (자체 exception 만들기)
+4. 리액트로 로그인/회원가입 화면 구성
+5. Security : 인증 / 인가,  JWT(Json Web Token)
+6. GameShop 완성
+
+<추가 공부 예정(12,1월 예상)>
+- react : async/await, axios 
+- Security : 인증/인가,  JWT (12/14목~ 예정)
+: JWT를 이용한 간단한 구조의 웹앱 소개
+- Database 구조와 SQL 기본 (JWT 끝나고 이어서~)
+- View 모듈 : JSP, Thymeleaf (1월 예정.. 기본문법 소개)
+- 빌드 및 배포
+
+- Amazon Web Service(AWS) 연동
+- Spring Test
+
+
+

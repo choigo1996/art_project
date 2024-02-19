@@ -1,0 +1,77 @@
+<Spring Security>
+1. 환경설정 (SecurityConfig 클래스)
+- Rest API 보안기능 설정
+: 가입관련 요청등은 보안을 적용시키지 말아야함
+
+- 세션 또는 토큰 설정
+: 기본설정은 세션
+
+- 예외(Exception)설정
+: 보안실패의 경우, 기존의 응답형식을 유지할 수 있도록 설정
+
+- @Configuration : 환경설정 클래스임을 명시하는 역할
+  @EnableWebSecurity : 웹기반 보안을 활성화
+  @EnableMethodSecurity : 메소드 수준의 보안을 활성화
+     ~ 메소드수준이란, 컨트롤러의 메소드들마다 다른 수준의 보안
+     을 가질 수 있도록 아래의 어노테이션을 사용하도록 한다는 뜻
+     <@PreAuthorize, @Secured, @RollAllowed> 
+
+2. JWT 토큰의 구성
+1) Header(헤더)
+- 토큰의 유형을 설명함 : "페이로드는 Base64로 인코딩되어있음"
+
+2) Payload(페이로드)
+- user id
+- 권한 (user or admin)
+- 라이프타임 (2023.12.19.00.00에 만료)
+
+3) Signature(서명)
+- 헤더와 페이로드를 합쳐서 암호화기술로 암호화시킨 부분
+
+3. 권한 설정
+: 권한의 이름은 반드시 "ROLE_"로 사용해야함
+예) ROLE_ADMIN, ROLE_USER 등등
+insert into authority (authority_name) values ('ROLE_ADMIN');
+insert into authority (authority_name) values ('ROLE_USER');
+
+4. 인증 절차
+Authentication authentication = authenticationManagerBuilder.getObject()
+        		.authenticate(authenticationToken);
+1) 사용자가 로그인 시도를 하면 authenticationToken 생성
+2) 인증을 관리하는 AuthenticationManager가 
+authenticationToken을 받음
+3) AuthenticationManager는 인증절차를 AuthenticationProvider
+에게 위임함
+4) AuthenticationProvider는 전달받은 authenticationToken의
+사용자명(principal)를 추출하고 이를 기반으로 UserDetailService의
+"loadUserByUsername" 메소드를 호출
+5) UserDetailService의 "loadUserByUsername"메소드는 DB로부터
+사용자 정보를 조회하여 UserDetails 객체로 반환
+6) 최종적으로 AuthenticationProvider는 UserDetails 객체와 
+authenticationToken을 비교하여 실제 인증을 수행
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

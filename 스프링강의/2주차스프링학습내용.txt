@@ -1,0 +1,10 @@
+1. 리액트 + 스프링부트 : GameShop
+: 기능 추가 업그레이드
+
+2. JDBC + SQL
+
+3. Spring Security : 로그인, 인증
+
+4. View Template : JSP, Thymeleaf 
+
+5. AWS S3 연동

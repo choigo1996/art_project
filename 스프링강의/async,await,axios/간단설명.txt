@@ -1,0 +1,23 @@
+useQuery대신에 async / await 를 사용해보자~~
+
+await + 비동기함수(fetch)
+1) await 키워드는 뒤에 호출하는 함수가 
+반드시 Promise를 리턴하는 함수여야 한다.
+2) await는 비동기함수가 일을 다 처리할때까지
+프로세스를 멈춘다.
+3) await는 반드시 async 키워드가 붙은 함수내에
+서만 사용할 수 있다.
+
+** Axios 
+1) npm i axios 설치필요
+2) backward compatibility 
+- 구 버전의 브라우저에서도 정상동작
+3) JSON 자동변환
+4) 가독성이 조금 더 높음
+
+
+
+
+
+
+

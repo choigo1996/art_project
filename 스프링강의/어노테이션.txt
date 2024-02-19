@@ -1,0 +1,9 @@
+@Component : 
+@ComponentScan : 하위 자손인 클래스를 모두 빈으로!!
+@Bean :
+@Controller :
+@ResponseBody :
+@RestController :
+@GetMapping :
+@Override :
+@Configuration :  Bean 설정클래스

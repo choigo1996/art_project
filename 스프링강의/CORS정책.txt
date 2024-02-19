@@ -1,0 +1,24 @@
+< CORS 정책 >
+Cross-Origin Resource Sharing 교차 출처 리소스 공유 정책
+: 출처가 다른 앱끼리 리소스를 공유하는 정책
+
+** 출처(Origin) = 프로토콜 + 도메인(IP주소) + 포트
+위 3가지 항목중 한가지라도 다르면 이것은 다른 출처를 의미
+
+< SOP 정책 >
+Same-Origin policy 동일 출처 정책
+: 동일한 출처에게만 접근을 허용하는 정책
+
+[ 해결법 ]
+서버가 Access-Control-Allow-Origin 속성을 세팅하여 응답 메시지
+의 헤더에 추가함.
+Access-Control-Allow-Origin : *      (모든 요청 허용)
+Access-Control-Allow-Origin : localhost:8080   (해당 URL만 허용)
+
+
+
+
+
+
+
+
